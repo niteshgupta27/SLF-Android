@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:clickable="true"
+    android:elevation="4dp"
+    android:focusable="true"
+    android:orientation="vertical"
+    app:cardBackgroundColor="@color/colorLightBackground"
+    app:contentPadding="2dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/img_storage"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/place_holder" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_storage_name"
+            style="@style/textview_style_heading"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/img_storage"
+            android:text="Bobs storage"
+            android:layout_alignTop="@+id/img_storage"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_address1"
+            style="@style/textview_style_small"
+            android:layout_below="@+id/txt_storage_name"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="2dp"
+            android:layout_toRightOf="@+id/img_storage"
+            android:text="Address 1"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_address2"
+            style="@style/textview_style_small"
+            android:layout_below="@+id/txt_address1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="2dp"
+            android:layout_toRightOf="@+id/img_storage"
+            android:text="Address 1"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_city"
+            style="@style/textview_style_small"
+            android:layout_below="@+id/txt_address2"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="2dp"
+            android:layout_toRightOf="@+id/img_storage"
+            android:text="City : Indore"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_des"
+            style="@style/textview_style_small"
+            android:layout_below="@+id/txt_city"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/img_storage"
+            android:maxLines="1"
+            android:text="@string/text_dummy2"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_view_more"
+            style="@style/textview_style_medium"
+            android:layout_below="@+id/txt_des"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/img_storage"
+            android:text="View More"
+            android:textColor="@color/colorPrimary"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

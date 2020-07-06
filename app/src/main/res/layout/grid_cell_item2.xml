@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/itemView"
+    android:layout_width="@dimen/_40sdp"
+    android:layout_height="@dimen/_40sdp"
+    android:layout_margin="@dimen/_5sdp"
+    android:elevation="@dimen/_10sdp"
+    android:translationZ="@dimen/_5sdp">
+
+    <RelativeLayout
+        android:id="@+id/garage_relative"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:background="@color/diactive_grid2">
+
+        <TextView
+            android:id="@+id/info_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_16sdp"
+            android:textStyle="bold" />
+
+           <View
+               android:id="@+id/rack_list_avalablity"
+               android:layout_width="@dimen/_10sdp"
+               android:layout_height="@dimen/_5sdp"
+               android:layout_below="@id/info_text"
+               android:layout_centerHorizontal="true"
+               android:background="@color/colorPrimary"/>
+
+
+    </RelativeLayout>
+</LinearLayout>

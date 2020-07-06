@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="#11141D"
+android:orientation="vertical">
+
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:layout_below="@+id/toolbar"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edit_name"
+        style="@style/mEditText"
+        android:background="@drawable/background_edit_square"
+        android:hint="Your Name" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edit_email"
+        style="@style/mEditText"
+        android:inputType="textEmailAddress"
+        android:background="@drawable/background_edit_square"
+        android:hint="Your email" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edit_phone"
+        style="@style/mEditText"
+        android:inputType="phone"
+        android:background="@drawable/background_edit_square"
+        android:hint="Your phone" />
+
+    <RelativeLayout
+        android:id="@+id/rl_unit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/background_edit_square"
+        android:padding="10dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_unit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Number of units you looking for"
+            android:inputType="text"
+            android:textColor="@color/colorWhite"
+            android:textColorHint="@color/colorGray"
+            android:textSize="12sp" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:src="@android:drawable/arrow_down_float" />-->
+
+    </RelativeLayout>
+
+
+
+
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edit_comment"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/background_edit_square"
+            android:gravity="top|left"
+            android:hint="Your Message"
+            android:inputType="textMultiLine"
+            android:maxLength="250"
+            android:padding="10dp"
+            android:textColor="@color/colorWhite"
+            android:textColorHint="@color/colorGray"
+            android:textSize="12sp" />
+
+
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/cb_authorise"
+        style="@style/textview_style_medium"
+        android:layout_marginTop="5dp"
+        android:buttonTint="@color/colorPrimary"
+        android:checked="true"
+        android:text="I authorise Bobs Storage to contact me"
+        android:textColor="@color/colorWhite" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/cb_terms_condition"
+       style="@style/textview_style_medium"
+        android:layout_marginTop="5dp"
+        android:buttonTint="@color/colorPrimary"
+        android:checked="true"
+        android:text="@string/i_agree_to_the_terms_conditions"
+        android:textColor="@color/colorWhite" />
+
+
+</LinearLayout>
+
+<RelativeLayout
+    android:id="@+id/rl_submit"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="15dp"
+    android:padding="10dp"
+    android:background="@drawable/background_square_btn"
+    android:layout_alignParentBottom="true"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_submit"
+        style="@style/textview_style_title"
+        android:layout_width="wrap_content"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="Submit"
+        android:gravity="center"
+        android:textAllCaps="true"
+        android:textColor="@color/colorWhite"
+        android:textStyle="bold" />
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_toRightOf="@+id/txt_submit"
+        android:src="@drawable/ic_arrow_forward"
+        android:tint="@color/colorWhite" />
+
+
+</RelativeLayout>
+
+
+</RelativeLayout>

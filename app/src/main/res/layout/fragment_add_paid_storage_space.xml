@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorDarkBackground">
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="20dp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/textview_style_medium"
+                android:text="@string/top_text_add_storage"/>
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edit_storage_space_name"
+                style="@style/mEditText"
+                android:background="@drawable/background_edit_square"
+                android:hint="Storage Space Name: i.e. Home,Loft,Garage" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edit_address1"
+                style="@style/mEditText"
+                android:background="@drawable/background_edit_square"
+                android:hint="Address 1" />
+
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edit_address2"
+                style="@style/mEditText"
+                android:background="@drawable/background_edit_square"
+                android:hint="Address 2" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_country"
+                style="@style/mEditText"
+                app:drawableTint="@color/colorPrimary"
+                android:padding="7dp"
+                android:gravity="center|left"
+                android:visibility="gone"
+                android:drawableRight="@drawable/ic_keyboard_arrow_down_black_24dp"
+                android:background="@drawable/background_edit_square"
+                android:hint="Country"/>
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/txt_city"
+                style="@style/mEditText"
+                app:drawableTint="@color/colorPrimary"
+                android:gravity="center|left"
+                android:background="@drawable/background_edit_square"
+                android:hint="City"/>
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_region"
+                style="@style/mEditText"
+                app:drawableTint="@color/colorPrimary"
+                android:padding="7dp"
+                android:gravity="center|left"
+                android:drawableRight="@drawable/ic_keyboard_arrow_down_black_24dp"
+                android:background="@drawable/background_edit_square"
+                android:hint="Region"/>
+
+
+
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edit_zip"
+                style="@style/mEditText"
+                android:background="@drawable/background_edit_square"
+                android:hint="Postcode"/>
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/cb_agree"
+                style="@style/textview_style_medium"
+                android:layout_marginTop="15dp"
+                android:buttonTint="@color/colorPrimary"
+                android:checked="true"
+                android:text="I agree to pay storage space free $10/year"
+                android:textColor="@color/colorWhite" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/cb_terms_and_conditions"
+                style="@style/textview_style_medium"
+                android:layout_marginTop="5dp"
+                android:checked="true"
+                android:buttonTint="@color/colorPrimary"
+                android:text="@string/i_agree_to_the_terms_conditions"
+                android:textColor="@color/colorWhite" />
+
+
+        </LinearLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
+
+
+    <RelativeLayout
+        android:id="@+id/rl_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:padding="10dp"
+        android:background="@drawable/background_square_btn"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_submit"
+            style="@style/textview_style_title"
+            android:layout_width="wrap_content"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:text="Submit"
+            android:gravity="center"
+            android:textAllCaps="true"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold" />
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_toRightOf="@+id/txt_submit"
+            android:src="@drawable/ic_arrow_forward"
+            android:tint="@color/colorWhite" />
+
+
+    </RelativeLayout>
+
+
+
+
+</RelativeLayout>

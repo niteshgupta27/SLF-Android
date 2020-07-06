@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorDarkBackground"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/img_item"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/place_holder"
+            android:layout_gravity="bottom|center"
+            app:civ_border_width="0dp"
+            app:civ_border_color="@color/colorPrimary"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_item_name"
+            style="@style/textview_style_medium"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/img_item"
+            android:text="Iten Name"
+            android:textColor="@color/colorPrimary" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_storage_name"
+            style="@style/textview_style_small"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/img_item"
+            android:text="storage Name"
+            android:layout_below="@+id/txt_item_name"
+            android:textColor="@color/colorWhite" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_description"
+            style="@style/textview_style_small"
+            android:layout_below="@+id/txt_storage_name"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@+id/img_hammer"
+            android:layout_toRightOf="@+id/img_item"
+            android:text="@string/text_dummy4"
+            android:textColor="@color/colorWhite" />
+
+
+        <LinearLayout
+            android:id="@+id/ll_offers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_description"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/img_item"
+            android:gravity="center|left"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/ll_offers_child"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txt_offers"
+                    style="@style/textview_style_small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="2 Offers"
+                    android:textColor="@color/colorPrimary" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="15dp"
+                    android:background="@color/colorLightBackground" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txt_highest_offers"
+                    style="@style/textview_style_small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="15dp"
+                    android:text="Hightest offer:"
+                    android:textColor="@color/colorWhite" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txt_highest_offers_value"
+                    style="@style/textview_style_small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:text="$175"
+                    android:textColor="@color/colorPrimary" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="15dp"
+                    android:background="@color/colorLightBackground" />
+
+               <!-- <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txt_view_offers"
+                    style="@style/textview_style_small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="15dp"
+                    android:text="View Offers"
+                    android:textColor="@color/colorPrimary" />
+-->
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/ll_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible">
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txt_status"
+                    style="@style/textview_style_small"
+                    android:layout_width="wrap_content"
+                    android:text="Status:"
+                    android:textColor="@color/colorWhite" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txt_status_value"
+                    style="@style/textview_style_small"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="Waiting for offers"
+                    android:textColor="@color/colorPrimary"/>
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txt_view_offers"
+                    style="@style/textview_style_small"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="15dp"
+                    android:text="View Offers"
+                    android:layout_gravity="right"
+                    android:gravity="right"
+                    android:textColor="@color/colorPrimary" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/ll_offers"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorLightBackground" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
+
+
+

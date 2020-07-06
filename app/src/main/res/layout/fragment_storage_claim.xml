@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorDarkBackground">
+
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/rl_submit">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/rl_banner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <FrameLayout
+                    android:id="@+id/fl_banner"
+                    android:layout_width="match_parent"
+                    android:visibility="visible"
+                    android:layout_height="wrap_content">
+
+                    <androidx.viewpager.widget.ViewPager
+                        android:id="@+id/view_pager"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_dots"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="65dp"
+                        android:elevation="0dp"
+                        android:gravity="center"
+                        android:orientation="horizontal" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|right"
+                        android:layout_marginTop="170dp"
+                        android:layout_marginRight="10dp"
+                        android:visibility="gone"
+                        android:gravity="right">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
+                            android:layout_marginRight="10dp"
+                            android:background="@drawable/bg_circle"
+                            android:padding="10dp"
+                            android:src="@drawable/search_google"/>
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/img_contact_us"
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
+                            android:layout_marginRight="10dp"
+                            android:background="@drawable/bg_solid_circle2"
+                            android:padding="10dp"
+                            android:src="@drawable/envelope"
+                            android:tint="@color/colorWhite" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/img_call"
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
+                            android:background="@drawable/bg_solid_circle"
+                            android:padding="10dp"
+                            android:src="@drawable/ic_call_black_24dp"
+                            android:tint="@color/colorWhite" />
+
+
+                    </LinearLayout>
+
+                </FrameLayout>
+
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/img_place_holder"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:scaleType="centerCrop"
+                    android:visibility="gone"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/place_holder"/>
+
+
+            </RelativeLayout>
+
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_below="@+id/rl_banner"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="20dp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/textview_style_medium"
+                    android:text="@string/top_text_add_storage"/>
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txt_address_line1"
+                    style="@style/textview_style_medium"
+                    android:layout_marginTop="16dp"
+                    android:text=""
+                    android:textColor="@color/colorWhite" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txt_address_line2"
+                    style="@style/textview_style_medium"
+                    android:layout_marginTop="5dp"
+                    android:text=""
+                    android:textColor="@color/colorWhite" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/edit_storage_unit"
+                    style="@style/mEditText"
+                    android:inputType="number"
+                    android:background="@drawable/background_edit_square"
+                    android:hint="Storage unit number" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/edit_storage_name"
+                    style="@style/mEditText"
+                    android:inputType="text"
+                    android:background="@drawable/background_edit_square"
+                    android:hint="Enter name" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/edit_billing_email"
+                    style="@style/mEditText"
+                    android:inputType="textEmailAddress"
+                    android:background="@drawable/background_edit_square"
+                    android:hint="Billing Email" />
+
+
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginTop="16dp"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/tenant_check"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_gravity="center"
+                        android:buttonTint="@color/colorPrimary"/>
+
+                    <RelativeLayout
+                        android:id="@+id/tenant_linear"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tenant_txt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:layout_marginEnd="@dimen/_5sdp"
+                            android:layout_centerVertical="true"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/_12ssp"
+                            android:text="I am the tenant for this unit"/>
+
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/term_check"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_gravity="center"
+                        android:buttonTint="@color/colorPrimary"/>
+
+                    <RelativeLayout
+                        android:id="@+id/policy_linear"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/policy_txt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:layout_marginEnd="@dimen/_5sdp"
+                            android:layout_centerVertical="true"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/_12ssp"
+                            android:text="@string/i_agree_to_the_terms_conditions"/>
+
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+              <!--  <androidx.appcompat.widget.AppCompatCheckBox
+                    style="@style/textview_style_medium"
+                    android:layout_marginTop="15dp"
+                    android:buttonTint="@color/colorPrimary"
+                    android:checked="true"
+                    android:text="I am the tenant for this unit"
+                    android:textColor="@color/colorWhite" />
+
+                <androidx.appcompat.widget.AppCompatCheckBox
+                    android:id="@+id/cb_terms_and_conditions"
+                    style="@style/textview_style_medium"
+                    android:layout_marginTop="5dp"
+                    android:buttonTint="@color/colorPrimary"
+                    android:checked="true"
+                    android:text="@string/i_agree_to_the_terms_conditions"
+                    android:textColor="@color/colorWhite" />-->
+
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+
+    <RelativeLayout
+        android:id="@+id/rl_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:padding="15dp"
+        android:background="@drawable/background_square_btn"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:text="Submit"
+            android:gravity="center"
+            android:textAllCaps="true"
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_toRightOf="@+id/txt_submit"
+            android:src="@drawable/ic_arrow_forward"
+            android:tint="@color/colorWhite" />
+
+
+    </RelativeLayout>
+
+
+
+
+</RelativeLayout>

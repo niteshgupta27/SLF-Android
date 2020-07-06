@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:clickable="true"
+    android:elevation="4dp"
+    android:focusable="true"
+    android:orientation="vertical"
+    app:cardBackgroundColor="@color/colorLightBackground"
+    app:contentPadding="2dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/img_storage"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/place_holder" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_title"
+            style="@style/textview_style_medium"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/img_storage"
+            android:text="Bobs storage"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_des"
+            style="@style/textview_style_small"
+            android:layout_below="@+id/txt_title"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/img_storage"
+            android:text="@string/text_dummy2"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_availability_label"
+            android:layout_width="wrap_content"
+            style="@style/textview_style_small"
+            android:layout_below="@+id/txt_des"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/img_storage"
+            android:text="Availability:"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_availability_value"
+            style="@style/textview_style_small"
+            android:layout_below="@+id/txt_des"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/txt_availability_label"
+            android:text="5 units"
+            android:textColor="@color/colorPrimary"
+            android:layout_toLeftOf="@+id/ll_price"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/ll_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/txt_availability_value"
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_price_label"
+                android:layout_width="wrap_content"
+                style="@style/textview_style_small"
+                android:text="Price:"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_price_value"
+                style="@style/textview_style_small"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="$1.00 per month"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

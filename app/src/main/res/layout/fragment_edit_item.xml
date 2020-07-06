@@ -1,0 +1,734 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#11141D"
+    android:orientation="vertical">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/rl_add">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbar"
+            android:layout_margin="16dp"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/textview_style_medium"
+                android:text="Item Name" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edit_item_name"
+                style="@style/mEditText2"
+                android:background="@drawable/background_edit_square"
+                android:hint="Item Name" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/textview_style_medium"
+                android:text="Item Description"
+                android:layout_marginTop="@dimen/_10sdp"/>
+
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edit_item_description"
+                style="@style/mEditText2"
+                android:layout_height="80dp"
+                android:background="@drawable/background_edit_square"
+                android:gravity="left"
+                android:hint="Item Description"
+                android:inputType="textMultiLine" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/textview_style_medium"
+                android:text="Item Value"
+                android:layout_marginTop="@dimen/_10sdp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/edit_item_value"
+                    style="@style/mEditText"
+                    android:inputType="number"
+                    android:background="@drawable/background_edit_square"
+                    android:hint="Item Value"
+                    android:layout_weight="0.2"/>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="@dimen/_2sdp"
+                    android:background="@drawable/background_edit_square"
+                    android:layout_weight="0.8">
+
+                    <Spinner
+                        android:id="@+id/sp_currency"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:entries="@array/Select_Currency"
+                        android:theme="@style/spinnerStyleView"
+                        android:layout_centerVertical="true"
+                        android:background="@android:color/transparent"/>
+
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerInParent="true"
+                        android:tint="@color/colorWhite"
+                        android:src="@drawable/ic_keyboard_arrow_down_black_24dp"/>
+
+                </RelativeLayout>
+            </LinearLayout>
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/textview_style_medium"
+                android:text="Item Qty"
+                android:layout_marginTop="@dimen/_10sdp"/>
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edit_item_qty"
+                style="@style/mEditText2"
+                android:inputType="number"
+                android:background="@drawable/background_edit_square"
+                android:hint="Item Qty" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/textview_style_medium"
+                android:text="Length"
+                android:layout_marginTop="@dimen/_10sdp"/>
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edit_length"
+                style="@style/mEditText2"
+                android:inputType="number"
+                android:background="@drawable/background_edit_square"
+                android:hint="Length" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/textview_style_medium"
+                android:text="Width"
+                android:layout_marginTop="@dimen/_10sdp"/>
+
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edit_width"
+                style="@style/mEditText2"
+                android:inputType="number"
+                android:background="@drawable/background_edit_square"
+                android:hint="Width" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/textview_style_medium"
+                android:text="Height"
+                android:layout_marginTop="@dimen/_10sdp"/>
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edit_height"
+                style="@style/mEditText2"
+                android:inputType="number"
+                android:imeOptions="actionDone"
+                android:background="@drawable/background_edit_square"
+                android:hint="Height" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/background_edit_square"
+                android:padding="8dp">
+
+                <Spinner
+                      android:id="@+id/sp_unit"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:entries="@array/SelectUnit"
+                      android:theme="@style/spinnerStyleView"
+                      android:background="@android:color/transparent"/>
+
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerInParent="true"
+                    android:tint="@color/colorWhite"
+                    android:src="@drawable/ic_keyboard_arrow_down_black_24dp"/>
+
+            </RelativeLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_item_category"
+                android:layout_width="match_parent"
+                android:layout_marginTop="5dp"
+                android:layout_height="wrap_content"/>
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_add_category"
+                style="@style/textview_style_medium"
+                android:layout_marginTop="10dp"
+                android:drawableLeft="@drawable/ic_add_black_24dp"
+                android:drawablePadding="4dp"
+                android:text="ADD CATEGORY"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                app:drawableTint="@color/colorPrimary" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/textview_style_heading"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="Item Location"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/Grid5_linear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_15sdp">
+
+
+
+                    <com.storelogflog.uk.apputil.ExpandableHeightGridView
+                        android:id="@+id/Grid_View5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginStart="@dimen/_15sdp"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:layout_marginEnd="@dimen/_15sdp"
+                        android:horizontalSpacing="@dimen/_5sdp"
+                        android:verticalSpacing="@dimen/_5sdp" />
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_24sdp"
+                    android:layout_marginEnd="@dimen/_30sdp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:weightSum="5">
+
+                            <LinearLayout
+                                android:id="@+id/linear_door_1"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_5sdp"
+                                android:layout_weight="1"
+                                android:background="@drawable/dash_img"
+                                android:orientation="vertical"
+                                android:layout_marginStart="@dimen/_5sdp"
+
+                                />
+
+                            <LinearLayout
+                                android:id="@+id/linear_door_2"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_5sdp"
+                                android:layout_weight="1"
+                                android:layout_marginStart="@dimen/_5sdp"
+                                android:background="@drawable/dash_img"
+                                android:orientation="vertical"
+                                />
+                            <LinearLayout
+                                android:id="@+id/linear_door_3"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_5sdp"
+                                android:layout_weight="1"
+                                android:layout_marginStart="@dimen/_5sdp"
+                                android:background="@drawable/dash_img"
+                                android:orientation="vertical"
+                                />
+                            <LinearLayout
+                                android:id="@+id/linear_door_4"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_5sdp"
+                                android:layout_weight="1"
+                                android:layout_marginStart="@dimen/_5sdp"
+                                android:background="@drawable/dash_img"
+                                android:orientation="vertical"
+                                />
+                            <LinearLayout
+                                android:id="@+id/linear_door_5"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_5sdp"
+                                android:layout_weight="1"
+                                android:layout_marginStart="@dimen/_5sdp"
+                                android:background="@drawable/dash_img"
+                                android:orientation="vertical"
+                                />
+
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_40sdp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:weightSum="5">
+
+                            <LinearLayout
+                                android:id="@+id/door_1"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="@dimen/_5sdp"
+                                android:layout_weight="1">
+
+                                <ImageView
+                                    android:id="@+id/door_img1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    />
+
+                            </LinearLayout>
+                            <LinearLayout
+                                android:id="@+id/door_2"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="@dimen/_5sdp"
+                                android:layout_weight="1">
+
+                                <ImageView
+                                    android:id="@+id/door_img2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/door_3"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="@dimen/_5sdp"
+                                android:layout_weight="1">
+
+                                <ImageView
+                                    android:id="@+id/door_img3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"/>
+
+                            </LinearLayout>
+                            <LinearLayout
+                                android:id="@+id/door_4"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="@dimen/_5sdp"
+                                android:layout_weight="1">
+
+                                <ImageView
+                                    android:id="@+id/door_img4"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"/>
+
+                            </LinearLayout>
+                            <LinearLayout
+                                android:id="@+id/door_5"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="@dimen/_5sdp"
+                                android:layout_weight="1">
+
+                                <ImageView
+                                    android:id="@+id/door_img5"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"/>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/Grid4_linear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_40sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_marginEnd="@dimen/_40sdp">
+
+
+                    <com.storelogflog.uk.apputil.ExpandableHeightGridView
+                        android:id="@+id/Grid_View4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_15sdp"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:layout_marginEnd="@dimen/_13sdp"
+                        android:gravity="center"
+                        android:horizontalSpacing="@dimen/_5sdp"
+                        android:verticalSpacing="@dimen/_5sdp" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_50sdp"
+                    android:layout_marginEnd="@dimen/_53sdp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:weightSum="4">
+
+                            <LinearLayout
+                                android:id="@+id/linear_door_11"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_5sdp"
+                                android:layout_marginStart="@dimen/_5sdp"
+                                android:layout_weight="1"
+                                android:background="@drawable/dash_img"
+                                android:orientation="vertical" />
+
+                            <LinearLayout
+                                android:id="@+id/linear_door_12"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_5sdp"
+                                android:layout_marginStart="@dimen/_5sdp"
+                                android:layout_weight="1"
+                                android:background="@drawable/dash_img"
+                                android:orientation="vertical" />
+
+                            <LinearLayout
+                                android:id="@+id/linear_door_13"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_5sdp"
+                                android:layout_marginStart="@dimen/_5sdp"
+                                android:layout_weight="1"
+                                android:background="@drawable/dash_img"
+                                android:orientation="vertical" />
+
+                            <LinearLayout
+                                android:id="@+id/linear_door_14"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_5sdp"
+                                android:layout_marginStart="@dimen/_5sdp"
+                                android:layout_weight="1"
+                                android:background="@drawable/dash_img"
+                                android:orientation="vertical" />
+
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_40sdp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:weightSum="4">
+
+                            <LinearLayout
+                                android:id="@+id/door_11"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="@dimen/_5sdp"
+                                android:layout_weight="1">
+
+                                <ImageView
+                                    android:id="@+id/door_img11"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:scaleType="fitXY" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/door_12"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="@dimen/_5sdp"
+                                android:layout_weight="1">
+
+                                <ImageView
+                                    android:id="@+id/door_img12"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:scaleType="fitXY" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/door_13"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="@dimen/_5sdp"
+                                android:layout_weight="1">
+
+                                <ImageView
+                                    android:id="@+id/door_img13"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:scaleType="fitXY" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/door_14"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="@dimen/_5sdp"
+                                android:layout_weight="1">
+
+                                <ImageView
+                                    android:id="@+id/door_img14"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:scaleType="fitXY" />
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/Grid3_linear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_57sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_marginEnd="@dimen/_57sdp">
+
+
+                    <com.storelogflog.uk.apputil.ExpandableHeightGridView
+                        android:id="@+id/Grid_View3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_15sdp"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:layout_marginEnd="@dimen/_15sdp"
+                        android:gravity="center"
+                        android:horizontalSpacing="@dimen/_5sdp"
+                        android:verticalSpacing="@dimen/_5sdp" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_67sdp"
+                    android:layout_marginEnd="@dimen/_72sdp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:weightSum="3">
+
+                            <LinearLayout
+                                android:id="@+id/linear_door_21"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_5sdp"
+                                android:layout_marginStart="@dimen/_5sdp"
+                                android:layout_weight="1"
+                                android:background="@drawable/dash_img"
+                                android:orientation="vertical" />
+
+                            <LinearLayout
+                                android:id="@+id/linear_door_22"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_5sdp"
+                                android:layout_marginStart="@dimen/_5sdp"
+                                android:layout_weight="1"
+                                android:background="@drawable/dash_img"
+                                android:orientation="vertical" />
+
+                            <LinearLayout
+                                android:id="@+id/linear_door_23"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_5sdp"
+                                android:layout_marginStart="@dimen/_5sdp"
+                                android:layout_weight="1"
+                                android:background="@drawable/dash_img"
+                                android:orientation="vertical" />
+
+
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_40sdp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:weightSum="3">
+
+                            <LinearLayout
+                                android:id="@+id/door_21"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="@dimen/_5sdp"
+                                android:layout_weight="1">
+
+                                <ImageView
+                                    android:id="@+id/door_img21"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:scaleType="fitXY" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/door_22"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="@dimen/_5sdp"
+                                android:layout_weight="1">
+
+                                <ImageView
+                                    android:id="@+id/door_img22"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:scaleType="fitXY" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/door_23"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="@dimen/_5sdp"
+                                android:layout_weight="1">
+
+                                <ImageView
+                                    android:id="@+id/door_img23"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:scaleType="fitXY" />
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
+    <RelativeLayout
+        android:id="@+id/rl_add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/background_square_btn"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_submit"
+            style="@style/textview_style_title"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:text="Update Item"
+            android:textAllCaps="true"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold" />
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_toRightOf="@+id/txt_submit"
+            android:src="@drawable/ic_arrow_forward"
+            android:tint="@color/colorWhite" />
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item>
+        <shape android:shape="rectangle" android:padding="10dp">
+           <solid android:color="@color/colorDarkBackground"/>
+        </shape>
+    </item>
+    <item android:drawable="@drawable/login_backround"
+        android:bottom="350dp"/>
+</layer-list>

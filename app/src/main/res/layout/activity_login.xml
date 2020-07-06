@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_login"
+    android:orientation="vertical">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/login_logo"/>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                app:cardBackgroundColor="@color/colorLightBackground">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_margin="20dp">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/textview_style_title"
+                        android:text="Sign In"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:textColor="@color/colorPrimary"/>
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/edit_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:drawableLeft="@drawable/ic_mail"
+                        android:text="nitesh@rutlandwebdesigner.co.uk"
+                        android:hint="Email"
+                        android:padding="7dp"
+                        android:textColorHint="#A1A2A6"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/roboto"
+                        android:textColor="@color/colorWhite"
+                        android:drawablePadding="10dp"
+                        android:background="@drawable/background_square_shape"/>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        app:passwordToggleEnabled="true"
+                        app:hintEnabled="false"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/background_square_shape"
+                        app:passwordToggleTint="@color/colorWhite">
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/edit_password"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/ic_password"
+                            android:drawableStart="@drawable/ic_password"
+                            android:text="Admin123321"
+                            android:hint="Password"
+                            android:textColorHint="#A1A2A6"
+                            android:textSize="12sp"
+                            android:fontFamily="@font/roboto"
+                            android:drawablePadding="10dp"
+                            android:textColor="@color/colorWhite"
+                            android:paddingLeft="7dp"
+                            android:background="@null"
+                            android:inputType="textPassword"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txt_forgot_password"
+                        style="@style/textview_style_medium"
+                        android:text="@string/forgot_password"
+                        android:layout_marginTop="5dp"
+                        android:textStyle="bold"
+                        android:gravity="right"
+                        android:textColor="#A1A2A6"/>
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txt_submit"
+                        style="@style/textview_style_heading"
+                        android:text="Submit"
+                        android:layout_marginTop="16dp"
+                        android:gravity="center"
+                        android:textColor="@color/colorWhite"
+                        android:background="@drawable/background_submit_btn"
+                        android:textAllCaps="true"/>
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/textview_style_title"
+                        android:text="- OR -"
+                        android:layout_marginTop="16dp"
+                        android:gravity="center"
+                        android:textColor="@color/colorWhite"
+                        android:textAllCaps="true"
+                        />
+
+                    <RelativeLayout
+                        android:id="@+id/rl_lgoin_with_google"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:background="@drawable/background_login_with_google_btn">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/textview_style_heading"
+                            android:text="Login with Google"
+                            android:gravity="center"
+                            android:textColor="@color/colorWhite"/>
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerInParent="true"
+                            android:layout_marginRight="5dp"
+                            android:src="@drawable/google_icon"/>
+
+                    </RelativeLayout>
+
+
+                    <RelativeLayout
+                        android:id="@+id/login_with_fb"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/background_login_with_fb_btn">
+
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/textview_style_heading"
+                            android:text="@string/login_with_facebook"
+                            android:gravity="center"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="14sp"/>
+
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerInParent="true"
+                            android:layout_marginRight="5dp"
+                            android:src="@drawable/icon_fb"/>
+
+                    </RelativeLayout>
+
+
+                    <RelativeLayout
+                        android:id="@+id/login_with_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/background_login_with_email_btn">
+
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/textview_style_heading"
+                            android:text="Register with Email"
+                            android:gravity="center"
+                            android:textColor="@color/colorWhite"/>
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerInParent="true"
+                            android:layout_marginRight="5dp"
+                            android:src="@drawable/icon_email"/>
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="bottom"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/textview_style_heading"
+            android:text="By signing in you agree to our"
+            android:gravity="center"
+            android:textColor="@color/colorWhite"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_terms_and_condition"
+                style="@style/textview_style_heading"
+                android:text="@string/terms_of_service_privacy_policy"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textColor="@color/colorWhite"
+                android:layout_marginBottom="10dp"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_privacy_policy"
+                style="@style/textview_style_heading"
+                android:text=" privacy Policy"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textColor="@color/colorWhite"
+                android:layout_marginBottom="10dp"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

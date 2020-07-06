@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="365dp">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="0dp">
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#000"
+        android:padding="10dp"
+        android:visibility="gone"
+        android:textSize="14sp"
+        android:text="Select Country"/>
+
+
+    <ListView
+        android:id="@+id/lv_region"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@color/colorGray"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/tv_title"
+        android:dividerHeight="1dp"/>
+
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

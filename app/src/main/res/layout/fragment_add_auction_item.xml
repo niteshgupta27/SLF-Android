@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="@color/colorDarkBackground"
+android:orientation="vertical">
+
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:layout_below="@+id/toolbar"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edit_item_name"
+        style="@style/mEditText"
+        android:background="@drawable/background_edit_square"
+        android:hint="Item Name"/>
+
+
+
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edit_description"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/background_edit_square"
+            android:gravity="top|left"
+            android:hint="Item Description"
+            android:inputType="textMultiLine"
+            android:maxLength="250"
+            android:padding="10dp"
+            android:textColor="@color/colorWhite"
+            android:textColorHint="@color/colorGray"
+            android:textSize="12sp" />
+
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edit_expected_min_value"
+        style="@style/mEditText"
+        android:inputType="number"
+        android:background="@drawable/background_edit_square"
+        android:hint="Expected Minimum Value"/>
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/cb_agree"
+        style="@style/textview_style_medium"
+        android:layout_marginTop="15dp"
+        android:buttonTint="@color/colorPrimary"
+        android:checked="true"
+        android:text="I agree to pay Auction valuation fee $1.00"
+        android:textColor="@color/colorWhite" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/cb_terms_condition"
+        style="@style/textview_style_medium"
+        android:layout_marginTop="5dp"
+        android:buttonTint="@color/colorPrimary"
+        android:checked="true"
+        android:text="@string/i_agree_to_auction_valution_terms_condition"
+        android:textColor="@color/colorWhite" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        style="@style/textview_style_medium"
+        android:text="Fee is calculated based upon the expected minimum value or can to  find value  for  auction listing"
+        android:layout_marginTop="10dp"
+        android:visibility="gone"
+        android:textColor="@color/colorWhite"/>
+
+</LinearLayout>
+
+<RelativeLayout
+    android:id="@+id/rl_submit"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="15dp"
+    android:padding="10dp"
+    android:background="@drawable/background_square_btn"
+    android:layout_alignParentBottom="true"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_submit"
+        style="@style/textview_style_title"
+        android:layout_width="wrap_content"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="Submit"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:textAllCaps="true"
+        android:textColor="@color/colorWhite"
+        android:textStyle="bold" />
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_toRightOf="@+id/txt_submit"
+        android:src="@drawable/ic_arrow_forward"
+        android:layout_centerInParent="true"
+        android:tint="@color/colorWhite" />
+
+
+</RelativeLayout>
+
+
+</RelativeLayout>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorDarkBackground"
+    android:orientation="vertical"
+    android:id="@+id/ll_top">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/ll_auction_house1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:id="@+id/radio_button"
+                    style="@style/textview_style_heading"
+                    android:buttonTint="@color/colorPrimary"
+                    android:text="Auction House 1"
+                    android:textColor="@color/colorWhite"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txt_date_time"
+                    style="@style/textview_style_small"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="5dp"
+                    android:text="20 October 2019,11:00 AM"
+                    android:textColor="@color/colorWhite" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txt_offer"
+                    style="@style/textview_style_small"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Offer: $120"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/textview_style_heading"
+                android:layout_alignBottom="@+id/ll_auction_house1"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="5dp"
+                android:gravity="right"
+                android:visibility="gone"
+                android:text="View details"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold" />
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</LinearLayout>

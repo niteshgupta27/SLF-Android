@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:fab="http://schemas.android.com/tools"
+    android:background="@color/colorDarkBackground">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_store"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_error_msg"
+            style="@style/textview_style_title"
+            android:layout_height="match_parent"
+            android:text="You don't have any storage yard, please add your storage"
+            android:textStyle="bold"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:visibility="gone"
+            android:layout_gravity="center"
+            android:textColor="@color/colorPrimary"/>
+
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/menu_floating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:src="@drawable/fab_add"
+            android:contentDescription="@string/submit"
+            android:layout_margin="16dp"
+            android:visibility="visible"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"/>
+
+        <!--  <com.github.clans.fab.FloatingActionMenu
+              android:id="@+id/menu_floating"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_alignParentBottom="true"
+              android:layout_alignParentRight="true"
+              xmlns:fab="http://schemas.android.com/apk/res-auto"
+              android:layout_gravity="bottom|right"
+              fab:menu_fab_size="normal"
+              fab:menu_showShadow="false"
+              fab:menu_shadowColor="#BEB6B6"
+              fab:menu_shadowRadius="4dp"
+              fab:menu_shadowXOffset="1dp"
+              fab:menu_shadowYOffset="2dp"
+              fab:menu_colorNormal="@color/colorPrimary"
+              fab:menu_colorPressed="@color/colorPrimary"
+              fab:menu_colorRipple="#99FFFFFF"
+              fab:menu_animationDelayPerItem="50"
+              fab:menu_icon="@drawable/fab_add"
+              fab:menu_buttonSpacing="0dp"
+              fab:menu_labels_margin="0dp"
+              fab:menu_labels_showAnimation="@anim/fab_slide_in_from_right"
+              fab:menu_labels_hideAnimation="@anim/fab_slide_out_to_right"
+              fab:menu_labels_padding="4dp"
+              fab:menu_labels_textColor="@color/colorPrimary"
+              fab:menu_labels_textSize="11sp"
+              fab:menu_labels_cornerRadius="3dp"
+              fab:menu_labels_colorNormal="@color/colorDarkBackground"
+              fab:menu_labels_colorPressed="#444444"
+              fab:menu_labels_colorRipple="#66FFFFFF"
+              fab:menu_labels_showShadow="false"
+              fab:menu_labels_singleLine="false"
+              fab:menu_labels_ellipsize="none"
+              fab:menu_labels_maxLines="-1"
+              fab:menu_labels_position="left"
+              fab:menu_openDirection="up"
+              fab:menu_backgroundColor="@android:color/transparent">
+
+
+
+              <com.github.clans.fab.FloatingActionButton
+                  android:id="@+id/fb_add_own"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:visibility="visible"
+                  fab:fab_colorNormal="@color/colorPrimary"
+                  fab:fab_size="mini"
+                  android:tint="@color/colorWhite"
+                  android:src="@drawable/fab_add"
+                  fab:fab_label="Add your own storage space (Paid)" />
+
+              <com.github.clans.fab.FloatingActionButton
+                  android:id="@+id/fb_add_another"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:visibility="visible"
+                  fab:fab_colorNormal="@color/colorPrimary"
+                  fab:fab_size="mini"
+                  android:tint="@color/colorWhite"
+                  android:src="@drawable/fab_add"
+                  fab:fab_label="Add another storage unit" />
+
+          </com.github.clans.fab.FloatingActionMenu>-->
+
+
+
+    </RelativeLayout>
+
+
+
+
+</RelativeLayout>

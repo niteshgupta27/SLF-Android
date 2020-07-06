@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group
+        android:id="@+id/group"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/dashBoardFragment"
+            android:icon="@drawable/home"
+            android:title="@string/menu_home" />
+        <item
+            android:id="@+id/storeFragment"
+            android:icon="@drawable/menu_store"
+            android:title="@string/menu_store" />
+        <item
+            android:id="@+id/logFragment"
+            android:icon="@drawable/menu_log"
+            android:title="@string/menu_log" />
+        <item
+            android:id="@+id/flogFragment"
+            android:icon="@drawable/menu_flog"
+            android:title="@string/menu_flog" />
+
+        <item
+            android:id="@+id/storageListFragment"
+            android:icon="@drawable/menu_buy_storage"
+            android:title="@string/menu_buy_storage" />
+
+        <item
+            android:id="@+id/action_subscription"
+            android:icon="@drawable/ic_subscribing"
+            android:title="@string/subscription" />
+
+        <item
+            android:id="@+id/notificationActivity"
+            android:icon="@drawable/menu_notifications"
+            android:title="@string/menu_notifications" />
+
+    </group>
+
+    <group
+        android:id="@+id/group2"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/settingFragment"
+            android:icon="@drawable/menu_setting"
+            android:title="@string/menu_setting" />
+        <item
+            android:id="@+id/nav_aboutus"
+            android:icon="@drawable/menu_about"
+            android:title="@string/menu_about_us" />
+
+        <item
+            android:id="@+id/contactUsFragment"
+            android:icon="@drawable/menu_contactus"
+            android:title="@string/menu_contact_us" />
+
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/menu_logout"
+            android:title="@string/menu_logout" />
+
+
+    </group>
+
+</menu>

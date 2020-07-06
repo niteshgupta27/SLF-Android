@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:background="@color/colorDarkBackground">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_title"
+        style="@style/textview_style_medium"
+        android:text="Add category"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:textColor="@color/colorPrimary"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/img_cancel"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentRight="true"
+        android:tint="@color/colorPrimary"
+        android:src="@drawable/ic_remove"/>
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edit_category"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:hint="Enter category"
+        android:padding="7dp"
+        android:textColorHint="#A1A2A6"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:fontFamily="@font/roboto"
+        android:textSize="12sp"
+        android:layout_below="@+id/txt_title"
+        android:textColor="@color/colorWhite"
+        android:inputType="text"
+        android:background="@drawable/background_square_shape"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_submit"
+        android:layout_width="120dp"
+        style="@style/textview_style_small"
+        android:text="Submit"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:padding="5dp"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/edit_category"
+        android:textColor="@color/colorWhite"
+        android:background="@drawable/background_submit_btn"
+        android:textAllCaps="true"/>
+
+</RelativeLayout>

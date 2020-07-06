@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorDarkBackground"
+    android:orientation="vertical">
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+           <RelativeLayout
+               android:id="@+id/rl_banner"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+
+               <FrameLayout
+                   android:id="@+id/fl_banner"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content">
+
+                   <androidx.viewpager.widget.ViewPager
+                       android:id="@+id/view_pager"
+                       android:layout_width="match_parent"
+                       android:layout_height="200dp" />
+
+                   <LinearLayout
+                       android:id="@+id/ll_dots"
+                       android:layout_width="match_parent"
+                       android:layout_height="30dp"
+                       android:layout_gravity="center"
+                       android:layout_marginTop="65dp"
+                       android:elevation="0dp"
+                       android:gravity="center"
+                       android:orientation="horizontal" />
+
+               </FrameLayout>
+
+
+               <androidx.appcompat.widget.AppCompatImageView
+                   android:id="@+id/img_place_holder"
+                   android:layout_width="match_parent"
+                   android:layout_height="200dp"
+                   android:scaleType="centerCrop"
+                   android:visibility="gone"
+                   android:adjustViewBounds="true"
+                   android:src="@drawable/place_holder"/>
+
+
+
+           </RelativeLayout>
+
+
+
+            <LinearLayout
+                android:id="@+id/ll_middle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rl_banner"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txt_description"
+                        style="@style/textview_style_medium"
+                        android:layout_marginTop="10dp"
+                        android:text=""
+                        android:textColor="@color/colorWhite" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/textview_style_medium"
+                            android:layout_width="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="Value:"
+                            android:textColor="@color/colorWhite"
+                            android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/txt_value"
+                            style="@style/textview_style_medium"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="10dp"
+                            android:text=""
+                            android:textColor="@color/colorWhite" />
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/textview_style_medium"
+                            android:layout_width="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="Quantity:"
+                            android:textColor="@color/colorWhite"
+                            android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/txt_qty_value"
+                            style="@style/textview_style_medium"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="10dp"
+                            android:text=""
+                            android:textColor="@color/colorWhite" />
+
+
+                    </LinearLayout>
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/textview_style_medium"
+                            android:layout_width="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="Dimensions:"
+                            android:textColor="@color/colorWhite"
+                            android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/txt_dimensions"
+                            style="@style/textview_style_medium"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="10dp"
+                            android:text=""
+                            android:textColor="@color/colorWhite" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/textview_style_medium"
+                            android:layout_width="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="Category(s):"
+                            android:textColor="@color/colorWhite"
+                            android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/txt_category"
+                            style="@style/textview_style_medium"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="10dp"
+                            android:text=""
+                            android:textColor="@color/colorWhite" />
+
+                    </LinearLayout>
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/textview_style_medium"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="20dp"
+                        android:text="Item Location"
+                        android:gravity="center"
+                        android:textColor="@color/colorWhite"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:gravity="center">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/txt_location1"
+                                android:layout_width="50dp"
+                                android:layout_height="40dp"
+                                android:text="A1"
+                                android:gravity="center"
+                                android:textColor="@color/colorWhite"
+                                android:background="@color/colorLightBackground" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/txt_location5"
+                                android:layout_width="50dp"
+                                android:layout_height="40dp"
+                                android:layout_marginLeft="10dp"
+                                android:text="B1"
+                                android:gravity="center"
+                                android:textColor="@color/colorWhite"
+                                android:background="@color/colorLightBackground" />
+
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:gravity="center">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/txt_location2"
+                                android:layout_width="50dp"
+                                android:layout_height="40dp"
+                                android:text="A2"
+                                android:gravity="center"
+                                android:textColor="@color/colorWhite"
+                                android:background="@color/colorLightBackground" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/txt_location6"
+                                android:layout_width="50dp"
+                                android:layout_height="40dp"
+                                android:layout_marginLeft="10dp"
+                                android:text="B2"
+                                android:gravity="center"
+                                android:textColor="@color/colorWhite"
+                                android:background="@color/colorLightBackground" />
+
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:gravity="center">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/txt_location3"
+                                android:layout_width="50dp"
+                                android:layout_height="40dp"
+                                android:text="A3"
+                                android:gravity="center"
+                                android:textColor="@color/colorWhite"
+                                android:background="@color/colorLightBackground" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/txt_location7"
+                                android:layout_width="50dp"
+                                android:layout_height="40dp"
+                                android:layout_marginLeft="10dp"
+                                android:text="B3"
+                                android:gravity="center"
+                                android:textColor="@color/colorWhite"
+                                android:background="@color/colorLightBackground" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:gravity="center">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/txt_location4"
+                                android:layout_width="50dp"
+                                android:layout_height="40dp"
+                                android:text="A4"
+                                android:gravity="center"
+                                android:textColor="@color/colorWhite"
+                                android:background="@color/colorLightBackground"/>
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/txt_location8"
+                                android:layout_width="50dp"
+                                android:layout_height="40dp"
+                                android:layout_marginLeft="10dp"
+                                android:text="B4"
+                                android:gravity="center"
+                                android:textColor="@color/colorWhite"
+                                android:background="@color/colorLightBackground" />
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</RelativeLayout>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:background="#00000000"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/card_view_shape">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Select Image"
+                        android:id="@+id/title"
+                        android:textColor="#3d3d3d"
+                        android:textSize="16dp" />
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="2"
+                    android:background="@drawable/card_view_shape"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:gravity="start|center"
+                        android:layout_gravity="start|center"
+                        android:background="@android:color/transparent"
+                        android:singleLine="true"
+                        android:textAllCaps="false"
+                        android:text="Select From Gallery"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1.7"
+                        android:id="@+id/offer1"
+                        android:textSize="12dp" />
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_weight=".2"
+                        android:layout_gravity="center"
+                        android:tint="@color/colorGray"
+                        android:src="@drawable/ic_menu_gallery"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="2"
+                    android:background="@drawable/card_view_shape"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:gravity="start|center"
+                        android:layout_gravity="start|center"
+                        android:singleLine="true"
+                        android:text="Select From Camera"
+                        android:id="@+id/offer2"
+                        android:background="@android:color/transparent"
+                        android:textAllCaps="false"
+                        android:layout_weight="1.7"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="12dp" />
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_weight=".2"
+                        android:layout_gravity="center"
+                        android:tint="@color/colorGray"
+                        android:src="@drawable/ic_menu_camera"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center_vertical|right"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/close"
+                        android:layout_width="60dp"
+                        android:layout_height="25dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@null"
+                        android:text="Close"
+                        android:visibility="visible"
+                        android:textAllCaps="false"
+                        android:textColor="#484848"
+                        android:textSize="14dp" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>

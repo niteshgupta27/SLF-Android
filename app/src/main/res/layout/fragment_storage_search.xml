@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/search_bg">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="200dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            app:srcCompat="@drawable/search_logo"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/textview_style_heading"
+            android:layout_marginTop="30dp"
+            android:textStyle="bold"
+            android:text="Please search for your local storage yard below"/>
+
+           <RelativeLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginTop="10dp"
+               android:background="@drawable/background_edit_square_white">
+
+               <androidx.appcompat.widget.AppCompatEditText
+                   android:id="@+id/edit_search_yard"
+                   style="@style/mEditText"
+                   android:background="@null"
+                   android:layout_centerInParent="true"
+                   android:inputType="text"
+                   android:padding="6dp"
+                   android:imeOptions="actionSearch"
+                   android:layout_toLeftOf="@+id/img_search_yard"
+                   android:layout_marginRight="5dp"
+                   android:textColorHint="@color/colorDarkBackground"
+                   android:textColor="@color/colorDarkBackground"
+                   android:hint="Search storage yard"/>
+
+               <androidx.appcompat.widget.AppCompatImageView
+                   android:id="@+id/img_search_yard"
+                   android:layout_width="30dp"
+                   android:layout_height="30dp"
+                   android:layout_centerInParent="true"
+                   android:layout_alignParentRight="true"
+                   android:padding="5dp"
+                   android:layout_marginRight="10dp"
+                   android:tint="@color/colorDarkBackground"
+                   android:src="@drawable/ic_search_black_24dp"/>
+
+
+           </RelativeLayout>
+
+
+
+
+    </LinearLayout>
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_all_storage"
+        style="@style/textview_style_heading"
+        android:text="View All Storage"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:background="#40000000"
+        android:gravity="center|bottom"
+        android:layout_alignParentBottom="true"
+        android:padding="15dp"
+        android:textColor="@color/colorPrimary"/>
+
+
+</RelativeLayout>

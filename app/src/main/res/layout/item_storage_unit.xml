@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorDarkBackground"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="10dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_unit_name"
+            style="@style/textview_style_heading"
+            android:layout_marginLeft="10dp"
+            android:text="Unit Type 1"
+            android:textColor="@color/colorPrimary" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_description"
+            style="@style/textview_style_medium"
+            android:layout_below="@+id/txt_unit_name"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@+id/img_hammer"
+            android:text="@string/text_dummy4"
+            android:textColor="@color/colorWhite" />
+
+
+        <LinearLayout
+            android:id="@+id/ll_availability"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_description"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center|left"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_availability_label"
+                style="@style/textview_style_medium"
+                android:layout_width="wrap_content"
+                android:text="Availability:"
+                android:textColor="@color/colorWhite" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_availability_value"
+                style="@style/textview_style_medium"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="2 units"
+                android:textColor="@color/colorPrimary" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/ll_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_description"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center|right"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_price"
+                style="@style/textview_style_medium"
+                android:layout_width="wrap_content"
+                android:text="Price:"
+                android:textColor="@color/colorWhite"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_price_value"
+                style="@style/textview_style_medium"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="$1.00 per month"
+                android:textColor="@color/colorPrimary" />
+
+
+        </LinearLayout>
+
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_horizontal_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/ll_price"
+            android:layout_marginTop="15dp"
+            android:background="@color/colorLightBackground"/>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
+

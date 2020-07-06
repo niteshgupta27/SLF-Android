@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#0dae8c</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#1eb378</color>
+    <color name="colorDark">#191D29</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorFont">#0dae8c</color>
+    <color name="colorDarkBackground">#11141d</color>
+    <color name="colorLightBackground">#191d29</color>
+    <color name="black">#000000</color>
+    <color name="black_overlay">#66000000</color>
+    <color name="dot_active">@color/colorWhite</color>
+    <color name="dot_inactive">#E0DBDB</color>
+    <color name="transparent">#00000000</color>
+  <!--  Gradient Color -  #1eb378, #04aa98-->
+
+    <color name="black_overlay2">#1eb378</color>
+    <color name="black_overlay3">#04aa98</color>
+    <color name="colorGray">#A9A9A9</color>
+    <color name="img_color">#44C598</color>
+    <color name="light_greeen">#144241</color>
+    <color name="red">#ba4649</color>
+    <color name="dash_color">#5c6a97</color>
+
+    <color name="diactive_grid2">#1D212F</color>
+    <color name="diactive_grid">#00000000</color>
+
+    <color name="active_grid">#36B186</color>
+    <color name="character_bg">#16514C</color>
+
+
+    <array name="array_dot_active">
+        <item>@color/colorWhite</item>
+        <item>@color/colorWhite</item>
+        <item>@color/colorWhite</item>
+
+    </array>
+
+    <array name="array_dot_inactive">
+        <item>#E0DBDB</item>
+        <item>#E0DBDB</item>
+        <item>#E0DBDB</item>
+    </array>
+
+</resources>

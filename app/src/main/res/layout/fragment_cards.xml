@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_edit_square"
+    tools:context=".StorageSelection.fragment.CardsFragment">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewpager1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+
+            <RelativeLayout
+                android:id="@+id/rlPre"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
+                android:layout_centerVertical="true"
+                android:padding="@dimen/_5sdp" />
+
+            <RelativeLayout
+                android:id="@+id/rlNext"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:padding="@dimen/_5sdp" />
+
+
+        </RelativeLayout>
+
+
+        <ImageView
+            android:id="@+id/img_splash"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/spllash_bg"
+            android:visibility="gone"/>
+
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

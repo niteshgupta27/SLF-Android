@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "178506954680",
+    "firebase_url": "https://storelogflogandroid.firebaseio.com",
+    "project_id": "storelogflogandroid",
+    "storage_bucket": "storelogflogandroid.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:178506954680:android:1eaaccabb6a7ca41a3814d",
+        "android_client_info": {
+          "package_name": "com.storelogflog.uk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "178506954680-agqnm2euttmpp49urkiq8li63uec7der.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.storelogflog.uk",
+            "certificate_hash": "55108903c76649e0e0f314507d44325c084fae7e"
+          }
+        },
+        {
+          "client_id": "178506954680-eaqj20fmlp04107nio03p2j286qeeacu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAk_9WtO81XROk9cXGg5Lrc-BjLITNCMGw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "178506954680-eaqj20fmlp04107nio03p2j286qeeacu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
