@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -319,6 +320,7 @@ public class StorageClaimFragment extends BaseFragment implements VolleyApiRespo
                 new StorageDetailsApiCall(getActivity(), this, token, Constants.STORAGE_DETAILS_CODE);
                 showLoading("Loading...");
 
+                Log.e(TAG,"Input_storage_detail====>"+jsonObjectPayload.toString());
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -374,6 +376,8 @@ public class StorageClaimFragment extends BaseFragment implements VolleyApiRespo
                     if (payload[1] != null) {
                         response = Utility.decoded(payload[1]);
                         try {
+
+                            Log.e(TAG,"STORAGE_DETAILS_CODE=======>"+response);
                             JSONObject jsonObject = new JSONObject(response);
                             Logger.debug(TAG, "" + jsonObject.toString());
                             int result = getIntFromJsonObj(jsonObject, "result");
@@ -430,7 +434,7 @@ public class StorageClaimFragment extends BaseFragment implements VolleyApiRespo
             container.addView(view);
             AppCompatImageView imgBanner = view.findViewById(R.id.img_banner);
             Photo photo = photoBannerList.get(position);
-            Utility.loadImage(photo.getURL(), imgBanner);
+            Utility.loadImage(getActivity(), photo.getURL(), imgBanner);
             return view;
         }
 

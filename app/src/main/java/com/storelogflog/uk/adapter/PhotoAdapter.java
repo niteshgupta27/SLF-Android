@@ -9,7 +9,6 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
-import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -43,7 +42,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ActiveListHo
     public void onBindViewHolder(@NonNull ActiveListHolder holder, int position) {
 
         final Photo photo=photoList.get(position);
-        Utility.loadImage(photo.getURL(),holder.imgPhoto);
+        Utility.loadImage(activity, photo.getURL(),holder.imgPhoto);
 
         holder.imgRemovePhoto.setOnClickListener(new View.OnClickListener() {
             @Override

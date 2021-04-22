@@ -12,17 +12,33 @@ android:orientation="vertical">
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="16dp"
-    android:layout_below="@+id/toolbar"
-    android:orientation="vertical">
+   android:orientation="vertical">
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_auction_category"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:drawableRight="@drawable/ic_keyboard_arrow_down_black_24dp"
+        android:hint="@string/select_category2"
+        android:padding="5dp"
+        android:gravity="center|left"
+        app:drawableTint="@color/colorWhite"
+        android:textColorHint="#A1A2A6"
+        android:fontFamily="@font/roboto"
+        android:textSize="12sp"
+
+        android:textColor="@color/colorWhite"
+        android:drawablePadding="10dp"
+        android:background="@drawable/background_edit_square"/>
+
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/edit_item_name"
         style="@style/mEditText"
         android:background="@drawable/background_edit_square"
         android:hint="Item Name"/>
-
-
-
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/edit_description"
@@ -47,12 +63,23 @@ android:orientation="vertical">
         android:background="@drawable/background_edit_square"
         android:hint="Expected Minimum Value"/>
 
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_user_msg"
+        style="@style/textview_style_medium"
+        android:text="All images associated with your card will be sent to Auction House"
+        android:layout_marginTop="10dp"
+        android:gravity="start"
+        android:textColor="@color/colorWhite"
+        />
+
+
+
     <androidx.appcompat.widget.AppCompatCheckBox
         android:id="@+id/cb_agree"
         style="@style/textview_style_medium"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:buttonTint="@color/colorPrimary"
-        android:checked="true"
         android:text="I agree to pay Auction valuation fee $1.00"
         android:textColor="@color/colorWhite" />
 
@@ -61,7 +88,6 @@ android:orientation="vertical">
         style="@style/textview_style_medium"
         android:layout_marginTop="5dp"
         android:buttonTint="@color/colorPrimary"
-        android:checked="true"
         android:text="@string/i_agree_to_auction_valution_terms_condition"
         android:textColor="@color/colorWhite" />
 

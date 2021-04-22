@@ -21,6 +21,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.storelogflog.uk.R;
 import com.storelogflog.uk.StorageSelection.fragment.CardsFragment;
 import com.storelogflog.uk.StorageSelection.fragment.ManageShelftFragment;
+import com.storelogflog.uk.activity.HomeActivity;
 import com.storelogflog.uk.apiCall.ViewItemApiCall;
 import com.storelogflog.uk.apiCall.VolleyApiResponseString;
 import com.storelogflog.uk.apputil.Common;
@@ -67,7 +68,10 @@ public class LogFragment extends BaseFragment implements VolleyApiResponseString
 
         if (getArguments() != null) {
             storage = (Storage) getArguments().getSerializable("storage");
-          }
+
+            ((HomeActivity)getActivity()).enableViews(false,"Log");
+
+        }
 
        /* tabLayout=view.findViewById(R.id.tab_layout);
         viewPager=view.findViewById(R.id.view_pager);
@@ -119,9 +123,10 @@ public class LogFragment extends BaseFragment implements VolleyApiResponseString
         view_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragment = new ManageShelftFragment();
+                fragment = new CardsFragment();
                 bundle = new Bundle();
                 bundle.putSerializable("storage", storage);
+                bundle.putString("log", "log");
                 fragment.setArguments(bundle);
                 Common.loadFragment(getActivity(), fragment, true, null);
             }
@@ -131,11 +136,12 @@ public class LogFragment extends BaseFragment implements VolleyApiResponseString
         view_plan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragment = new CardsFragment();
+                fragment = new ManageShelftFragment();
                 bundle = new Bundle();
                 bundle.putSerializable("storage", storage);
                 fragment.setArguments(bundle);
                 Common.loadFragment(getActivity(), fragment, true, null);
+
             }
         });
 

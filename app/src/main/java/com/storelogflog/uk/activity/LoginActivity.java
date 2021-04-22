@@ -8,6 +8,7 @@ import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.format.Formatter;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import androidx.annotation.NonNull;
@@ -72,6 +73,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         initListeners();
 
         printKeyHash();
+        byte[] sha1KeyHash = {(byte) 0x9A, (byte) 0xB0, (byte) 0x98, (byte) 0x16, (byte) 0x76, (byte) 0x23, (byte) 0xB5, (byte) 0x9A, (byte) 0x55, (byte) 0x83, (byte) 0x00, (byte) 0xFF, (byte) 0x76, (byte) 0x0E, (byte) 0xB6, (byte) 0xB9, (byte) 0xC6, (byte) 0xFE, (byte) 0xA3, (byte) 0xC7};
+        Log.e("keyHashForFacebookLogin", Base64.encodeToString(sha1KeyHash, Base64.NO_WRAP));
     }
 
     @Override
@@ -465,7 +468,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                             String message = getStringFromJsonObj(jsonObject, "message");
                             if (result == 1) {
 
-                                 startActivity(new Intent(LoginActivity.this, HomeActivity.class)
+                                 startActivity(new Intent(LoginActivity.this, ProfileActivity.class)
                                 .putExtra("From","Login"));
                                  finish();
 
@@ -549,8 +552,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
 
 
-    void getFbUserProfile(AccessToken accessToken)
-    {
+    void getFbUserProfile(AccessToken accessToken) {
         GraphRequest request=GraphRequest.newMeRequest(accessToken, new GraphRequest.GraphJSONObjectCallback() {
             @Override
             public void onCompleted(JSONObject object, GraphResponse response) {
@@ -614,6 +616,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
             jsonObjectPayload.put("modelnumber", Build.MODEL);
             jsonObjectPayload.put("osver", Build.VERSION.RELEASE);
             jsonObjectPayload.put("devicename", android.os.Build.DEVICE);
+            jsonObjectPayload.put("apple_id","");
 
 
             if(isFB)
@@ -700,5 +703,16 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         } catch (NoSuchAlgorithmException e) {
             Log.d("KeyHash:", e.toString());
         }
+    }
+
+    public void hashFromSHA1(String sha1) {
+        String[] arr = sha1.split(":");
+        byte[] byteArr = new  byte[arr.length];
+
+        for (int i = 0; i< arr.length; i++) {
+            byteArr[i] = Integer.decode("0x" + arr[i]).byteValue();
+        }
+
+        Log.e("hash : ", Base64.encodeToString(byteArr, Base64.NO_WRAP));
     }
 }

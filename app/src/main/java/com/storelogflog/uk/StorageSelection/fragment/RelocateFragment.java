@@ -3,8 +3,10 @@ package com.storelogflog.uk.StorageSelection.fragment;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -24,7 +27,8 @@ import com.google.gson.Gson;
 import com.storelogflog.uk.R;
 import com.storelogflog.uk.StorageSelection.model.StorageShapeModel;
 import com.storelogflog.uk.activity.HomeActivity;
-import com.storelogflog.uk.apiCall.AddItemApiCall;
+import com.storelogflog.uk.activity.PaymentActivity;
+import com.storelogflog.uk.apiCall.PricingApiCall;
 import com.storelogflog.uk.apiCall.RelocateItemApiCall;
 import com.storelogflog.uk.apiCall.StorageListShapeApiCall;
 import com.storelogflog.uk.apiCall.VolleyApiResponseString;
@@ -38,46 +42,49 @@ import com.storelogflog.uk.apputil.Utility;
 import com.storelogflog.uk.bean.storageBean.Storage;
 import com.storelogflog.uk.fragment.AddItemFragment;
 import com.storelogflog.uk.fragment.BaseFragment;
-import com.storelogflog.uk.fragment.PhotoFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+
+import static com.storelogflog.uk.apputil.Common.getIntFromJsonObj;
 
 
 public class RelocateFragment extends BaseFragment implements VolleyApiResponseString {
     private final String TAG = RelocateFragment.this.getClass().toString();
     Context mContext;
     View view;
-    ExpandableHeightGridView Grid_View5, Grid_View4,Grid_View3;
+    ExpandableHeightGridView Grid_View5, Grid_View4, Grid_View3;
     LinearLayout door_1, door_2, door_3, door_4, door_5,
             linear_door_1, linear_door_2, linear_door_3, linear_door_4, linear_door_5,
             door_11, door_12, door_13, door_14,
             linear_door_11, linear_door_12, linear_door_13, linear_door_14,
             door_21, door_22, door_23,
-            linear_door_21, linear_door_22, linear_door_23;;
+            linear_door_21, linear_door_22, linear_door_23;
+    ;
     ImageView door_img1, door_img2, door_img3, door_img4, door_img5,
-            door_img11, door_img12, door_img13, door_img14,door_img21, door_img22, door_img23;
+            door_img11, door_img12, door_img13, door_img14, door_img21, door_img22, door_img23;
 
-    LinearLayout Grid5_linear, Grid4_linear,Grid3_linear;
-    private Storage storage1;
+    LinearLayout Grid5_linear, Grid4_linear, Grid3_linear;
     GridCellAdapter gridCellAdapter;
     int prevSelection = -1;
-    String SelectedGridShapeID, SelectedRack_ID, Selectedshape_name = "",ItemId="";
+    String SelectedGridShapeID, SelectedRack_ID, Selectedshape_name = "", ItemId = "";
     ArrayList<StorageShapeModel.Storage.ShapsList> Shape_name = new ArrayList<StorageShapeModel.Storage.ShapsList>();
     String[] grid_cell = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O",
             "P", "Q", "R", "S", "T", "U", "V", "W", "X", "y", "Z",
             "AA", "BB", "CC", "DD", "EE", "FF", "GG", "HH", "II", "JJ", "KK", "LL", "MM", "NN", "OO",
             "PP", "QQ", "RR", "SS", "TT", "UU", "VV", "WW", "XX", "Yy", "ZZ"};
     TextView proceed_btn;
-
-    int Add_Rack_count = 1;
+    int pondValue;
     Storage storage;
+    AlertDialog alertDialog;
     GridCellAdapter.CustomRacklistAdapter customracklistadapter;
     int prevSelection_rack = -1;
-    private String numberofColumn;
+    String Selection_rack_no = "";
     ArrayList<String> GridCell_list = new ArrayList<>();
     List<StorageShapeModel.Storage.ShapsList> Shap_list5 = new ArrayList<>();
     List<StorageShapeModel.Storage.ShapsList> Shap_list4 = new ArrayList<>();
@@ -85,6 +92,8 @@ public class RelocateFragment extends BaseFragment implements VolleyApiResponseS
     ArrayList<Integer> Shape_value_list5 = new ArrayList<>();
     ArrayList<Integer> Shape_value_list4 = new ArrayList<>();
     ArrayList<Integer> Shape_value_list3 = new ArrayList<>();
+    private Storage storage1;
+    private String numberofColumn;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -106,7 +115,6 @@ public class RelocateFragment extends BaseFragment implements VolleyApiResponseS
 
     @Override
     public void initViews(View view) {
-
 
         Grid_View5 = view.findViewById(R.id.Grid_View5);
         Grid_View4 = view.findViewById(R.id.Grid_View4);
@@ -136,7 +144,6 @@ public class RelocateFragment extends BaseFragment implements VolleyApiResponseS
         door_img5 = view.findViewById(R.id.door_img5);
 
 
-
         door_11 = view.findViewById(R.id.door_11);
         door_12 = view.findViewById(R.id.door_12);
         door_13 = view.findViewById(R.id.door_13);
@@ -164,7 +171,7 @@ public class RelocateFragment extends BaseFragment implements VolleyApiResponseS
         door_img23 = view.findViewById(R.id.door_img23);
 
 
-        proceed_btn  = view.findViewById(R.id.proceed_btn);
+        proceed_btn = view.findViewById(R.id.proceed_btn);
 
         ((HomeActivity) getActivity()).enableViews(true, "Relocate Item");
 
@@ -174,16 +181,19 @@ public class RelocateFragment extends BaseFragment implements VolleyApiResponseS
                 GetStorageShape(storage.getUnitID());
             }
 
-                    if (!String.valueOf(getArguments().getString(Constants.ItemID)).equals("null")) {
-                        ItemId = String.valueOf(getArguments().getString(Constants.ItemID));
-                        Log.e("ItemId",ItemId);
-                    }
+            if (!String.valueOf(getArguments().getString(Constants.ItemID)).equals("null")) {
+                ItemId = String.valueOf(getArguments().getString(Constants.ItemID));
+                Log.e("ItemId", ItemId);
+            }
 
         }
 
         proceed_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (TextUtils.isEmpty(SelectedGridShapeID)) {
+                    showToast(mContext, "Please select shelves location First!");
+                }
                 callRelocateItem();
             }
         });
@@ -194,26 +204,26 @@ public class RelocateFragment extends BaseFragment implements VolleyApiResponseS
         if (Utility.isInternetConnected(getActivity())) {
             try {
 
-                    if (storage != null) {
-                        JSONObject jsonObjectPayload = new JSONObject();
-                        jsonObjectPayload.put("storage_id", "" + storage.getID());
-                        jsonObjectPayload.put("unit_id", storage.getUnitID());
-                        jsonObjectPayload.put("location_id", SelectedGridShapeID);
-                        jsonObjectPayload.put("rack_id", SelectedRack_ID);
-                        jsonObjectPayload.put("item_id", ItemId);
-                        jsonObjectPayload.put("apikey",PreferenceManger.getPreferenceManger().getString(PrefKeys.APIKEY));
+                if (storage != null) {
+                    JSONObject jsonObjectPayload = new JSONObject();
+                    jsonObjectPayload.put("storage_id", "" + storage.getID());
+                    jsonObjectPayload.put("unit_id", storage.getUnitID());
+                    jsonObjectPayload.put("location_id", SelectedGridShapeID);
+                    jsonObjectPayload.put("rack_id", SelectedRack_ID);
+                    jsonObjectPayload.put("item_id", ItemId);
+                    jsonObjectPayload.put("apikey", PreferenceManger.getPreferenceManger().getString(PrefKeys.APIKEY));
 
-                        Logger.debug(TAG, jsonObjectPayload.toString());
-                        String token = Utility.getJwtToken(jsonObjectPayload.toString());
-                        showLoading("Loading...");
-                        new RelocateItemApiCall(getActivity(), this, token, Constants.Relocate_Item);
+                    Logger.debug(TAG, jsonObjectPayload.toString());
+                    String token = Utility.getJwtToken(jsonObjectPayload.toString());
+                    showLoading("Loading...");
+                    new RelocateItemApiCall(getActivity(), this, token, Constants.Relocate_Item);
 
-                    }
-                } catch (Exception e) {
+                }
+            } catch (Exception e) {
                 Log.e("Error=====>", e.toString());
-                }
+            }
 
-                }
+        }
     }
 
     @Override
@@ -443,89 +453,201 @@ public class RelocateFragment extends BaseFragment implements VolleyApiResponseS
                                     }
 
 
-                                    if (numberofColumn.equals("5")) {
-                                        int j = 0;
-                                        for (int i = 0; i < GridCell_list.size(); i++) {
-
-                                            if (i < Shape_value_list5.size()) {
-
-                                                int value = Shape_value_list5.get(i);
-                                                if (value == 0) {
-                                                    Log.e(TAG, "value =====> " + value);
-                                                    StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
-                                                    selectedGridModel.setShape_name("");
-                                                    Shape_name.add(selectedGridModel);
-                                                } else {
-                                                    Log.e(TAG, "value =====> " + value);
-                                                    Log.e(TAG, "GridCell_list =====> " + GridCell_list.get(j));
+                                    if (storageShapeModel.getStorage().getDoorType().equals("5")) {
+                                        String door = String.valueOf(storageShapeModel.getStorage().getDoors());
+                                        List<String> myList = new ArrayList<String>(Arrays.asList(door.split(",")));
 
 
-                                                    StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
-                                                    selectedGridModel.setShape_name(GridCell_list.get(j));
-                                                    Shape_name.add(selectedGridModel);
+                                        if (numberofColumn.equals("5")) {
+                                            int j = 0;
+                                            for (int i = 0; i < GridCell_list.size(); i++) {
 
-                                                    j++;
+                                                if (i < Shape_value_list5.size()) {
 
+                                                    int value = Shape_value_list5.get(i);
+                                                    if (value == 0) {
+                                                        Log.e(TAG, "value =====> " + value);
+                                                        StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
+                                                        selectedGridModel.setShape_name("");
+                                                        selectedGridModel.setDoorPosition("");
+                                                        Shape_name.add(selectedGridModel);
+                                                        Log.e("door_array", myList.get(j));
+                                                    } else {
+                                                        Log.e(TAG, "value =====> " + value);
+                                                        Log.e(TAG, "GridCell_list =====> " + GridCell_list.get(j));
+
+
+                                                        StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
+                                                        selectedGridModel.setShape_name(GridCell_list.get(j));
+                                                        selectedGridModel.setDoorPosition(myList.get(j));
+
+                                                        Shape_name.add(selectedGridModel);
+
+                                                        Log.e("door_array", myList.get(j));
+
+                                                        j++;
+
+                                                    }
+                                                }
+                                            }
+                                        } else if (numberofColumn.equals("4")) {
+                                            int j = 0;
+                                            for (int i = 0; i < GridCell_list.size(); i++) {
+
+                                                if (i < Shape_value_list4.size()) {
+
+                                                    int value = Shape_value_list4.get(i);
+
+                                                    if (value == 0) {
+                                                        Log.e(TAG, "value =====> " + value);
+                                                        StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
+                                                        selectedGridModel.setShape_name("");
+                                                        selectedGridModel.setDoorPosition("");
+                                                        Shape_name.add(selectedGridModel);
+                                                    } else {
+                                                        Log.e(TAG, "value =====> " + value);
+                                                        Log.e(TAG, "GridCell_list =====> " + GridCell_list.get(j));
+
+
+                                                        StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
+                                                        selectedGridModel.setShape_name(GridCell_list.get(j));
+                                                        selectedGridModel.setDoorPosition(myList.get(j));
+                                                        Shape_name.add(selectedGridModel);
+
+                                                        j++;
+
+                                                    }
+                                                }
+                                            }
+                                        } else if (numberofColumn.equals("3")) {
+                                            int j = 0;
+                                            for (int i = 0; i < GridCell_list.size(); i++) {
+
+                                                if (i < Shape_value_list3.size()) {
+
+                                                    int value = Shape_value_list3.get(i);
+
+                                                    if (value == 0) {
+                                                        Log.e(TAG, "value =====> " + value);
+                                                        StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
+                                                        selectedGridModel.setShape_name("");
+                                                        selectedGridModel.setDoorPosition("");
+                                                        Shape_name.add(selectedGridModel);
+                                                        Log.e("door_array", myList.get(j));
+                                                    } else {
+                                                        Log.e(TAG, "value =====> " + value);
+                                                        Log.e(TAG, "GridCell_list =====> " + GridCell_list.get(j));
+
+
+                                                        StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
+                                                        selectedGridModel.setShape_name(GridCell_list.get(j));
+                                                        selectedGridModel.setDoorPosition(myList.get(j));
+                                                        Shape_name.add(selectedGridModel);
+
+                                                        j++;
+
+                                                    }
                                                 }
                                             }
                                         }
-                                    }
-                                    else if (numberofColumn.equals("4")) {
-                                        int j = 0;
-                                        for (int i = 0; i < GridCell_list.size(); i++) {
+                                    } else {
+                                        if (numberofColumn.equals("5")) {
+                                            int j = 0;
+                                            for (int i = 0; i < GridCell_list.size(); i++) {
 
-                                            if (i < Shape_value_list4.size()) {
+                                                if (i < Shape_value_list5.size()) {
 
-                                                int value = Shape_value_list4.get(i);
+                                                    int value = Shape_value_list5.get(i);
+                                                    if (value == 0) {
+                                                        Log.e(TAG, "value =====> " + value);
+                                                        StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
+                                                        selectedGridModel.setShape_name("");
+                                                        selectedGridModel.setDoorPosition("");
+                                                        Shape_name.add(selectedGridModel);
 
-                                                if (value == 0) {
-                                                    Log.e(TAG, "value =====> " + value);
-                                                    StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
-                                                    selectedGridModel.setShape_name("");
-                                                    Shape_name.add(selectedGridModel);
+                                                    } else {
+                                                        Log.e(TAG, "value =====> " + value);
+                                                        Log.e(TAG, "GridCell_list =====> " + GridCell_list.get(j));
 
-                                                } else {
-                                                    Log.e(TAG, "value =====> " + value);
-                                                    Log.e(TAG, "GridCell_list =====> " + GridCell_list.get(j));
 
-                                                    StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
-                                                    selectedGridModel.setShape_name(GridCell_list.get(j));
-                                                    Shape_name.add(selectedGridModel);
+                                                        StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
+                                                        selectedGridModel.setShape_name(GridCell_list.get(j));
+                                                        selectedGridModel.setDoorPosition("");
 
-                                                    j++;
+                                                        Shape_name.add(selectedGridModel);
 
+
+                                                        j++;
+
+                                                    }
+                                                }
+                                            }
+                                        } else if (numberofColumn.equals("4")) {
+                                            int j = 0;
+                                            for (int i = 0; i < GridCell_list.size(); i++) {
+
+                                                if (i < Shape_value_list4.size()) {
+
+                                                    int value = Shape_value_list4.get(i);
+
+                                                    if (value == 0) {
+                                                        Log.e(TAG, "value =====> " + value);
+                                                        StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
+                                                        selectedGridModel.setShape_name("");
+                                                        selectedGridModel.setDoorPosition("");
+                                                        Shape_name.add(selectedGridModel);
+
+                                                    } else {
+                                                        Log.e(TAG, "value =====> " + value);
+                                                        Log.e(TAG, "GridCell_list =====> " + GridCell_list.get(j));
+
+
+                                                        StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
+                                                        selectedGridModel.setShape_name(GridCell_list.get(j));
+                                                        selectedGridModel.setDoorPosition("");
+
+                                                        Shape_name.add(selectedGridModel);
+
+                                                        j++;
+
+                                                    }
+                                                }
+                                            }
+                                        } else if (numberofColumn.equals("3")) {
+                                            int j = 0;
+                                            for (int i = 0; i < GridCell_list.size(); i++) {
+
+                                                if (i < Shape_value_list3.size()) {
+
+                                                    int value = Shape_value_list3.get(i);
+
+                                                    if (value == 0) {
+                                                        Log.e(TAG, "value =====> " + value);
+                                                        StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
+                                                        selectedGridModel.setShape_name("");
+                                                        selectedGridModel.setDoorPosition("");
+                                                        Shape_name.add(selectedGridModel);
+
+                                                    } else {
+                                                        Log.e(TAG, "value =====> " + value);
+                                                        Log.e(TAG, "GridCell_list =====> " + GridCell_list.get(j));
+
+
+                                                        StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
+                                                        selectedGridModel.setShape_name(GridCell_list.get(j));
+                                                        selectedGridModel.setDoorPosition("");
+
+                                                        Shape_name.add(selectedGridModel);
+
+                                                        j++;
+
+                                                    }
                                                 }
                                             }
                                         }
+
                                     }
-                                    else if (numberofColumn.equals("3")) {
-                                        int j = 0;
-                                        for (int i = 0; i < GridCell_list.size(); i++) {
 
-                                            if (i < Shape_value_list3.size()) {
-
-                                                int value = Shape_value_list3.get(i);
-
-                                                if (value == 0) {
-                                                    Log.e(TAG, "value =====> " + value);
-                                                    StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
-                                                    selectedGridModel.setShape_name("");
-                                                    Shape_name.add(selectedGridModel);
-
-                                                } else {
-                                                    Log.e(TAG, "value =====> " + value);
-                                                    Log.e(TAG, "GridCell_list =====> " + GridCell_list.get(j));
-
-                                                    StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
-                                                    selectedGridModel.setShape_name(GridCell_list.get(j));
-                                                    Shape_name.add(selectedGridModel);
-
-                                                    j++;
-
-                                                }
-                                            }
-                                        }
-                                    }
                                 }
 
                                 if (numberofColumn.equals("5")) {
@@ -538,8 +660,7 @@ public class RelocateFragment extends BaseFragment implements VolleyApiResponseS
                                     Grid_View5.setAdapter(gridCellAdapter);
                                     gridCellAdapter.notifyDataSetChanged();
 
-                                }
-                                else if (numberofColumn.equals("4")) {
+                                } else if (numberofColumn.equals("4")) {
                                     Grid3_linear.setVisibility(View.GONE);
                                     Grid4_linear.setVisibility(View.VISIBLE);
                                     Grid5_linear.setVisibility(View.GONE);
@@ -550,8 +671,7 @@ public class RelocateFragment extends BaseFragment implements VolleyApiResponseS
                                     Grid_View4.setAdapter(gridCellAdapter);
                                     gridCellAdapter.notifyDataSetChanged();
 
-                                }
-                                else if (numberofColumn.equals("3")) {
+                                } else if (numberofColumn.equals("3")) {
                                     Grid3_linear.setVisibility(View.VISIBLE);
                                     Grid4_linear.setVisibility(View.GONE);
                                     Grid5_linear.setVisibility(View.GONE);
@@ -1100,8 +1220,7 @@ public class RelocateFragment extends BaseFragment implements VolleyApiResponseS
 
                                             }
                                         }
-                                    }
-                                    else if (storageShapeModel.getStorage().getDoorType().equals("4")) {
+                                    } else if (storageShapeModel.getStorage().getDoorType().equals("4")) {
                                         if (storageShapeModel.getStorage().getDoorColor() != null) {
                                             if (storageShapeModel.getStorage().getDoorColor().equals("1")) {
                                                 if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
@@ -1236,47 +1355,8 @@ public class RelocateFragment extends BaseFragment implements VolleyApiResponseS
                                             }
                                         }
                                     }
-                                    else if (storageShapeModel.getStorage().getDoorType().equals("5")) {
 
-                                        if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
-                                            door_img1.setImageResource(R.drawable.loft_door);
-                                            door_img1.setVisibility(View.VISIBLE);
-                                            door_img2.setVisibility(View.GONE);
-                                            door_img3.setVisibility(View.GONE);
-                                            door_img4.setVisibility(View.GONE);
-                                            door_img5.setVisibility(View.GONE);
-                                        } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
-                                            door_img2.setImageResource(R.drawable.loft_door);
-                                            door_img1.setVisibility(View.GONE);
-                                            door_img2.setVisibility(View.VISIBLE);
-                                            door_img3.setVisibility(View.GONE);
-                                            door_img4.setVisibility(View.GONE);
-                                            door_img5.setVisibility(View.GONE);
-                                        } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
-                                            door_img3.setImageResource(R.drawable.loft_door);
-                                            door_img1.setVisibility(View.GONE);
-                                            door_img2.setVisibility(View.GONE);
-                                            door_img3.setVisibility(View.VISIBLE);
-                                            door_img4.setVisibility(View.GONE);
-                                            door_img5.setVisibility(View.GONE);
-                                        } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,0")) {
-                                            door_img4.setImageResource(R.drawable.loft_door);
-                                            door_img1.setVisibility(View.GONE);
-                                            door_img2.setVisibility(View.GONE);
-                                            door_img3.setVisibility(View.GONE);
-                                            door_img4.setVisibility(View.VISIBLE);
-                                            door_img5.setVisibility(View.GONE);
-                                        } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,0,1")) {
-                                            door_img5.setImageResource(R.drawable.loft_door);
-                                            door_img1.setVisibility(View.GONE);
-                                            door_img2.setVisibility(View.GONE);
-                                            door_img3.setVisibility(View.GONE);
-                                            door_img4.setVisibility(View.GONE);
-                                            door_img5.setVisibility(View.VISIBLE);
-                                        }
-                                    }
-                                }
-                                else if (numberofColumn.equals("4")) {
+                                } else if (numberofColumn.equals("4")) {
                                     if (storageShapeModel.getStorage().getDoorType().equals("1")) {
                                         if (storageShapeModel.getStorage().getDoorColor() != null) {
                                             if (storageShapeModel.getStorage().getDoorColor().equals("1")) {
@@ -1910,48 +1990,9 @@ public class RelocateFragment extends BaseFragment implements VolleyApiResponseS
                                                 }
                                             }
                                         }
-                                    } else if (storageShapeModel.getStorage().getDoorType().equals("5")) {
-
-                                        if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
-                                            door_img11.setImageResource(R.drawable.loft_door);
-                                            door_img11.setVisibility(View.VISIBLE);
-                                            door_img12.setVisibility(View.GONE);
-                                            door_img13.setVisibility(View.GONE);
-                                            door_img14.setVisibility(View.GONE);
-
-                                        } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
-                                            door_img12.setImageResource(R.drawable.loft_door);
-                                            door_img11.setVisibility(View.GONE);
-                                            door_img12.setVisibility(View.VISIBLE);
-                                            door_img13.setVisibility(View.GONE);
-                                            door_img14.setVisibility(View.GONE);
-
-                                        } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
-                                            door_img13.setImageResource(R.drawable.loft_door);
-                                            door_img11.setVisibility(View.GONE);
-                                            door_img12.setVisibility(View.GONE);
-                                            door_img13.setVisibility(View.VISIBLE);
-                                            door_img14.setVisibility(View.GONE);
-
-                                        } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,0")) {
-                                            door_img14.setImageResource(R.drawable.loft_door);
-                                            door_img11.setVisibility(View.GONE);
-                                            door_img12.setVisibility(View.GONE);
-                                            door_img13.setVisibility(View.GONE);
-                                            door_img14.setVisibility(View.VISIBLE);
-
-                                        } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,0,1")) {
-                                            door_img14.setImageResource(R.drawable.loft_door);
-                                            door_img11.setVisibility(View.GONE);
-                                            door_img12.setVisibility(View.GONE);
-                                            door_img13.setVisibility(View.GONE);
-                                            door_img14.setVisibility(View.VISIBLE);
-
-                                        }
                                     }
 
-                                }
-                                else if (numberofColumn.equals("3")) {
+                                } else if (numberofColumn.equals("3")) {
                                     if (storageShapeModel.getStorage().getDoorType().equals("1")) {
                                         if (storageShapeModel.getStorage().getDoorColor() != null) {
                                             if (storageShapeModel.getStorage().getDoorColor().equals("1")) {
@@ -2297,35 +2338,9 @@ public class RelocateFragment extends BaseFragment implements VolleyApiResponseS
                                                 }
                                             }
                                         }
-                                    } else if (storageShapeModel.getStorage().getDoorType().equals("5")) {
-
-                                        if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
-                                            door_img21.setImageResource(R.drawable.loft_door);
-                                            door_img21.setVisibility(View.VISIBLE);
-                                            door_img22.setVisibility(View.GONE);
-                                            door_img23.setVisibility(View.GONE);
-
-                                        } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
-                                            door_img22.setImageResource(R.drawable.loft_door);
-                                            door_img21.setVisibility(View.GONE);
-                                            door_img22.setVisibility(View.VISIBLE);
-                                            door_img23.setVisibility(View.GONE);
-
-                                        } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
-                                            door_img23.setImageResource(R.drawable.loft_door);
-                                            door_img21.setVisibility(View.GONE);
-                                            door_img22.setVisibility(View.GONE);
-                                            door_img23.setVisibility(View.VISIBLE);
-
-                                        }
                                     }
 
                                 }
-
-
-
-
-
 
 
                             }
@@ -2342,16 +2357,21 @@ public class RelocateFragment extends BaseFragment implements VolleyApiResponseS
                     String payload[] = response.split("\\.");
                     if (payload[1] != null) {
                         response = Utility.decoded(payload[1]);
-                       try {
+                        try {
                             JSONObject jsonObject = new JSONObject(response);
                             Logger.debug(TAG, "Relocate_Item_Response===>" + jsonObject.toString());
-                           int result = getIntFromJsonObj(jsonObject, "result");
+                            int result = getIntFromJsonObj(jsonObject, "result");
+                            String success = getStringFromJsonObj(jsonObject, "Success");
                             if (result == 1) {
-                             Fragment   fragment = new CardsFragment();
-                              Bundle  bundle = new Bundle();
-                                bundle.putSerializable("storage", storage);
-                                fragment.setArguments(bundle);
-                                Common.loadFragment(getActivity(), fragment, false, null);
+                                if (success.equals("false")) {
+                                    CheckStatus(storage);
+                                } else {
+                                    Fragment fragment = new CardsFragment();
+                                    Bundle bundle = new Bundle();
+                                    bundle.putSerializable("storage", storage);
+                                    fragment.setArguments(bundle);
+                                    Common.loadFragment(getActivity(), fragment, false, null);
+                                }
                             }
                         } catch (Exception e) {
                             Log.e("Error=====>", e.toString());
@@ -2359,6 +2379,36 @@ public class RelocateFragment extends BaseFragment implements VolleyApiResponseS
                     }
                 }
 
+                break;
+            case Constants.PRICING_CODE:
+                hideLoading();
+                if (response != null) {
+                    String payload[] = response.split("\\.");
+                    if (payload[1] != null) {
+                        response = Utility.decoded(payload[1]);
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            Logger.debug(TAG, "" + jsonObject.toString());
+                            int result = getIntFromJsonObj(jsonObject, "result");
+                            if (result == 1) {
+
+                                pondValue = getIntFromJsonObj(jsonObject, "NewStorage");
+                                Log.e("pondValue", String.valueOf(pondValue));
+
+
+                                mContext.startActivity(new Intent(mContext, PaymentActivity.class).
+                                        putExtra("amount", String.valueOf(pondValue)).
+                                        putExtra("storage", storage1).
+                                        putExtra("FROM", "StorageRenew"));
+
+                            }
+
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
                 break;
 
         }
@@ -2371,11 +2421,77 @@ public class RelocateFragment extends BaseFragment implements VolleyApiResponseS
             case Constants.StorageListShape:
                 hideLoading();
 
+                break;
+
+            case Constants.Relocate_Item:
+                hideLoading();
 
                 break;
+
+            case Constants.PRICING_CODE:
+                hideLoading();
+
+                break;
+
         }
     }
 
+    private void CheckStatus(Storage storage) {
+
+        LayoutInflater inflater = (LayoutInflater) mContext
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View layout = inflater.inflate(R.layout.cam_permission,
+                null);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(mContext, R.style.MyDialogTheme);
+
+        builder.setView(layout);
+        builder.setCancelable(false);
+        alertDialog = builder.create();
+        alertDialog.setCanceledOnTouchOutside(false);
+        alertDialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
+
+        TextView facebook_txt = layout.findViewById(R.id.facebook_txt);
+        TextView allow_txt = layout.findViewById(R.id.allow_txt);
+        TextView Cancle = layout.findViewById(R.id.btn_cancle);
+        TextView btn_Ok = layout.findViewById(R.id.btn_OK);
+
+        Cancle.setText(mContext.getResources().getString(R.string.Cancel));
+        btn_Ok.setText(mContext.getResources().getString(R.string.continued));
+        facebook_txt.setText(mContext.getResources().getString(R.string.app_name));
+        allow_txt.setText(mContext.getResources().getString(R.string.subscription_expiered));
+
+        storage1 = storage;
+        alertDialog.show();
+
+        Cancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+        btn_Ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+
+                callPricingApi();
+            }
+        });
+    }
+
+    void callPricingApi() {
+        if (Utility.isInternetConnected(mContext)) {
+            try {
+                new PricingApiCall(mContext, this, null, Constants.PRICING_CODE);
+                showLoading("Loading...");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            Toast.makeText(mContext, "No Internet Connection", Toast.LENGTH_SHORT).show();
+        }
+    }
 
     public class GridCellAdapter extends BaseAdapter {
 
@@ -2418,6 +2534,7 @@ public class RelocateFragment extends BaseFragment implements VolleyApiResponseS
                 holder.item_layout = convertView.findViewById(R.id.garage_relative);
                 holder.info_text = convertView.findViewById(R.id.info_text);
                 holder.rack_list_avalablity = convertView.findViewById(R.id.rack_list_avalablity);
+                holder.door_img = convertView.findViewById(R.id.door_img);
 
                 convertView.setTag(holder);
             } else {
@@ -2429,7 +2546,7 @@ public class RelocateFragment extends BaseFragment implements VolleyApiResponseS
             } else {
                 if (!grid_cell_name.get(position).getShape_name().equals("")) {
                     holder.item_layout.setBackgroundResource(R.drawable.deactive_character);
-                }else {
+                } else {
                     holder.item_layout.setBackgroundColor(mContext.getResources().getColor(R.color.diactive_grid));
                 }
             }
@@ -2437,8 +2554,16 @@ public class RelocateFragment extends BaseFragment implements VolleyApiResponseS
             if (grid_cell_name.get(position).getShape_name().equals(Selectedshape_name)) {
 
                 if (!grid_cell_name.get(position).getShape_name().equals("")) {
-                    holder.info_text.setText(String.valueOf(grid_cell_name.get(position).getShape_name()) + "-" + String.valueOf(prevSelection_rack+1));
-                }else {
+                    holder.info_text.setText(String.valueOf(grid_cell_name.get(position).getShape_name()) + "-" + String.valueOf(Selection_rack_no));
+                    if (grid_cell_name.get(position).getDoorPosition().equals("1")) {
+                        holder.door_img.setVisibility(View.VISIBLE);
+                        holder.info_text.setVisibility(View.GONE);
+                    } else {
+                        holder.door_img.setVisibility(View.GONE);
+                        holder.info_text.setVisibility(View.VISIBLE);
+                    }
+
+                } else {
                     holder.item_layout.setBackgroundColor(mContext.getResources().getColor(R.color.diactive_grid));
                 }
 
@@ -2446,87 +2571,30 @@ public class RelocateFragment extends BaseFragment implements VolleyApiResponseS
             } else {
 
                 holder.info_text.setText(String.valueOf(grid_cell_name.get(position).getShape_name()));
+                if (grid_cell_name.get(position).getDoorPosition().equals("1")) {
+                    holder.door_img.setVisibility(View.VISIBLE);
+                    holder.info_text.setVisibility(View.GONE);
+                } else {
+                    holder.door_img.setVisibility(View.GONE);
+                    holder.info_text.setVisibility(View.VISIBLE);
+                }
+
 
             }
-            if (playersArrayList.get(position).getRackList()!=null){
+            if (playersArrayList.get(position).getRackList() != null) {
 
                 if (playersArrayList.get(position).getRackList().size() > 0) {
                     holder.rack_list_avalablity.setVisibility(View.VISIBLE);
                 } else {
                     holder.rack_list_avalablity.setVisibility(View.GONE);
                 }
-            }else {
+            } else {
                 holder.rack_list_avalablity.setVisibility(View.GONE);
             }
 
             //finalConvertView = convertView;
             holder.item_layout.setOnClickListener(new MainItemClick(position, holder));
             return convertView;
-        }
-
-        public class ViewHolder {
-            RelativeLayout item_layout;
-            TextView info_text;
-            View rack_list_avalablity;
-        }
-
-        class MainItemClick implements View.OnClickListener {
-
-            int position;
-            ViewHolder viewHolder;
-
-            MainItemClick(int pos, ViewHolder holder) {
-                position = pos;
-                viewHolder = holder;
-            }
-
-            @Override
-            public void onClick(View view) {
-                if (!grid_cell_name.get(position).getShape_name().equals("")) {
-                    String name = String.valueOf(playersArrayList.get(position).getShapID());
-                    if (prevSelection == -1) //nothing selected
-                    {
-                        playersArrayList.get(position).setChecked(true);
-                        gridCellAdapter.notifyDataSetChanged();
-                        prevSelection = position;
-                        viewHolder.item_layout.setBackgroundResource(R.drawable.green_back);
-                        SelectedGridShapeID = String.valueOf(playersArrayList.get(position).getShapID());
-                        if (playersArrayList.get(position).getRackList().size() > 0) {
-                            SelectedRack_ID = String.valueOf(playersArrayList.get(position).getRackList().get(0).getFldRacksId());
-                        } else {
-                            SelectedRack_ID = "0";
-                        }
-
-                    } else // Some other selection
-                    {
-                        //deselect previously selected
-                        if (prevSelection != position) {
-                            playersArrayList.get(prevSelection).setChecked(false);
-
-                            viewHolder.item_layout.setBackgroundResource(R.drawable.background_edit_square);
-                            playersArrayList.get(position).setChecked(true);
-                            gridCellAdapter.notifyDataSetChanged();
-                            prevSelection = position;
-                            SelectedGridShapeID = String.valueOf(playersArrayList.get(position).getShapID());
-                            if (playersArrayList.get(position).getRackList().size() > 0) {
-                                SelectedRack_ID = String.valueOf(playersArrayList.get(position).getRackList().get(0).getFldRacksId());
-                            } else {
-                                SelectedRack_ID = "0";
-                            }
-                        }
-
-                    }
-
-                    if (playersArrayList.get(position).getRackList().size() > 0) {
-                        ShowRack_dialog(prevSelection, holder);
-                    }
-
-                    Log.e("SelectedGridRackID", String.valueOf(SelectedRack_ID));
-                    Log.e("SelectedGridLocation", String.valueOf(SelectedGridShapeID));
-
-                    notifyDataSetChanged();
-                }
-            }
         }
 
         private void ShowRack_dialog(int position, ViewHolder holder) {
@@ -2541,9 +2609,34 @@ public class RelocateFragment extends BaseFragment implements VolleyApiResponseS
             ListView Rack_list = dialog.findViewById(R.id.Rack_list);
             LinearLayout toolbar_back = dialog.findViewById(R.id.toolbar_back);
             TextView proceed_btn = dialog.findViewById(R.id.proceed_btn);
+            List<StorageShapeModel.Storage.ShapsList.RackList> rack_list = new ArrayList();
+            rack_list = playersArrayList.get(position).getRackList();
+
+            ArrayList<Integer> Sr_no_list = new ArrayList<>();
+
+            int Index = 0;
+            for (int j = 0; j < rack_list.size(); j++) {
+
+                if (Index == 0) {
+                    Index = rack_list.size() - 1;
+
+                    Log.e("Index11", String.valueOf(Index));
+                    Sr_no_list.add(Index);
+
+                } else {
+
+                    Index = Index - 1;
+                    Log.e("Index12", String.valueOf(Index));
+                    Sr_no_list.add(Index);
+
+                }
+
+            }
 
 
-             customracklistadapter = new CustomRacklistAdapter(mContext, playersArrayList.get(position).getRackList());
+            Collections.reverse(rack_list);
+
+            customracklistadapter = new CustomRacklistAdapter(mContext, rack_list, Sr_no_list);
             Rack_list.setAdapter(customracklistadapter);
 
             dialog.show();
@@ -2569,20 +2662,90 @@ public class RelocateFragment extends BaseFragment implements VolleyApiResponseS
             // notifyDataSetChanged();
         }
 
+        public class ViewHolder {
+            RelativeLayout item_layout;
+            TextView info_text;
+            View rack_list_avalablity;
+            ImageView door_img;
+        }
+
+        class MainItemClick implements View.OnClickListener {
+
+            int position;
+            ViewHolder viewHolder;
+
+            MainItemClick(int pos, ViewHolder holder) {
+                position = pos;
+                viewHolder = holder;
+            }
+
+            @Override
+            public void onClick(View view) {
+                if (!grid_cell_name.get(position).getShape_name().equals("")) {
+                    if (!grid_cell_name.get(position).getDoorPosition().equals("1")) {
+
+                        String name = String.valueOf(playersArrayList.get(position).getShapID());
+                        if (prevSelection == -1) //nothing selected
+                        {
+                            playersArrayList.get(position).setChecked(true);
+                            gridCellAdapter.notifyDataSetChanged();
+                            prevSelection = position;
+                            viewHolder.item_layout.setBackgroundResource(R.drawable.green_back);
+                            SelectedGridShapeID = String.valueOf(playersArrayList.get(position).getShapID());
+                            if (playersArrayList.get(position).getRackList().size() > 0) {
+                                SelectedRack_ID = String.valueOf(playersArrayList.get(position).getRackList().get(0).getFldRacksId());
+                            } else {
+                                SelectedRack_ID = "0";
+                            }
+
+                        } else // Some other selection
+                        {
+                            //deselect previously selected
+                            if (prevSelection != position) {
+                                playersArrayList.get(prevSelection).setChecked(false);
+
+                                viewHolder.item_layout.setBackgroundResource(R.drawable.background_edit_square);
+                                playersArrayList.get(position).setChecked(true);
+                                gridCellAdapter.notifyDataSetChanged();
+                                prevSelection = position;
+                                SelectedGridShapeID = String.valueOf(playersArrayList.get(position).getShapID());
+                                if (playersArrayList.get(position).getRackList().size() > 0) {
+                                    SelectedRack_ID = String.valueOf(playersArrayList.get(position).getRackList().get(0).getFldRacksId());
+                                } else {
+                                    SelectedRack_ID = "0";
+                                }
+                            }
+
+                        }
+
+                        if (playersArrayList.get(position).getRackList().size() > 0) {
+                            ShowRack_dialog(prevSelection, holder);
+                        }
+
+                        Log.e("SelectedGridRackID", String.valueOf(SelectedRack_ID));
+                        Log.e("SelectedGridLocation", String.valueOf(SelectedGridShapeID));
+
+                        notifyDataSetChanged();
+                    }
+                }
+            }
+        }
+
         private class CustomRacklistAdapter extends BaseAdapter {
 
             private final String TAG = AddItemFragment.GridCellAdapter.class.getSimpleName();
             Context mContext;
             List<StorageShapeModel.Storage.ShapsList.RackList> CustomRackList;
-
+            ArrayList<Integer> sr_no_list;
             LayoutInflater inflater;
             String teamType;
             private CustomRacklistAdapter.ViewHolder holder;
 
 
-            public CustomRacklistAdapter(Context mContext, List<StorageShapeModel.Storage.ShapsList.RackList> rackList) {
+            public CustomRacklistAdapter(Context mContext, List<StorageShapeModel.Storage.ShapsList.RackList> rackList, ArrayList<Integer> sr_no_list) {
                 this.mContext = mContext;
                 CustomRackList = rackList;
+                this.sr_no_list = sr_no_list;
                 inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             }
 
@@ -2610,20 +2773,26 @@ public class RelocateFragment extends BaseFragment implements VolleyApiResponseS
                     holder.sr_no_txt = convertView.findViewById(R.id.sr_no_txt);
                     holder.rack = convertView.findViewById(R.id.rack);
                     convertView.setTag(holder);
+
+
                 } else {
                     holder = (ViewHolder) convertView.getTag();
                 }
 
-                holder.sr_no_txt.setText(String.valueOf(position + 1));
+                holder.sr_no_txt.setText(String.valueOf(sr_no_list.get(position)));
 
-                if (CustomRackList.get(position).isCheckRack()) {
-                    holder.rack.setBackgroundColor(Color.WHITE);
+                if (!TextUtils.isEmpty(String.valueOf(Selection_rack_no))) {
+                    if (Selection_rack_no.equals(String.valueOf(sr_no_list.get(position)))) {
+                        holder.rack.setBackgroundColor(Color.WHITE);
+                    } else {
+                        holder.rack.setBackgroundColor(Color.parseColor("#41464D"));
+                    }
                 } else {
                     holder.rack.setBackgroundColor(Color.parseColor("#41464D"));
                 }
 
                 holder.rack_relative.setOnClickListener(new RackClick(position, holder));
-                //finalConvertView = convertView;
+
                 return convertView;
             }
 
@@ -2636,7 +2805,7 @@ public class RelocateFragment extends BaseFragment implements VolleyApiResponseS
             class RackClick implements View.OnClickListener {
 
                 int position;
-               ViewHolder viewHolder;
+                ViewHolder viewHolder;
 
                 RackClick(int pos, ViewHolder holder) {
                     position = pos;
@@ -2654,6 +2823,7 @@ public class RelocateFragment extends BaseFragment implements VolleyApiResponseS
                         prevSelection_rack = position;
                         viewHolder.rack.setBackgroundColor(Color.WHITE);
                         SelectedRack_ID = String.valueOf(CustomRackList.get(position).getFldRacksId());
+                        Selection_rack_no = String.valueOf(sr_no_list.get(position));
 
 
                     } else // Some other selection
@@ -2667,6 +2837,7 @@ public class RelocateFragment extends BaseFragment implements VolleyApiResponseS
                             customracklistadapter.notifyDataSetChanged();
                             prevSelection_rack = position;
                             SelectedRack_ID = String.valueOf(CustomRackList.get(position).getFldRacksId());
+                            Selection_rack_no = String.valueOf(sr_no_list.get(position));
 
                         }
 

@@ -54,8 +54,6 @@ public class StorageSearchFragment extends BaseFragment implements View.OnClickL
         imgSearchYard = view.findViewById(R.id.img_search_yard);
         txtViewAllStorage = view.findViewById(R.id.txt_all_storage);
 
-
-
     }
 
     @Override

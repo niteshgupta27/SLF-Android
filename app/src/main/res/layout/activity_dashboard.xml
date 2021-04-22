@@ -37,7 +37,8 @@
                     android:text="STORE"
                     android:textColor="@color/colorWhite"
                     android:textSize="30dp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:visibility="gone"/>
 
 
             </FrameLayout>
@@ -61,7 +62,7 @@
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
                     android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/icon_log" />
+                    app:srcCompat="@drawable/log" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
@@ -71,7 +72,8 @@
                     android:text="LOG"
                     android:textColor="@color/colorWhite"
                     android:textSize="30dp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:visibility="gone"/>
 
 
             </FrameLayout>
@@ -105,7 +107,8 @@
                     android:text="FLOG"
                     android:textColor="@color/colorWhite"
                     android:textSize="30dp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:visibility="gone"/>
 
 
             </FrameLayout>

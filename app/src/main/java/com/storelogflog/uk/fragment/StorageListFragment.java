@@ -66,7 +66,7 @@ public class StorageListFragment extends BaseFragment implements VolleyApiRespon
         txtErrorMsg=view.findViewById(R.id.txt_error_msg);
         llContinue=view.findViewById(R.id.ll_continue);
 
-        ((HomeActivity)getActivity()).enableViews(false,"Storage Yard's");
+        ((HomeActivity)getActivity()).enableViews(false,"My Storage Locations");
         rvStorageYards.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         callStorageListApi();
 

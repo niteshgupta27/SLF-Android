@@ -20,7 +20,7 @@ import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.storelogflog.uk.R;
-import com.storelogflog.uk.apiCall.AddAuctionItemApiCall;
+import com.storelogflog.uk.apiCall.AddAuctionApi;
 import com.storelogflog.uk.apiCall.AddItemApiCall;
 import com.storelogflog.uk.apiCall.AddStorageApiCall;
 import com.storelogflog.uk.apiCall.AddpaymentStorageApiCall;
@@ -56,6 +56,8 @@ import java.lang.ref.WeakReference;
 import java.util.Calendar;
 import java.util.Locale;
 
+import static com.storelogflog.uk.apputil.Constants.pound;
+
 
 public class PaymentActivity extends BaseActivity implements VolleyApiResponseString {
     public static RelativeLayout rlMakePayment;
@@ -73,6 +75,7 @@ public class PaymentActivity extends BaseActivity implements VolleyApiResponseSt
     private Stripe stripe;
     private CardInputWidget cardInputWidget;
     private TextView txt_amount;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -128,13 +131,16 @@ public class PaymentActivity extends BaseActivity implements VolleyApiResponseSt
             } else if (from.equals("AddAuction")) {
                 addAuctionRequestBean = (AddAuctionRequestBean) getIntent().getSerializableExtra("requestData");
                 if (addAuctionRequestBean != null) {
+                    storage1 = (Storage) getIntent().getSerializableExtra("storage");
 
-                    amount = Long.parseLong(addAuctionRequestBean.getAmout());
-                    //callStripeToken(addAuctionRequestBean.getAmout());
+                    amount = addAuctionRequestBean.getAmount();
                     new PaymentTask().execute();
+
+                    txt_amount.setText("I agree to pay " + pound + String.valueOf(addAuctionRequestBean.getShowing_amount()) + " to have my item valued");
 
                 } else {
                     showToast("Something went wrong!");
+                    Log.e("showToast","showToast1");
                 }
 
                 toolbar.setTitle("Add Auction");
@@ -146,15 +152,26 @@ public class PaymentActivity extends BaseActivity implements VolleyApiResponseSt
                     new PaymentTask().execute();
                     storage1 = (Storage) getIntent().getSerializableExtra("storage");
 
+                    txt_amount.setText("Pay to add more than 3 items " + pound + addItemBean.getShowing_amount() + " /year");
 
-                    txt_amount.setText("  I agree to pay £" + addItemBean.getAmount() + "to have my item valued");
                 } else {
                     showToast("Something went wrong!");
                 }
 
-
                 toolbar.setTitle("Add Item");
 
+            } else if (from.equals("StorageRenew")) {
+                storage1 = (Storage) getIntent().getSerializableExtra("storage");
+                if (storage1 != null) {
+                    String amountStr = getIntent().getStringExtra("amount");
+                    amount = Long.parseLong(amountStr);
+                    Log.e("from", from);
+                    new PaymentTask().execute();
+                } else {
+                    showToast("Something went wrong!");
+                }
+
+                toolbar.setTitle("Renew");
             }
 
 
@@ -187,8 +204,9 @@ public class PaymentActivity extends BaseActivity implements VolleyApiResponseSt
             @Override
             public void onClick(View view) {
 
-                PaymentMethodCreateParams params = cardInputWidget.getPaymentMethodCreateParams();
+                Log.e("CLicked", "True");
 
+                PaymentMethodCreateParams params = cardInputWidget.getPaymentMethodCreateParams();
 
                 if (params != null) {
                     ConfirmPaymentIntentParams confirmParams = ConfirmPaymentIntentParams
@@ -200,6 +218,9 @@ public class PaymentActivity extends BaseActivity implements VolleyApiResponseSt
                     );
                     stripe.confirmPayment(PaymentActivity.this, confirmParams);
 
+                    Log.e("params", String.valueOf(params));
+  //                  Log.e("confirmParams", String.valueOf(confirmParams));
+                    Log.e("paymentIntentClient", String.valueOf(paymentIntentClientSecret));
 
                     rlMakePayment.setVisibility(View.GONE);
                     progressBar.setVisibility(View.VISIBLE);
@@ -268,20 +289,36 @@ public class PaymentActivity extends BaseActivity implements VolleyApiResponseSt
 
         if (Utility.isInternetConnected(PaymentActivity.this)) {
 
-
             try {
-                JSONObject jsonObjectPayload = new JSONObject();
-                jsonObjectPayload.put("storage_id", "" + addItemBean.getStorage_id());
-                jsonObjectPayload.put("amount", addItemBean.getAmount());
-                jsonObjectPayload.put("txnid", "" + paymentResponse.getId());
-                jsonObjectPayload.put("date", "" + getDate(paymentResponse.getCreated()));
-                jsonObjectPayload.put("apikey", PreferenceManger.getPreferenceManger().getString(PrefKeys.APIKEY));
+                if (!from.equals("StorageRenew")) {
 
-                Logger.debug(TAG, jsonObjectPayload.toString());
-                Log.e("AddItemAPI", jsonObjectPayload.toString());
-                String token = Utility.getJwtToken(jsonObjectPayload.toString());
-                 showLoading("Loading...");
-                new AddpaymentStorageApiCall(PaymentActivity.this, this, token, Constants.Payment_Storage);
+                    JSONObject jsonObjectPayload = new JSONObject();
+                    jsonObjectPayload.put("storage_id", "" + addItemBean.getStorage_id());
+                    jsonObjectPayload.put("amount", addItemBean.getAmount());
+                    jsonObjectPayload.put("txnid", "" + paymentResponse.getId());
+                    jsonObjectPayload.put("date", "" + getDate(paymentResponse.getCreated()));
+                    jsonObjectPayload.put("apikey", PreferenceManger.getPreferenceManger().getString(PrefKeys.APIKEY));
+
+                    Logger.debug(TAG, jsonObjectPayload.toString());
+                    Log.e("AddItemAPI", jsonObjectPayload.toString());
+                    String token = Utility.getJwtToken(jsonObjectPayload.toString());
+                    showLoading("Loading...");
+                    new AddpaymentStorageApiCall(PaymentActivity.this, this, token, Constants.Payment_Storage);
+                } else {
+
+                    JSONObject jsonObjectPayload = new JSONObject();
+                    jsonObjectPayload.put("storage_id", "" + storage1.getID());
+                    jsonObjectPayload.put("amount", amount);
+                    jsonObjectPayload.put("txnid", "" + paymentResponse.getId());
+                    jsonObjectPayload.put("date", "" + getDate(paymentResponse.getCreated()));
+                    jsonObjectPayload.put("apikey", PreferenceManger.getPreferenceManger().getString(PrefKeys.APIKEY));
+
+                    Logger.debug(TAG, jsonObjectPayload.toString());
+                    Log.e("AddItemAPI", jsonObjectPayload.toString());
+                    String token = Utility.getJwtToken(jsonObjectPayload.toString());
+                    showLoading("Loading...");
+                    new AddpaymentStorageApiCall(PaymentActivity.this, this, token, Constants.Payment_Storage);
+                }
 
             } catch (Exception e) {
                 Log.e("Error===>", e.toString());
@@ -314,7 +351,7 @@ public class PaymentActivity extends BaseActivity implements VolleyApiResponseSt
                 jsonObjectPayload.put("category", addItemBean.getCategory());
                 jsonObjectPayload.put("shape_id", addItemBean.getShape_id());
                 jsonObjectPayload.put("rack_id", addItemBean.getRack_id());
-                jsonObjectPayload.put("currency",addItemBean.getCurrency());
+                jsonObjectPayload.put("currency", addItemBean.getCurrency());
 
                 Logger.debug(TAG, jsonObjectPayload.toString());
                 Log.e("AddItemAPI", jsonObjectPayload.toString());
@@ -357,6 +394,7 @@ public class PaymentActivity extends BaseActivity implements VolleyApiResponseSt
     void callAddAuctionItemApi(PaymentResponse paymentResponse) {
         if (Utility.isInternetConnected(PaymentActivity.this)) {
             try {
+
                 JSONObject jsonObjectPayload = new JSONObject();
                 jsonObjectPayload.put("apikey", PreferenceManger.getPreferenceManger().getString(PrefKeys.APIKEY));
                 jsonObjectPayload.put("storage", "" + addAuctionRequestBean.getStorageId());
@@ -365,13 +403,14 @@ public class PaymentActivity extends BaseActivity implements VolleyApiResponseSt
                 jsonObjectPayload.put("title", "" + addAuctionRequestBean.getItemName());
                 jsonObjectPayload.put("desp", "" + addAuctionRequestBean.getItemDescription());
                 jsonObjectPayload.put("expectedvalue", "" + addAuctionRequestBean.getExpectedValue());
-                jsonObjectPayload.put("amount", "" + paymentResponse.getAmount());
+                jsonObjectPayload.put("amount", "" + addAuctionRequestBean.getAmount());
                 jsonObjectPayload.put("txnid", "" + paymentResponse.getId());
+                jsonObjectPayload.put("category_id ", Integer.parseInt(addAuctionRequestBean.getAuction_category_id()));
 
-
-                Logger.debug(Tag, jsonObjectPayload.toString());
+                Logger.debug(Tag, "AddAuctionItem==========>" + jsonObjectPayload.toString());
                 String token = Utility.getJwtToken(jsonObjectPayload.toString());
-                new AddAuctionItemApiCall(PaymentActivity.this, this, token, Constants.ADD_AUCTION_ITEM_CODE);
+
+                new AddAuctionApi(PaymentActivity.this, this, token, Constants.ADD_AUCTION_ITEM_CODE);
                 showLoading("Loading...");
 
             } catch (JSONException e) {
@@ -488,6 +527,7 @@ public class PaymentActivity extends BaseActivity implements VolleyApiResponseSt
 
             case Constants.ADD_AUCTION_ITEM_CODE:
                 hideLoading();
+                Log.e("APICall_response","true");
 
                 if (response != null) {
                     String[] payload = response.split("\\.");
@@ -501,12 +541,12 @@ public class PaymentActivity extends BaseActivity implements VolleyApiResponseSt
                             if (result == 1) {
                                 showToast(message);
 
-                                if (result == 1) {
-                                    startActivity(new Intent(PaymentActivity.this, HomeActivity.class).
-                                            putExtra("message", message).
-                                            putExtra("From", "AddAuction"));
-                                    finish();
-                                }
+
+                                startActivity(new Intent(PaymentActivity.this, HomeActivity.class).
+                                        putExtra("message", message).
+                                        putExtra("storage", storage1).
+                                        putExtra("From", "AddAuction"));
+                                finish();
                                 //fragment=new LogFragment();
                                 // Common.loadFragment(getActivity(),fragment,false,null);
                             } else {
@@ -533,7 +573,17 @@ public class PaymentActivity extends BaseActivity implements VolleyApiResponseSt
                             int result = getIntFromJsonObj(jsonObject, "result");
                             String message = getStringFromJsonObj(jsonObject, "Message");
                             if (result == 1) {
-                                callAddItem();
+                                if (from.equals("StorageRenew")) {
+                                    startActivity(new Intent(PaymentActivity.this, HomeActivity.class).
+                                            putExtra("From", "StorageRenew").
+                                            putExtra("storage", storage1).
+                                            putExtra("sotrageId", String.valueOf(storage1.getID())).
+                                            putExtra("itemId", String.valueOf(getIntFromJsonObj(jsonObject, "ItemId"))));
+                                    finish();
+                                } else {
+                                    callAddItem();
+
+                                }
                             }
 
 
@@ -663,11 +713,15 @@ public class PaymentActivity extends BaseActivity implements VolleyApiResponseSt
                                 } else if (activity.from.equals("Subscription")) {
                                     activity.callRenewSubcription(paymentResponse);
                                 } else if (activity.from.equals("AddAuction")) {
+                                    Log.e("APICall","true");
                                     activity.callAddAuctionItemApi(paymentResponse);
                                 } else if (activity.from.equals("AddedItems")) {
                                     activity.callPaymentStorage(paymentResponse);
+                                } else if (activity.from.equals("StorageRenew")) {
+                                    activity.callPaymentStorage(paymentResponse);
                                 }
 
+////4639 1700 1413 2072 , 01/23, 418
 
                             } else {
                                 activity.showToast("Data not found");
@@ -714,17 +768,43 @@ public class PaymentActivity extends BaseActivity implements VolleyApiResponseSt
 
     private class PaymentTask extends AsyncTask<String, Void, String> {
 
+        PaymentIntentCreateParams paymentIntentCreateParams;
 
         @Override
         protected String doInBackground(String[] params2) {
 
 
-            com.stripe.Stripe.apiKey = "sk_test_4eC39HqLyjWDarjtT1zdp7dc";
-            PaymentIntentCreateParams paymentIntentCreateParams =
-                    PaymentIntentCreateParams.builder()
-                            .setAmount(200L)
-                            .setCurrency("GBP")
-                            .build();
+            com.stripe.Stripe.apiKey = "sk_live_LHhuTamS0RedSPAoRyBXvY1r005tp24ug2";
+
+            if (from.equals("AddAuction")) {
+                paymentIntentCreateParams =
+                        PaymentIntentCreateParams.builder()
+                                .setAmount(amount)
+                                .setCurrency("GBP")
+                                .setDescription(String.valueOf(addAuctionRequestBean.getAmount()) + "- SLF Item Valuation Fee -" +
+                                        PreferenceManger.getPreferenceManger().getString(PrefKeys.USERFIRSTNAME) + " " +
+                                        PreferenceManger.getPreferenceManger().getString(PrefKeys.USERLASTNAME))
+                                .build();
+
+            } else if (from.equals("AddedItems")) {
+                paymentIntentCreateParams =
+                        PaymentIntentCreateParams.builder()
+                                .setAmount(amount)
+                                .setCurrency("GBP")
+                                .setDescription(String.valueOf(addItemBean.getAmount()) + "- SLF Personal Storage -" +
+                                        PreferenceManger.getPreferenceManger().getString(PrefKeys.USERFIRSTNAME) + " " +
+                                        PreferenceManger.getPreferenceManger().getString(PrefKeys.USERLASTNAME))
+                                .build();
+
+            } else {
+                paymentIntentCreateParams =
+                        PaymentIntentCreateParams.builder()
+                                .setAmount(amount)
+                                .setCurrency("GBP")
+                                .build();
+
+            }
+
             try {
                 PaymentIntent intent = PaymentIntent.create(paymentIntentCreateParams);
                 paymentIntentClientSecret = intent.getClientSecret();
@@ -746,6 +826,7 @@ public class PaymentActivity extends BaseActivity implements VolleyApiResponseSt
                 startCheckout(message);
             } else {
                 showToast("Something went wrong");
+                Log.e("showToast","showToast2");
             }
 
         }

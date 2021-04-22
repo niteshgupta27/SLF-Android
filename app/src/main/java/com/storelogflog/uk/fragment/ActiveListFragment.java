@@ -1,6 +1,7 @@
 package com.storelogflog.uk.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -49,7 +50,7 @@ public class ActiveListFragment extends BaseFragment implements VolleyApiRespons
     private RecyclerView rvItemList;
     private ActiveListAdapter adapter;
     private AppCompatTextView txtErrorMsg;
-    List<ActiveAuction>activeAuctionList;
+    List<ActiveListBean.Auction>activeAuctionList;
 
     @Nullable
     @Override
@@ -89,6 +90,9 @@ public class ActiveListFragment extends BaseFragment implements VolleyApiRespons
                 new ActiveListApiCall(getContext(),this,token, Constants.ACTIVE_LIST_CODE);
                 showLoading("Loading...");
 
+                Log.e(TAG,"auction-list======>"+jsonObjectPayload.toString());
+
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -116,9 +120,11 @@ public class ActiveListFragment extends BaseFragment implements VolleyApiRespons
                         response=Utility.decoded( payload[1]);
                         try {
                             JSONObject jsonObject=new JSONObject(response);
+                            Log.e(TAG,"auction-list_res=====>"+response);
+
                             Logger.debug(TAG,""+jsonObject.toString());
                             int result=getIntFromJsonObj(jsonObject,"result");
-                            String message=getStringFromJsonObj(jsonObject,"message");
+                          //  String message=getStringFromJsonObj(jsonObject,"message");
                             if(result==1)
                             {
                                 ActiveListBean activeListBean =new Gson().fromJson(response.toString(), ActiveListBean.class);

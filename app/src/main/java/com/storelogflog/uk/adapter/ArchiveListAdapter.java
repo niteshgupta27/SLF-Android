@@ -17,7 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.storelogflog.uk.R;
 import com.storelogflog.uk.apputil.Common;
 import com.storelogflog.uk.apputil.Utility;
+import com.storelogflog.uk.bean.ArchiveListBean.ArchiveListBean;
 import com.storelogflog.uk.bean.activeListBean.ActiveAuction;
+import com.storelogflog.uk.bean.activeListBean.ActiveListBean;
 import com.storelogflog.uk.fragment.ViewOffersFragment;
 
 import java.util.ArrayList;
@@ -28,12 +30,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ArchiveListAdapter extends RecyclerView.Adapter<ArchiveListAdapter.ActiveListHolder> implements Filterable {
 
     FragmentActivity activity;
-    List<ActiveAuction> activeAuctionList;
+    List<ArchiveListBean.Auction> activeAuctionList;
     private Fragment fragment;
     private Bundle bundle;
-    List<ActiveAuction>activeAuctionListFiltered;
+    List<ArchiveListBean.Auction>activeAuctionListFiltered;
 
-    public ArchiveListAdapter(FragmentActivity activity, List<ActiveAuction> activeAuctionList) {
+    public ArchiveListAdapter(FragmentActivity activity, List<ArchiveListBean.Auction> activeAuctionList) {
         this.activity = activity;
         this.activeAuctionList=activeAuctionList;
         this.activeAuctionListFiltered=activeAuctionList;
@@ -49,7 +51,7 @@ public class ArchiveListAdapter extends RecyclerView.Adapter<ArchiveListAdapter.
     @Override
     public void onBindViewHolder(@NonNull ActiveListHolder holder, int position) {
 
-        final ActiveAuction activeAuction=activeAuctionListFiltered.get(position);
+        final ArchiveListBean.Auction activeAuction=activeAuctionListFiltered.get(position);
         holder.txtItemName.setText(""+activeAuction.getName());
         holder.txtDescription.setText(""+activeAuction.getDesp());
         holder.txtStorageName.setText(""+activeAuction.getStorageName());
@@ -66,7 +68,7 @@ public class ArchiveListAdapter extends RecyclerView.Adapter<ArchiveListAdapter.
             holder.txtStatusValue.setText("Not Sold");
         }
 
-        Utility.loadImage(activeAuction.getImage(),holder.imgItem);
+        Utility.loadImage(activity, String.valueOf(activeAuction.getImage()),holder.imgItem);
 
         holder.txtViewOffers.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,6 +120,9 @@ public class ArchiveListAdapter extends RecyclerView.Adapter<ArchiveListAdapter.
             txtStatusValue=itemView.findViewById(R.id.txt_status_value);
             txtStorageName=itemView.findViewById(R.id.txt_storage_name);
 
+            txtViewOffer.setVisibility(View.GONE);
+            txtViewOffers.setVisibility(View.GONE);
+
         }
     }
 
@@ -134,10 +139,10 @@ public class ArchiveListAdapter extends RecyclerView.Adapter<ArchiveListAdapter.
                 if (charString.isEmpty()) {
                     activeAuctionListFiltered = activeAuctionList;
                 } else {
-                    ArrayList<ActiveAuction> filteredAuctionList = new ArrayList<>();
+                    ArrayList<ArchiveListBean.Auction> filteredAuctionList = new ArrayList<>();
 
 
-                    for (ActiveAuction model : activeAuctionList) {
+                    for (ArchiveListBean.Auction model : activeAuctionList) {
                         if (model.getName().toLowerCase().contains(charString.toLowerCase())) {
                             filteredAuctionList.add(model);
                         }
@@ -153,7 +158,7 @@ public class ArchiveListAdapter extends RecyclerView.Adapter<ArchiveListAdapter.
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
 
-                activeAuctionListFiltered = (ArrayList<ActiveAuction>) filterResults.values;
+                activeAuctionListFiltered = (ArrayList<ArchiveListBean.Auction>) filterResults.values;
                 notifyDataSetChanged();
             }
         };

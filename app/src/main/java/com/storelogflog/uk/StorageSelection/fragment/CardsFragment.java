@@ -2,13 +2,15 @@ package com.storelogflog.uk.StorageSelection.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
@@ -21,6 +23,7 @@ import com.storelogflog.uk.StorageSelection.adapter.MyCustomPagerAdapter;
 import com.storelogflog.uk.StorageSelection.model.CardViewModel;
 import com.storelogflog.uk.StorageSelection.model.StorageShapeModel;
 import com.storelogflog.uk.activity.HomeActivity;
+import com.storelogflog.uk.apiCall.SearchItemApiCall;
 import com.storelogflog.uk.apiCall.StorageListShapeApiCall;
 import com.storelogflog.uk.apiCall.ViewItemApiCall;
 import com.storelogflog.uk.apiCall.VolleyApiResponseString;
@@ -51,8 +54,9 @@ public class CardsFragment extends BaseFragment implements VolleyApiResponseStri
     List<CardViewModel.Item> cardlist;
     RelativeLayout rlPre, rlNext;
     ImageView img_splash;
+    TextView view_all_item;
     Bundle bundle;
-    String AddedItems = "";
+    String AddedItems = "", value = "";
     ArrayList<String> Location_id_list = new ArrayList<String>();
     ArrayList<String> Shape_id_list = new ArrayList<String>();
     ArrayList<StorageShapeModel.Storage.ShapsList.RackList> Rack_list = new ArrayList<StorageShapeModel.Storage.ShapsList.RackList>();
@@ -71,7 +75,6 @@ public class CardsFragment extends BaseFragment implements VolleyApiResponseStri
             "P", "Q", "R", "S", "T", "U", "V", "W", "X", "y", "Z",
             "AA", "BB", "CC", "DD", "EE", "FF", "GG", "HH", "II", "JJ", "KK", "LL", "MM", "NN", "OO",
             "PP", "QQ", "RR", "SS", "TT", "UU", "VV", "WW", "XX", "Yy", "ZZ"};
-    private String numberofColumn;
     private Storage storage;
     private Fragment fragment;
 
@@ -103,23 +106,28 @@ public class CardsFragment extends BaseFragment implements VolleyApiResponseStri
         viewPager1 = view.findViewById(R.id.viewpager1);
         rlPre = view.findViewById(R.id.rlPre);
         rlNext = view.findViewById(R.id.rlNext);
-
         img_splash = view.findViewById(R.id.img_splash);
-
-
-        ((HomeActivity) getActivity()).enableViews(false, "Single Door Space 2");
+        view_all_item = view.findViewById(R.id.view_all_item);
 
         if (getArguments() != null) {
             storage = (Storage) getArguments().getSerializable("storage");
             if (storage != null) {
+                ((HomeActivity) getActivity()).enableViews(true, storage.getName());
+                 GetStorageShape(storage.getUnitID());
+            }
+        }
+
+        view_all_item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                value = "0";
                 GetStorageShape(storage.getUnitID());
 
             }
-
-
-        }
+        });
 
     }
+
 
     @Override
     public void initListeners() {
@@ -176,6 +184,18 @@ public class CardsFragment extends BaseFragment implements VolleyApiResponseStri
             }
         });
 
+        img_splash.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragment = new AddItemFragment();
+                bundle = new Bundle();
+                bundle.putSerializable("storage", storage);
+                bundle.putString("AddedItems", AddedItems);
+                fragment.setArguments(bundle);
+                Common.loadFragment(getActivity(), fragment, true, null);
+
+            }
+        });
 
     }
 
@@ -200,6 +220,27 @@ public class CardsFragment extends BaseFragment implements VolleyApiResponseStri
 
 
         viewPager1.setCurrentItem(setPos);
+    }
+
+    private void callsearchitem(String itemname, Integer id) {
+        if (Utility.isInternetConnected(mContext)) {
+            try {
+                JSONObject jsonObjectPayload = new JSONObject();
+                jsonObjectPayload.put("apikey", PreferenceManger.getPreferenceManger().getString(PrefKeys.APIKEY));
+                jsonObjectPayload.put("storage_id", String.valueOf(id));
+                jsonObjectPayload.put("text", String.valueOf(itemname));
+
+                Logger.debug(TAG, jsonObjectPayload.toString());
+                String token = Utility.getJwtToken(jsonObjectPayload.toString());
+                new SearchItemApiCall(mContext, CardsFragment.this, token, Constants.Search_storage_Item);
+                showLoading("Loading...");
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Toast.makeText(mContext, "No Internet Connection", Toast.LENGTH_SHORT).show();
+        }
     }
 
 
@@ -247,7 +288,9 @@ public class CardsFragment extends BaseFragment implements VolleyApiResponseStri
     public void onAPiResponseSuccess(String response, int code) {
         switch (code) {
             case Constants.VIEW_ITEM:
+            case Constants.Search_storage_Item:
                 hideLoading();
+
                 if (response != null) {
                     String payload[] = response.split("\\.");
                     if (payload[1] != null) {
@@ -272,129 +315,139 @@ public class CardsFragment extends BaseFragment implements VolleyApiResponseStri
                             Rack_list = new ArrayList<>();
                             GridCell_list = new ArrayList<>();
 
+                            if (cardViewModel.getItems() != null) {
 
-                            if (cardViewModel.getItems().size() > 0) {
-                                for (int i = 0; i < cardViewModel.getItems().size(); i++) {
-                                    Location_id_list.add(String.valueOf(cardViewModel.getItems().get(i).getLocationId()));
-                                    Rack_Value.add(String.valueOf(cardViewModel.getItems().get(i).getRackId()));
+                                if (cardViewModel.getItems().size() > 0) {
+                                    for (int i = 0; i < cardViewModel.getItems().size(); i++) {
+                                        Location_id_list.add(String.valueOf(cardViewModel.getItems().get(i).getLocationId()));
+                                        Rack_Value.add(String.valueOf(cardViewModel.getItems().get(i).getRackId()));
 
-                                }
+                                    }
 
-                                for (int i = 0; i < Shap_list5.size(); i++) {
-                                    Shape_id_list.add(String.valueOf(Shap_list5.get(i).getShapID()));
-                                    Rack_list.addAll(Shap_list5.get(i).getRackList());
-                                    Shape_value_list5.add(Shap_list5.get(i).getShapValue());
-                                }
-
-
-                                for (int i = 0; i < grid_cell.length; i++) {
-                                    GridCell_list.add(grid_cell[i]);
-                                }
+                                    for (int i = 0; i < Shap_list5.size(); i++) {
+                                        Shape_id_list.add(String.valueOf(Shap_list5.get(i).getShapID()));
+                                        Rack_list.addAll(Shap_list5.get(i).getRackList());
+                                        Shape_value_list5.add(Shap_list5.get(i).getShapValue());
+                                    }
 
 
-                                int S = 0;
+                                    for (int i = 0; i < grid_cell.length; i++) {
+                                        GridCell_list.add(grid_cell[i]);
+                                    }
 
-                                for (int i = 0; i < GridCell_list.size(); i++) {
 
-                                    if (i < Shape_value_list5.size()) {
+                                    int S = 0;
 
-                                        int value = Shape_value_list5.get(i);
-                                        if (value == 0) {
-                                            Shap_name_list2.add("");
-                                        } else {
-                                            Log.e(TAG, "value =====> " + value);
-                                            Log.e(TAG, "GridCell_list =====> " + GridCell_list.get(S));
+                                    for (int i = 0; i < GridCell_list.size(); i++) {
 
-                                            Shap_name_list2.add(GridCell_list.get(S));
-                                            S++;
+                                        if (i < Shape_value_list5.size()) {
 
+                                            int value = Shape_value_list5.get(i);
+                                            if (value == 0) {
+                                                Shap_name_list2.add("");
+                                            } else {
+                                                Log.e(TAG, "value =====> " + value);
+                                                Log.e(TAG, "GridCell_list =====> " + GridCell_list.get(S));
+
+                                                Shap_name_list2.add(GridCell_list.get(S));
+                                                S++;
+
+                                            }
                                         }
                                     }
-                                }
 
 
-                                for (int i = 0; i < Shap_name_list2.size(); i++) {
+                                    for (int i = 0; i < Shap_name_list2.size(); i++) {
 
 
-                                    if (i < Shape_id_list.size()) {
+                                        if (i < Shape_id_list.size()) {
 
-                                        for (int k = 0; k < Location_id_list.size(); k++) {
+                                            for (int k = 0; k < Location_id_list.size(); k++) {
 
-                                            for (int j = 0; j < Shape_id_list.size(); j++) {
+                                                for (int j = 0; j < Shape_id_list.size(); j++) {
 
-                                                if (String.valueOf(Shape_id_list.get(j)).equals(String.valueOf(cardViewModel.getItems().get(k).getLocationId()))) {
+                                                    if (String.valueOf(Shape_id_list.get(j)).equals(String.valueOf(cardViewModel.getItems().get(k).getLocationId()))) {
 
-                                                    if (Shap_list5.get(j).getRackList().size() > 0) {
+                                                        if (Shap_list5.get(j).getRackList().size() > 0) {
 
-                                                        for (int l = 0; l < Shap_list5.get(j).getRackList().size(); l++) {
+                                                            for (int l = 0; l < Shap_list5.get(j).getRackList().size(); l++) {
 
-                                                            for (int M = 0; M < cardViewModel.getItems().size(); M++) {
+                                                                for (int M = 0; M < cardViewModel.getItems().size(); M++) {
 
-                                                                if (String.valueOf(Shap_list5.get(j).getRackList().get(l).getFldRacksId()).equals(String.valueOf(cardViewModel.getItems().get(M).getRackId()))) {
-                                                                    RackID_position = String.valueOf(l);
-                                                                    StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
-                                                                    selectedGridModel.setShape_name(Shap_name_list2.get(j) + " - " + RackID_position);
-                                                                    selectedGridModel.setRackID_position(RackID_position);
-                                                                    selectedGridModel.setShape_id2(String.valueOf(Shape_id_list.get(j)));
-                                                                    Shape_name.add(selectedGridModel);
+                                                                    if (String.valueOf(Shap_list5.get(j).getRackList().get(l).getFldRacksId()).equals(String.valueOf(cardViewModel.getItems().get(M).getRackId()))) {
 
-                                                                    Log.e(TAG, "Card_Item====>" + Shap_name_list2.get(j) + " - " + RackID_position);
 
+                                                                        RackID_position = String.valueOf(l);
+                                                                        StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
+                                                                        selectedGridModel.setShape_name(Shap_name_list2.get(j) + " - " + RackID_position);
+                                                                        selectedGridModel.setRackID_position(RackID_position);
+                                                                        selectedGridModel.setRackID(String.valueOf(Shap_list5.get(j).getRackList().get(l).getFldRacksId()));
+                                                                        selectedGridModel.setShape_id2(String.valueOf(Shape_id_list.get(j)));
+                                                                        Shape_name.add(selectedGridModel);
+
+                                                                        Log.e(TAG, "Card_Item_rack====>" + Shap_list5.get(j).getRackList().get(l).getFldRacksId() + " - " + RackID_position);
+
+                                                                    }
                                                                 }
+
                                                             }
+
+                                                        } else {
+                                                            StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
+                                                            selectedGridModel.setShape_name(Shap_name_list2.get(j));
+                                                            selectedGridModel.setRackID_position("");
+                                                            selectedGridModel.setRackID("");
+                                                            selectedGridModel.setShape_id2(String.valueOf(Shape_id_list.get(j)));
+                                                            Shape_name.add(selectedGridModel);
+
+                                                            Log.e(TAG, "Card_Item====>" + Shap_name_list2.get(j));
 
                                                         }
 
-
-                                                    } else {
-                                                        StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
-                                                        selectedGridModel.setShape_name(Shap_name_list2.get(j));
-                                                        selectedGridModel.setRackID_position("");
-                                                        selectedGridModel.setShape_id2(String.valueOf(Shape_id_list.get(j)));
-                                                        Shape_name.add(selectedGridModel);
-
-                                                        Log.e(TAG, "Card_Item====>" + Shap_name_list2.get(j));
-
                                                     }
-
                                                 }
                                             }
+
+
                                         }
-
-
                                     }
-                                }
-                                img_splash.setVisibility(View.GONE);
+                                    img_splash.setVisibility(View.GONE);
 
-                                cardlist = cardViewModel.getItems();
-                                MyCustomPagerAdapter customPagerAdapter = new MyCustomPagerAdapter(getActivity(), cardlist, Shape_name, storage);
-                                viewPager1.setAdapter(customPagerAdapter);
+                                    cardlist = cardViewModel.getItems();
 
-                                if (!String.valueOf(getArguments().getString("position")).equals("null")) {
-                                    Card_position = Integer.parseInt(getArguments().getString("position"));
-                                    Log.e("Card_position", String.valueOf(Card_position));
-                                    viewPager1.setCurrentItem(Card_position);
+
+                                    MyCustomPagerAdapter customPagerAdapter = new MyCustomPagerAdapter(getActivity(), cardlist, Shape_name, storage);
+                                    viewPager1.setAdapter(customPagerAdapter);
+                                    if (!String.valueOf(getArguments().getString("position")).equals("null")) {
+                                        Card_position = Integer.parseInt(getArguments().getString("position"));
+                                        viewPager1.setCurrentItem(Card_position);
+
+                                    } else {
+                                        viewPager1.setCurrentItem(pagNo);
+                                    }
 
                                 } else {
-                                    viewPager1.setCurrentItem(pagNo);
+                                    img_splash.setVisibility(View.VISIBLE);
+                                    view_all_item.setVisibility(View.GONE);
+                                    if (String.valueOf(getArguments().getString("log")).equals("log")) {
+                                        ((HomeActivity) getActivity()).EnableView(true);
+                                    } else {
+
+                                  /*  new Handler().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            fragment = new AddItemFragment();
+                                            bundle = new Bundle();
+                                            bundle.putSerializable("storage", storage);
+                                            bundle.putString("AddedItems", AddedItems);
+                                            fragment.setArguments(bundle);
+                                            Common.loadFragment(getActivity(), fragment, false, null);
+                                        }
+                                    }, 1000);*/
+                                    }
                                 }
 
-
-                            } else {
-                                img_splash.setVisibility(View.VISIBLE);
-                                new Handler().postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        fragment = new AddItemFragment();
-                                        bundle = new Bundle();
-                                        bundle.putSerializable("storage", storage);
-                                        bundle.putString("AddedItems", AddedItems);
-                                        fragment.setArguments(bundle);
-                                        Common.loadFragment(getActivity(), fragment, false, null);
-                                    }
-                                }, 1000);
                             }
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                             Log.e("Error===>", e.toString());
@@ -405,38 +458,72 @@ public class CardsFragment extends BaseFragment implements VolleyApiResponseStri
 
             case Constants.StorageListShape:
                 //  hideLoading();
-                CardItemList(storage);
-                if (response != null) {
-                    String payload[] = response.split("\\.");
-                    if (payload[1] != null) {
-                        response = Utility.decoded(payload[1]);
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-                            Logger.debug(TAG, "" + jsonObject.toString());
-
-                            int result = getIntFromJsonObj(jsonObject, "result");
-                            if (result == 1) {
-
-                                StorageShapeModel storageShapeModel = new Gson().fromJson(response.toString(), StorageShapeModel.class);
-
-                                if (storageShapeModel.getStorage().getShapsList().size() > 0) {
-
-                                    Shap_list5 = storageShapeModel.getStorage().getShapsList();
 
 
+                if (getArguments() != null) {
+
+                    String search = getArguments().getString("search");
+                    if (TextUtils.isEmpty(search)) {
+                        Log.e("callsearchitem", "search");
+                        CardItemList(storage);
+
+                    } else {
+                        if (value.equals("0")) {
+                            CardItemList(storage);
+
+                            view_all_item.setVisibility(View.GONE);
+                        } else {
+                            Log.e("callsearchitem", getArguments().getString("search"));
+                            callsearchitem(getArguments().getString("search"), storage.getID());
+
+                            view_all_item.setVisibility(View.VISIBLE);
+                        }
+
+                    }
+
+                    if (response != null) {
+                        String payload[] = response.split("\\.");
+                        if (payload[1] != null) {
+                            response = Utility.decoded(payload[1]);
+                            try {
+                                JSONObject jsonObject = new JSONObject(response);
+                                Logger.debug(TAG, "" + jsonObject.toString());
+
+                                int result = getIntFromJsonObj(jsonObject, "result");
+                                if (result == 1) {
+
+                                    StorageShapeModel storageShapeModel = new Gson().fromJson(response.toString(), StorageShapeModel.class);
+
+                                    if (storageShapeModel.getStorage().getShapsList().size() > 0) {
+
+                                        Shap_list5 = storageShapeModel.getStorage().getShapsList();
+
+
+                                    }
                                 }
+                            } catch (Exception e) {
                             }
-                        } catch (Exception e) {
                         }
                     }
+                    break;
+
+
                 }
-                break;
         }
     }
 
     @Override
     public void onAPiResponseError(VolleyError error, int code) {
+        switch (code) {
+            case Constants.VIEW_ITEM:
+            case Constants.Search_storage_Item:
+                hideLoading();
+                break;
 
+            case Constants.StorageListShape:
+                hideLoading();
+              break;
+        }
     }
 
 

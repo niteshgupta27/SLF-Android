@@ -42,7 +42,7 @@ public class StorageUnitAdapter extends RecyclerView.Adapter<StorageUnitAdapter.
          holder.txtUnitName.setText(""+unit.getName());
          holder.txtDescription.setText(""+unit.getDesp());
          holder.txtAvailabilityValue.setText(unit.getAvail()+" units");
-         holder.txtPriceValue.setText(Constants.pound+""+unit.getPrice()+" per month");
+         holder.txtPriceValue.setText(unit.getPrice());
 
     }
 

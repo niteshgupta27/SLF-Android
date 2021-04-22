@@ -13,6 +13,7 @@ public final class Constants implements ServerCode {
     public static final String DEVICE_TYPE = "Android";
 
 
+
     public static final String API_REGISTER = "/api/register";
     public static final String API_ALL_COUNTRY = "/api/all-countries";
     public static final String API_ALL_REGIONS = "/api/all-regions";
@@ -30,6 +31,8 @@ public final class Constants implements ServerCode {
     public static final String API_ALL_NOTIFICATIONS = "/api/all-notifications";
     public static final String API_STORAGE_LEAD = "/api/storage-lead";
     public static final String API_ADD_STORAGE = "/api/add-storage";
+    public static final String API_EDIT_STORAGE = "/api/edit-storage";
+    public static final String API_Delete_STORAGE = "/api/Delete-Storage";
     public static final String API_ADD_ITEM = "/api/add-item";
     public static final String API_UPDATE_ITEM = "/api/edit-item";
     public static final String API_Relocate_ITEM = "/api/item-relocate";
@@ -44,6 +47,7 @@ public final class Constants implements ServerCode {
     public static final String API_DELETE_ITEM_PHOTO = "/api/delete-item-photos";
     public static final String API_DELETE_ITEM = "/api/delete-item";
     public static final String API_ADD_AUCTION = "/api/add-auction";
+    public static final String API_AUCTION_Check = "/api/auction_check";
     public static final String API_ACTIVE_LIST = "/api/auction-list";
     public static final String API_ARCHIVE_LIST = "/api/auction-list-archive";
     public static final String API_OFFERS_LIST = "/api/offers-list";
@@ -64,7 +68,8 @@ public final class Constants implements ServerCode {
     public static final String API_AddRack = "/api/add-rack";
     public static final String API_DeleteRack = "/api/Delete-Racks";
     public static  final String API_PaymentStorge = "/api/storage-payment";
-
+    public static  final String API_AuctionCategory = "/api/auction-category-list";
+    public static  final String API_SearchItem = "/api/search-item";
 
     public static final String FROM="from";
     public static final String CONTACT_STORAGE_ACTIVITY="contact_storage";

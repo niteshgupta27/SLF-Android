@@ -59,7 +59,7 @@ public class DashBoardFragment extends BaseFragment implements View.OnClickListe
         cardViewStroe= view.findViewById(R.id.cardView_store);
         cardViewLog= view.findViewById(R.id.cardview_log);
         cardViewFlog= view.findViewById(R.id.cardview_flog);
-        ((HomeActivity)getActivity()).enableViews(false,"Dashboard");
+        ((HomeActivity)getActivity()).enableViews(false,"Home");
 
     }
 

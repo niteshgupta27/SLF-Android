@@ -4,6 +4,7 @@ package com.storelogflog.uk.apiCall;
  */
 
 import android.content.Context;
+import android.util.Log;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -41,12 +42,14 @@ public class SocialLoginApiCall {
             @Override
             public void onResponse(String response) {
 
+                Log.e("Social_Response", response);
                 Logger.debug(TAG,"Response_Token="+response);
                 volleyApiResponseString.onAPiResponseSuccess(response,serverCode);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                Log.e("Social_Response",  Utility.returnErrorMsg(error,mContext));
 
                 Logger.debug(TAG,"Response_Token="+ Utility.returnErrorMsg(error,mContext));
                 volleyApiResponseString.onAPiResponseError(error,serverCode);
@@ -63,6 +66,7 @@ public class SocialLoginApiCall {
 
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("data", token);
+                Log.e("token",token);
                 return params;
             }
         };

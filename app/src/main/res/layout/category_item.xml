@@ -12,12 +12,13 @@
         android:layout_centerInParent="true"
         android:gravity="center"
         android:textSize="@dimen/_14sdp"
+        android:padding="@dimen/_5sdp"
         android:fontFamily="@font/roboto"
  />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_1sdp"
+        android:layout_height="1dp"
         android:background="@color/colorGray"
         android:layout_alignParentBottom="true"/>
 

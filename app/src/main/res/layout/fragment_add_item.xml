@@ -19,11 +19,32 @@
             android:layout_margin="16dp"
             android:orientation="vertical">
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:counterEnabled="true"
+                app:counterMaxLength="35"
+                android:hint="Item Name"
+                android:textColorHint="@color/colorGray"
+                app:counterTextAppearance="@style/counterText">
+
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/edit_item_name"
                 style="@style/mEditText"
-                android:background="@drawable/background_edit_square"
-                android:hint="Item Name" />
+                android:ems="35"
+                android:background="@drawable/background_edit_square" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:counterEnabled="true"
+                app:counterMaxLength="65"
+                android:hint="Item Description"
+                android:textColorHint="@color/colorGray"
+                app:counterTextAppearance="@style/counterText"
+                app:counterOverflowTextAppearance="@style/counterOverride">
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/edit_item_description"
@@ -31,9 +52,10 @@
                 android:layout_height="80dp"
                 android:background="@drawable/background_edit_square"
                 android:gravity="left"
-                android:hint="Item Description"
-                android:inputType="textMultiLine" />
+                android:ems="65"
+                android:inputType="text" />
 
+            </com.google.android.material.textfield.TextInputLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -44,7 +66,7 @@
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/edit_item_value"
                     style="@style/mEditText"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:background="@drawable/background_edit_square"
                     android:hint="Item Value"
                     android:layout_weight="0.2"/>
@@ -680,7 +702,7 @@
             android:gravity="center"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            android:text="Add Item"
+            android:text="Add Photo"
             android:textAllCaps="true"
             android:textColor="@color/colorWhite"
             android:textStyle="bold" />

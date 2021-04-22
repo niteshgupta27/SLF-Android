@@ -46,7 +46,6 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
-            android:layout_toLeftOf="@+id/img_hammer"
             android:layout_toRightOf="@+id/img_item"
             android:text="@string/text_dummy4"
             android:textColor="@color/colorWhite" />

@@ -50,6 +50,7 @@ public class RegisterActivity extends BaseActivity implements VolleyApiResponseS
     private AppCompatEditText editPassword;
     private AppCompatTextView txtRegion;
     private AppCompatTextView txtCountry;
+    private AppCompatEditText Cnfirm_edit_password;
     private ListView lvRegion;
     private ListView lvCountry;
     private ProgressBar progressBarDialog;
@@ -76,7 +77,7 @@ public class RegisterActivity extends BaseActivity implements VolleyApiResponseS
         editPassword=findViewById(R.id.edit_password);
         txtRegion=findViewById(R.id.txt_region);
         txtCountry=findViewById(R.id.txt_country);
-
+        Cnfirm_edit_password = findViewById(R.id.Cnfirm_edit_password);
     }
 
     @Override
@@ -426,9 +427,19 @@ public class RegisterActivity extends BaseActivity implements VolleyApiResponseS
         {
             return showErrorMsg(editPassword,"Password can't be blank");
         }
+
         else if(editPassword.getText().toString().length()<6)
         {
             return showErrorMsg(editPassword,"Password can't be less than 6 digits");
+        }else if(Cnfirm_edit_password.getText().toString().isEmpty())
+        {
+            return showErrorMsg(editPassword,"Confirm password can't be blank");
+        }else if(Cnfirm_edit_password.getText().toString().length()<6)
+        {
+            return showErrorMsg(editPassword,"Confirm password can't be less than 6 digits");
+        }else if(!Cnfirm_edit_password.getText().toString().equals(editPassword.getText().toString().trim()))
+        {
+            return showErrorMsg(editPassword,"Confirm Password can't match with password");
         }
         else
         {

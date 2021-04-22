@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.storelogflog.uk.R;
 import com.storelogflog.uk.apputil.Utility;
-import com.storelogflog.uk.bean.activeListBean.ActiveAuction;
 import com.storelogflog.uk.bean.itemListBean.Item;
 import com.storelogflog.uk.fragment.AddAuctionItemFragment;
 import com.storelogflog.uk.fragment.ItemDetailsFragment;
@@ -68,7 +67,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemLi
             }
         });
 
-        Utility.loadImage(item.getImage(),holder.imgItem);
+        Utility.loadImage(activity, item.getImage(),holder.imgItem);
 
         holder.imgAddAuction.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -51,28 +50,26 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, DrawerLocker, VolleyApiResponseString {
 
+    public static AppCompatImageView imgMenu;
+    public static AppCompatImageView imgBack;
+    public static AppCompatImageView imgSearch;
+    public static AppCompatTextView txtToolBarTitle;
+    public static Toolbar toolbar;
+    public static HomeActivity homeActivity;
+    public AppCompatTextView txtUserName;
+    public AppCompatTextView txtEmail;
+    ActionBarDrawerToggle actionBarDrawerToggle;
     private DrawerLayout drawerLayout;
     private LinearLayout llHeader;
     private Fragment fragment;
     private Bundle bundle;
     private CircleImageView imgProfile;
-    public static AppCompatImageView imgMenu;
-    public static AppCompatImageView imgBack;
-    public static AppCompatImageView imgSearch;
-    public static AppCompatTextView txtToolBarTitle;
-
-    public AppCompatTextView txtUserName;
-    public AppCompatTextView txtEmail;
-    ActionBarDrawerToggle actionBarDrawerToggle;
     private boolean mToolBarNavigationListenerIsRegistered = false;
-    public static Toolbar toolbar;
-    public static HomeActivity homeActivity;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         homeActivity = this;
-        super.onCreate(savedInstanceState);
+       super.onCreate(savedInstanceState);
         //     FirebaseCrashlytics.getInstance().setCustomKey("str_key", "hello");
 
         if (getIntent() != null) {
@@ -105,7 +102,7 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
                 Fragment fragment = new ThankYouFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString("message", getIntent().getStringExtra("message"));
-                bundle.putString("from", Constants.FROM_PAYMENT_SCREEN);
+                bundle.putString("from", Constants.FROM_Add_STORAGE);
                 fragment.setArguments(bundle);
                 Common.loadFragment(HomeActivity.this, fragment, false, null);
 
@@ -119,7 +116,13 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
                 Common.loadFragment(HomeActivity.this, fragment, false, null);
 
             } else if (from.equals("AddAuction")) {
-                fragment = new LogFragment();
+                Fragment fragment = new ThankYouFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("message", getIntent().getStringExtra("message"));
+                bundle.putString("from", "AddAuction");
+                bundle.putSerializable("storage", (Storage) getIntent().getSerializableExtra("storage"));
+                fragment.setArguments(bundle);
+
                 Common.loadFragment(HomeActivity.this, fragment, false, null);
             } else if (from.equals("AddedItems")) {
 
@@ -130,13 +133,20 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
                 bundle.putString("itemId", getIntent().getStringExtra("itemId"));
                 fragment.setArguments(bundle);
                 Common.loadFragment(HomeActivity.this, fragment, false, null);
-            } else  if (from.equals(Constants.FROM_Add_STORAGE)){
+            } else if (from.equals(Constants.FROM_Add_STORAGE)) {
                 Fragment fragment = new ThankYouFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString("message", getIntent().getStringExtra("message"));
                 bundle.putString("from", Constants.FROM_PAYMENT_SCREEN);
                 fragment.setArguments(bundle);
                 Common.loadFragment(HomeActivity.this, fragment, false, null);
+
+            } else if (from.equals("StorageRenew")) {
+                fragment = new StoreFragment();
+                bundle = new Bundle();
+                bundle.putString("from", "store");
+                fragment.setArguments(bundle);
+                Common.loadFragment(HomeActivity.this, fragment, true, null);
 
             }
         }
@@ -146,6 +156,7 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     protected void onResume() {
         super.onResume();
+        callGetProfileApi();
 
 
     }
@@ -178,7 +189,6 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 
-        callGetProfileApi();
 
     }
 
@@ -238,9 +248,13 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
         txtUserName.setText("" + profile.getFirstName());
         txtEmail.setText("" + profile.getEmail());
 
+        Log.e("profileImage",profile.getImage());
+
+        PreferenceManger.getPreferenceManger().setString(PrefKeys.USERFIRSTNAME,profile.getFirstName());
+        PreferenceManger.getPreferenceManger().setString(PrefKeys.USERLASTNAME,profile.getLastName());
 
         if (profile.getImage() != null) {
-            Utility.loadImage(profile.getImage(), imgProfile);
+            Utility.loadImage(HomeActivity.this,profile.getImage(), imgProfile);
         }
     }
 
@@ -383,15 +397,14 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             Logger.debug(Tag, "" + jsonObject.toString());
-                            Log.e("Profile_response",jsonObject.toString());
+                            Log.e("Profile_response", jsonObject.toString());
                             int result = getIntFromJsonObj(jsonObject, "result");
-                            String message = getStringFromJsonObj(jsonObject, "message");
                             if (result == 1) {
                                 ProfileBean profileBean = new Gson().fromJson(response.toString(), ProfileBean.class);
                                 if (profileBean != null && profileBean.getProfile() != null) {
                                     updateUi(profileBean.getProfile());
 
-                                    Log.e("Image",profileBean.getProfile().getImage());
+                                    Log.e("Image", profileBean.getProfile().getImage());
                                 }
 
                             }
@@ -415,6 +428,13 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
 
             case Constants.GET_PROFILE_CODE:
                 break;
+        }
+    }
+
+    public void EnableView(boolean enable) {
+        if (enable) {
+            onBackPressed();
+
         }
     }
 }

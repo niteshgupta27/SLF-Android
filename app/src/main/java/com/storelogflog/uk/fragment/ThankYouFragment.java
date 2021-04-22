@@ -15,6 +15,7 @@ import com.storelogflog.uk.R;
 import com.storelogflog.uk.activity.HomeActivity;
 import com.storelogflog.uk.apputil.Common;
 import com.storelogflog.uk.apputil.Constants;
+import com.storelogflog.uk.bean.storageBean.Storage;
 
 public class ThankYouFragment extends BaseFragment implements View.OnClickListener {
 
@@ -63,6 +64,7 @@ public class ThankYouFragment extends BaseFragment implements View.OnClickListen
             case R.id.ll_continue:
                 if (from.equals(Constants.FROM_CONTACT_STORAGE)) {
                     Common.loadFragment(getActivity(), new StorageListFragment(), false, null);
+
                 } else if (from.equals(Constants.FROM_STORAGE_CLAIM)) {
                     Common.loadFragment(getActivity(), new DashBoardFragment(), false, null);
 
@@ -84,6 +86,14 @@ public class ThankYouFragment extends BaseFragment implements View.OnClickListen
                     Common.loadFragment(getActivity(), fragment, false, null);
 
 
+                } else if (from.equals("AddAuction")) {
+                    Fragment fragment = new LogFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("from", "log");
+                    bundle.putSerializable("storage", (Storage) getArguments().getSerializable("storage"));
+                    fragment.setArguments(bundle);
+
+                    Common.loadFragment(getActivity(), fragment, false, null);
                 }
 
                 break;

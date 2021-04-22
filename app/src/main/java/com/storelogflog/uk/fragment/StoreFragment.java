@@ -1,12 +1,16 @@
 package com.storelogflog.uk.fragment;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -44,15 +48,13 @@ public class StoreFragment extends BaseFragment implements View.OnClickListener,
 
     private StoreAdapter adapter;
     private RecyclerView rvStore;
-    private FloatingActionButton fbAddOwn;
-    private FloatingActionButton fbAddAnother;
     private com.google.android.material.floatingactionbutton.FloatingActionButton menu_floating;
     private Fragment fragment;
     private String from="store",ItemId ="";
     private Bundle bundle;
     List<Storage> storageList;
     private AppCompatTextView txtErrorMsg;
-
+    public static StoreFragment instance;
 
     @Nullable
     @Override
@@ -61,6 +63,9 @@ public class StoreFragment extends BaseFragment implements View.OnClickListener,
         View view = inflater.inflate(R.layout.fragment_store, container, false);
         initViews(view);
         initListeners();
+
+        instance = StoreFragment.this;
+
         return view;
     }
 
@@ -81,7 +86,7 @@ public class StoreFragment extends BaseFragment implements View.OnClickListener,
 
             if (from.equals("store"))
             {
-                ((HomeActivity)getActivity()).enableViews(false,"Storage Yard's");
+                ((HomeActivity)getActivity()).enableViews(false,"My Storage Locations");
 
                 if (!String.valueOf(getArguments().getString(Constants.ItemID)).equals("null")) {
                     ItemId = String.valueOf(getArguments().getString(Constants.ItemID));
@@ -171,14 +176,15 @@ public class StoreFragment extends BaseFragment implements View.OnClickListener,
                 hideLoading();
                 if(response!=null)
                 {
-                    String payload[]=response.split("\\.");
-                    if (payload[1]!=null)
-                    {
-                        response=Utility.decoded( payload[1]);
+                    String[] payload = response.split("\\.");
+                    if (payload[1] != null) {
+                        response = Utility.decoded(payload[1]);
+                        Log.e("payload", String.valueOf(payload[1]));
                         try {
-                            JSONObject jsonObject=new JSONObject(response);
-                            Logger.debug(TAG,""+jsonObject.toString());
-                           int result=getIntFromJsonObj(jsonObject,"result");
+                            JSONObject jsonObject = new JSONObject(response);
+                            Logger.debug(TAG, "" + jsonObject.toString());
+                            Log.e("response", response);
+                            int result=getIntFromJsonObj(jsonObject,"result");
 
                             if(result==1)
                             {
@@ -201,7 +207,7 @@ public class StoreFragment extends BaseFragment implements View.OnClickListener,
                                     }
                                     else if(from.equals("log"))
                                     {
-                                        if(storageBean.getStorage().size()==1)
+                                        /*if(storageBean.getStorage().size()==1)
                                         {
                                             PreferenceManger.getPreferenceManger().setString(PrefKeys.UNITID,storageBean.getStorage().get(0).getUnitID());
                                             PreferenceManger.getPreferenceManger().setString(PrefKeys.STORAGEID,storageBean.getStorage().get(0).getID()+"");
@@ -214,10 +220,10 @@ public class StoreFragment extends BaseFragment implements View.OnClickListener,
                                         }
                                         else
                                         {
-                                            adapter = new StoreAdapter(getActivity(),storageBean.getStorage(),StoreAdapter.LOG, ItemId);
+                                        */    adapter = new StoreAdapter(getActivity(),storageBean.getStorage(),StoreAdapter.LOG, ItemId);
                                             rvStore.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
                                             rvStore.setAdapter(adapter);
-                                        }
+                                       // }
 
 
                                     }
@@ -348,4 +354,6 @@ public class StoreFragment extends BaseFragment implements View.OnClickListener,
 
         return false;
     }
+
+
 }

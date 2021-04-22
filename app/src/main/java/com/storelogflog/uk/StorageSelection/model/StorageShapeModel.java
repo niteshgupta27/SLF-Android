@@ -110,14 +110,26 @@ public class StorageShapeModel {
             private String shape_rack_value;
             private String shape_id2;
             private String RackID_position;
-            private String boderline;
+            private String RackID;
 
-            public String getBoderline() {
-                return boderline;
+
+            private String  DoorPosition;
+
+
+            public String getRackID() {
+                return RackID;
             }
 
-            public void setBoderline(String boderline) {
-                this.boderline = boderline;
+            public void setRackID(String rackID) {
+                RackID = rackID;
+            }
+
+            public String getDoorPosition() {
+                return DoorPosition;
+            }
+
+            public void setDoorPosition(String doorPosition) {
+                DoorPosition = doorPosition;
             }
 
             public String getRackID_position() {

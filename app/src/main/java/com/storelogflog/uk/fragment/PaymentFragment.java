@@ -261,7 +261,7 @@ public class PaymentFragment extends BaseFragment implements View.OnClickListene
         protected String doInBackground(String[] params2) {
 
 
-            com.stripe.Stripe.apiKey = "sk_test_4eC39HqLyjWDarjtT1zdp7dc";
+            com.stripe.Stripe.apiKey = "sk_live_LHhuTamS0RedSPAoRyBXvY1r005tp24ug2";
             PaymentIntentCreateParams paymentIntentCreateParams =
                     PaymentIntentCreateParams.builder()
                             .setAmount(1099L)

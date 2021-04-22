@@ -10,7 +10,34 @@ public class AddAuctionRequestBean implements Serializable {
     private String itemName;
     private String itemDescription;
     private String expectedValue;
-    private String amount;
+    private int amount;
+    private String auction_category_id;
+    private String showing_amount;
+
+    public String getShowing_amount() {
+        return showing_amount;
+    }
+
+    public void setShowing_amount(String showing_amount) {
+        this.showing_amount = showing_amount;
+    }
+
+    public String getAuction_category_id() {
+        return auction_category_id;
+    }
+
+    public void setAuction_category_id(String auction_category_id) {
+        this.auction_category_id = auction_category_id;
+    }
+
+    public int getAmount() {
+        return amount;
+
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
 
     public String getStorageId() {
         return storageId;
@@ -60,11 +87,5 @@ public class AddAuctionRequestBean implements Serializable {
         this.expectedValue = expectedValue;
     }
 
-    public String getAmout() {
-        return amount;
-    }
 
-    public void setAmout(String amount) {
-        this.amount = amount;
-    }
 }

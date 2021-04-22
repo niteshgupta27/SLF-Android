@@ -1,8 +1,6 @@
 package com.storelogflog.uk.fragment;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -25,7 +23,6 @@ import androidx.viewpager.widget.ViewPager;
 import com.android.volley.VolleyError;
 import com.storelogflog.uk.R;
 import com.storelogflog.uk.activity.HomeActivity;
-import com.storelogflog.uk.apiCall.DeleteItemPhotoApiCall;
 import com.storelogflog.uk.apiCall.DeleteItemtApiCall;
 import com.storelogflog.uk.apiCall.VolleyApiResponseString;
 import com.storelogflog.uk.apputil.Common;
@@ -34,7 +31,6 @@ import com.storelogflog.uk.apputil.Logger;
 import com.storelogflog.uk.apputil.PrefKeys;
 import com.storelogflog.uk.apputil.PreferenceManger;
 import com.storelogflog.uk.apputil.Utility;
-import com.storelogflog.uk.bean.itemListBean.Category;
 import com.storelogflog.uk.bean.itemListBean.Item;
 import com.storelogflog.uk.bean.itemListBean.Photo;
 
@@ -402,7 +398,7 @@ public class ItemDetailsFragment extends BaseFragment implements VolleyApiRespon
             container.addView ( view );
             AppCompatImageView imgBanner=view.findViewById(R.id.img_banner);
             Photo photo=photoList.get(position);
-            Utility.loadImage(photo.getURL(),imgBanner);
+            Utility.loadImage(getActivity(), photo.getURL(),imgBanner);
 
             return view;
         }

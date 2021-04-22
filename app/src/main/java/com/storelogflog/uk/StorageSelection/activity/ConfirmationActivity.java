@@ -5,16 +5,22 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.storelogflog.uk.R;
-import com.storelogflog.uk.StorageSelection.adapter.GridAdapter;
 import com.storelogflog.uk.StorageSelection.model.SelectedCellModel;
+import com.storelogflog.uk.StorageSelection.model.StorageShapeModel;
 import com.storelogflog.uk.activity.BaseActivity;
 import com.storelogflog.uk.apputil.ExpandableHeightGridView;
 import com.storelogflog.uk.apputil.PrefKeys;
@@ -28,21 +34,27 @@ public class ConfirmationActivity extends BaseActivity {
     private static final String TAG = "GridCellActivity";
 
     Context mContext;
-    LinearLayout toolbar_back, door_1, door_2, door_3, door_4, door_5,
+    ExpandableHeightGridView Grid_View5, Grid_View4, Grid_View3;
+    ArrayList<SelectedCellModel> GridArrayList = new ArrayList<>();
+    int prevSelection = -1;
+    int SelectedGridDoorPosition;
+    private LinearLayout toolbar_back, door_1, door_2, door_3, door_4, door_5,
             linear_door_1, linear_door_2, linear_door_3, linear_door_4, linear_door_5,
             door_11, door_12, door_13, door_14,
             linear_door_11, linear_door_12, linear_door_13, linear_door_14,
             door_21, door_22, door_23,
             linear_door_21, linear_door_22, linear_door_23;
-    ImageView door_img1, door_img2, door_img3, door_img4, door_img5,
+    private ImageView door_img1, door_img2, door_img3, door_img4, door_img5,
             door_img11, door_img12, door_img13, door_img14,
             door_img21, door_img22, door_img23;
-    ExpandableHeightGridView Grid_View5, Grid_View4,Grid_View3;
-    GridAdapter adapter;
-    TextView proceed_btn;
-    String value = "";
-    LinearLayout Grid5_linear, Grid4_linear,Grid3_linear;
-    ArrayList<SelectedCellModel> GridArrayList = new ArrayList<>();
+    private GridCellAdapter gridCellAdapter;
+    List<SelectedCellModel> arrayList = new ArrayList<>();
+    ArrayList<SelectedCellModel> SelectedPositionArraylist = new ArrayList<>();
+    private TextView proceed_btn;
+    private String value = "";
+    private LinearLayout Grid5_linear, Grid4_linear, Grid3_linear;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +72,7 @@ public class ConfirmationActivity extends BaseActivity {
         toolbar_back = findViewById(R.id.toolbar_back);
         Grid_View5 = findViewById(R.id.Grid_View5);
         Grid_View4 = findViewById(R.id.Grid_View4);
-        Grid_View3 =  findViewById(R.id.Grid_View3);
+        Grid_View3 = findViewById(R.id.Grid_View3);
 
         proceed_btn = findViewById(R.id.proceed_btn);
 
@@ -100,7 +112,6 @@ public class ConfirmationActivity extends BaseActivity {
         door_img14 = findViewById(R.id.door_img14);
 
 
-
         door_21 = findViewById(R.id.door_21);
         door_22 = findViewById(R.id.door_22);
         door_23 = findViewById(R.id.door_23);
@@ -114,13 +125,12 @@ public class ConfirmationActivity extends BaseActivity {
         door_img23 = findViewById(R.id.door_img23);
 
 
-
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
         Gson gson = new Gson();
         String json = sharedPrefs.getString(PrefKeys.GridCell_column, "");
         Type type = new TypeToken<List<SelectedCellModel>>() {
         }.getType();
-        List<SelectedCellModel> arrayList = gson.fromJson(json, type);
+       arrayList = gson.fromJson(json, type);
 
         GridArrayList.addAll(arrayList);
 
@@ -130,26 +140,26 @@ public class ConfirmationActivity extends BaseActivity {
                 Grid5_linear.setVisibility(View.VISIBLE);
                 Grid4_linear.setVisibility(View.GONE);
                 Grid3_linear.setVisibility(View.GONE);
-                adapter = new GridAdapter(mContext, (ArrayList<SelectedCellModel>) arrayList);
+                gridCellAdapter = new GridCellAdapter(mContext,  arrayList);
                 Grid_View5.setNumColumns(Integer.parseInt(sharedPrefs.getString(PrefKeys.numberofColumn, "")));
                 Grid_View5.setExpanded(true);
-                Grid_View5.setAdapter(adapter);
+                Grid_View5.setAdapter(gridCellAdapter);
             } else if (Integer.parseInt(sharedPrefs.getString(PrefKeys.numberofColumn, "")) == 4) {
                 Grid5_linear.setVisibility(View.GONE);
                 Grid4_linear.setVisibility(View.VISIBLE);
                 Grid3_linear.setVisibility(View.GONE);
-                adapter = new GridAdapter(mContext, (ArrayList<SelectedCellModel>) arrayList);
+                gridCellAdapter = new GridCellAdapter(mContext, arrayList);
                 Grid_View4.setNumColumns(Integer.parseInt(sharedPrefs.getString(PrefKeys.numberofColumn, "")));
                 Grid_View4.setExpanded(true);
-                Grid_View4.setAdapter(adapter);
+                Grid_View4.setAdapter(gridCellAdapter);
             } else if (Integer.parseInt(sharedPrefs.getString(PrefKeys.numberofColumn, "")) == 3) {
                 Grid5_linear.setVisibility(View.GONE);
                 Grid4_linear.setVisibility(View.GONE);
                 Grid3_linear.setVisibility(View.VISIBLE);
-                adapter = new GridAdapter(mContext, (ArrayList<SelectedCellModel>) arrayList);
+                gridCellAdapter = new GridCellAdapter(mContext, arrayList);
                 Grid_View3.setNumColumns(Integer.parseInt(sharedPrefs.getString(PrefKeys.numberofColumn, "")));
                 Grid_View3.setExpanded(true);
-                Grid_View3.setAdapter(adapter);
+                Grid_View3.setAdapter(gridCellAdapter);
 
             }
 
@@ -164,23 +174,25 @@ public class ConfirmationActivity extends BaseActivity {
         toolbar_back.setOnClickListener(this);
         proceed_btn.setOnClickListener(this);
 
-        door_1.setOnClickListener(this);
-        door_2.setOnClickListener(this);
-        door_3.setOnClickListener(this);
-        door_4.setOnClickListener(this);
-        door_5.setOnClickListener(this);
+        if (!PreferenceManger.getPreferenceManger().getString(PrefKeys.StorageType).equals(getResources().getString(R.string.loft))) {
+
+            door_1.setOnClickListener(this);
+            door_2.setOnClickListener(this);
+            door_3.setOnClickListener(this);
+            door_4.setOnClickListener(this);
+            door_5.setOnClickListener(this);
 
 
-        door_11.setOnClickListener(this);
-        door_12.setOnClickListener(this);
-        door_13.setOnClickListener(this);
-        door_14.setOnClickListener(this);
+            door_11.setOnClickListener(this);
+            door_12.setOnClickListener(this);
+            door_13.setOnClickListener(this);
+            door_14.setOnClickListener(this);
 
-        door_21.setOnClickListener(this);
-        door_22.setOnClickListener(this);
-        door_23.setOnClickListener(this);
+            door_21.setOnClickListener(this);
+            door_22.setOnClickListener(this);
+            door_23.setOnClickListener(this);
 
-
+        }
     }
 
     @Override
@@ -199,9 +211,38 @@ public class ConfirmationActivity extends BaseActivity {
             case R.id.proceed_btn:
 
                 if (!value.equals("")) {
-                    Intent intent = new Intent(mContext, AddStorageActivity.class);
-                    startActivity(intent);
+                    if (!PreferenceManger.getPreferenceManger().getString(PrefKeys.StorageType).equals(getResources().getString(R.string.loft))) {
+                      Intent intent = new Intent(mContext, AddStorageActivity.class);
+                      startActivity(intent);
 
+                  }else {
+
+                         String shap_value = null;
+                        for (int i = 0; i < arrayList.size(); i++) {
+                            if (arrayList.get(i).isChecked2()) {
+                                if (TextUtils.isEmpty(shap_value)) {
+                                    shap_value = "1";
+
+                                } else {
+                                    shap_value = shap_value + "," + "1";
+                                }
+                            } else {
+                                if (TextUtils.isEmpty(shap_value)) {
+                                    shap_value = "0";
+
+                                } else {
+                                    shap_value = shap_value + "," + "0";
+                                }
+                            }
+                        }
+
+                        Log.e("value",shap_value);
+                        PreferenceManger.getPreferenceManger().setString(PrefKeys.Storage_doors, shap_value);
+
+
+                        Intent intent = new Intent(mContext, AddStorageActivity.class);
+                      startActivity(intent);
+                  }
                 } else {
                     showToast("Please select the position of your doors first!");
                 }
@@ -209,17 +250,6 @@ public class ConfirmationActivity extends BaseActivity {
 
             case R.id.door_1:
                 value = "1";
-                if (PreferenceManger.getPreferenceManger().getString(PrefKeys.StorageType).equals(getResources().getString(R.string.loft))) {
-                    PreferenceManger.getPreferenceManger().setString(PrefKeys.Storage_doors, "1,0,0,0,0");
-                    door_img1.setImageResource(R.drawable.loft_door);
-                    door_img1.setVisibility(View.VISIBLE);
-                    door_img2.setVisibility(View.GONE);
-                    door_img3.setVisibility(View.GONE);
-                    door_img4.setVisibility(View.GONE);
-                    door_img5.setVisibility(View.GONE);
-                }
-                else {
-
                     if (PreferenceManger.getPreferenceManger().getString(PrefKeys.DoorSelection).equals(getResources().getString(R.string.single_door))) {
                         PreferenceManger.getPreferenceManger().setString(PrefKeys.Storage_doors, "1,0,0,0,0");
                         door_img1.setImageResource(R.drawable.doorleft);
@@ -272,24 +302,13 @@ public class ConfirmationActivity extends BaseActivity {
                         door_img5.setVisibility(View.GONE);
 
                     }
-                }
+
 
                 break;
 
             case R.id.door_2:
 
                 value = "1";
-
-                if (PreferenceManger.getPreferenceManger().getString(PrefKeys.StorageType).equals(getResources().getString(R.string.loft))) {
-                    PreferenceManger.getPreferenceManger().setString(PrefKeys.Storage_doors, "0,1,0,0,0");
-                    door_img1.setVisibility(View.GONE);
-                    door_img2.setVisibility(View.VISIBLE);
-                    door_img2.setImageResource(R.drawable.loft_door);
-                    door_img3.setVisibility(View.GONE);
-                    door_img4.setVisibility(View.GONE);
-                    door_img5.setVisibility(View.GONE);
-                }
-                else {
                     if (PreferenceManger.getPreferenceManger().getString(PrefKeys.DoorSelection).equals(getResources().getString(R.string.single_door))) {
                         PreferenceManger.getPreferenceManger().setString(PrefKeys.Storage_doors, "0,1,0,0,0");
                         door_img1.setVisibility(View.GONE);
@@ -341,23 +360,13 @@ public class ConfirmationActivity extends BaseActivity {
                         door_img4.setVisibility(View.GONE);
                         door_img5.setVisibility(View.GONE);
                     }
-                }
+
                 break;
 
 
             case R.id.door_3:
 
                 value = "1";
-                if (PreferenceManger.getPreferenceManger().getString(PrefKeys.StorageType).equals(getResources().getString(R.string.loft))) {
-                    PreferenceManger.getPreferenceManger().setString(PrefKeys.Storage_doors, "0,0,1,0,0");
-                    door_img1.setVisibility(View.GONE);
-                    door_img2.setVisibility(View.GONE);
-                    door_img3.setVisibility(View.VISIBLE);
-                    door_img3.setImageResource(R.drawable.loft_door);
-                    door_img4.setVisibility(View.GONE);
-                    door_img5.setVisibility(View.GONE);
-                }
-                else {
                     if (PreferenceManger.getPreferenceManger().getString(PrefKeys.DoorSelection).equals(getResources().getString(R.string.single_door))) {
                         PreferenceManger.getPreferenceManger().setString(PrefKeys.Storage_doors, "0,0,1,0,0");
                         door_img1.setVisibility(View.GONE);
@@ -409,23 +418,12 @@ public class ConfirmationActivity extends BaseActivity {
                         door_img5.setVisibility(View.GONE);
 
                     }
-                }
-                break;
+               break;
 
 
             case R.id.door_4:
 
                 value = "1";
-                if (PreferenceManger.getPreferenceManger().getString(PrefKeys.StorageType).equals(getResources().getString(R.string.loft))) {
-                    PreferenceManger.getPreferenceManger().setString(PrefKeys.Storage_doors, "0,0,0,1,0");
-                    door_img1.setVisibility(View.GONE);
-                    door_img2.setVisibility(View.GONE);
-                    door_img3.setVisibility(View.GONE);
-                    door_img4.setVisibility(View.VISIBLE);
-                    door_img4.setImageResource(R.drawable.loft_door);
-                    door_img5.setVisibility(View.GONE);
-                }
-                else {
 
                     if (PreferenceManger.getPreferenceManger().getString(PrefKeys.DoorSelection).equals(getResources().getString(R.string.single_door))) {
                         PreferenceManger.getPreferenceManger().setString(PrefKeys.Storage_doors, "0,0,0,1,0");
@@ -479,7 +477,6 @@ public class ConfirmationActivity extends BaseActivity {
 
                     }
 
-                }
 
                 break;
 
@@ -487,17 +484,6 @@ public class ConfirmationActivity extends BaseActivity {
             case R.id.door_5:
 
                 value = "1";
-                if (PreferenceManger.getPreferenceManger().getString(PrefKeys.StorageType).equals(getResources().getString(R.string.loft))) {
-                    PreferenceManger.getPreferenceManger().setString(PrefKeys.Storage_doors, "0,0,0,0,1");
-
-                    door_img1.setVisibility(View.GONE);
-                    door_img2.setVisibility(View.GONE);
-                    door_img3.setVisibility(View.GONE);
-                    door_img4.setVisibility(View.GONE);
-                    door_img5.setVisibility(View.VISIBLE);
-                    door_img5.setImageResource(R.drawable.loft_door);
-                }
-                else {
 
                     if (PreferenceManger.getPreferenceManger().getString(PrefKeys.DoorSelection).equals(getResources().getString(R.string.single_door))) {
                         PreferenceManger.getPreferenceManger().setString(PrefKeys.Storage_doors, "0,0,0,0,1");
@@ -553,21 +539,10 @@ public class ConfirmationActivity extends BaseActivity {
 
                     }
 
-                }
                 break;
 
             case R.id.door_11:
                 value = "1";
-                if (PreferenceManger.getPreferenceManger().getString(PrefKeys.StorageType).equals(getResources().getString(R.string.loft))) {
-                    PreferenceManger.getPreferenceManger().setString(PrefKeys.Storage_doors, "1,0,0,0,0");
-                    door_img11.setImageResource(R.drawable.loft_door);
-                    door_img11.setVisibility(View.VISIBLE);
-                    door_img12.setVisibility(View.GONE);
-                    door_img13.setVisibility(View.GONE);
-                    door_img14.setVisibility(View.GONE);
-
-                }
-                else {
 
                     if (PreferenceManger.getPreferenceManger().getString(PrefKeys.DoorSelection).equals(getResources().getString(R.string.single_door))) {
                         PreferenceManger.getPreferenceManger().setString(PrefKeys.Storage_doors, "1,0,0,0,0");
@@ -619,23 +594,12 @@ public class ConfirmationActivity extends BaseActivity {
                         door_img14.setVisibility(View.GONE);
 
                     }
-                }
 
                 break;
             case R.id.door_12:
 
                 value = "1";
 
-                if (PreferenceManger.getPreferenceManger().getString(PrefKeys.StorageType).equals(getResources().getString(R.string.loft))) {
-                    PreferenceManger.getPreferenceManger().setString(PrefKeys.Storage_doors, "0,1,0,0,0");
-                    door_img11.setVisibility(View.GONE);
-                    door_img12.setVisibility(View.VISIBLE);
-                    door_img12.setImageResource(R.drawable.loft_door);
-                    door_img13.setVisibility(View.GONE);
-                    door_img14.setVisibility(View.GONE);
-
-                }
-                else {
                     if (PreferenceManger.getPreferenceManger().getString(PrefKeys.DoorSelection).equals(getResources().getString(R.string.single_door))) {
                         PreferenceManger.getPreferenceManger().setString(PrefKeys.Storage_doors, "0,1,0,0,0");
                         door_img11.setVisibility(View.GONE);
@@ -684,22 +648,11 @@ public class ConfirmationActivity extends BaseActivity {
                         door_img14.setVisibility(View.GONE);
 
                     }
-                }
                 break;
 
             case R.id.door_13:
 
                 value = "1";
-                if (PreferenceManger.getPreferenceManger().getString(PrefKeys.StorageType).equals(getResources().getString(R.string.loft))) {
-                    PreferenceManger.getPreferenceManger().setString(PrefKeys.Storage_doors, "0,0,1,0,0");
-                    door_img11.setVisibility(View.GONE);
-                    door_img12.setVisibility(View.GONE);
-                    door_img13.setVisibility(View.VISIBLE);
-                    door_img13.setImageResource(R.drawable.loft_door);
-                    door_img14.setVisibility(View.GONE);
-
-                }
-                else {
                     if (PreferenceManger.getPreferenceManger().getString(PrefKeys.DoorSelection).equals(getResources().getString(R.string.single_door))) {
                         PreferenceManger.getPreferenceManger().setString(PrefKeys.Storage_doors, "0,0,1,0,0");
                         door_img11.setVisibility(View.GONE);
@@ -746,21 +699,10 @@ public class ConfirmationActivity extends BaseActivity {
                         door_img14.setVisibility(View.GONE);
 
                     }
-                }
                 break;
             case R.id.door_14:
 
                 value = "1";
-                if (PreferenceManger.getPreferenceManger().getString(PrefKeys.StorageType).equals(getResources().getString(R.string.loft))) {
-                    PreferenceManger.getPreferenceManger().setString(PrefKeys.Storage_doors, "0,0,0,1,0");
-                    door_img11.setVisibility(View.GONE);
-                    door_img12.setVisibility(View.GONE);
-                    door_img13.setVisibility(View.GONE);
-                    door_img14.setVisibility(View.VISIBLE);
-                    door_img14.setImageResource(R.drawable.loft_door);
-
-                }
-                else {
 
                     if (PreferenceManger.getPreferenceManger().getString(PrefKeys.DoorSelection).equals(getResources().getString(R.string.single_door))) {
                         PreferenceManger.getPreferenceManger().setString(PrefKeys.Storage_doors, "0,0,0,1,0");
@@ -811,23 +753,13 @@ public class ConfirmationActivity extends BaseActivity {
 
                     }
 
-                }
+
 
                 break;
 
 
             case R.id.door_21:
                 value = "1";
-                if (PreferenceManger.getPreferenceManger().getString(PrefKeys.StorageType).equals(getResources().getString(R.string.loft))) {
-                    PreferenceManger.getPreferenceManger().setString(PrefKeys.Storage_doors, "1,0,0,0,0");
-                    door_img21.setImageResource(R.drawable.loft_door);
-                    door_img21.setVisibility(View.VISIBLE);
-                    door_img22.setVisibility(View.GONE);
-                    door_img23.setVisibility(View.GONE);
-
-
-                }
-                else {
 
                     if (PreferenceManger.getPreferenceManger().getString(PrefKeys.DoorSelection).equals(getResources().getString(R.string.single_door))) {
                         PreferenceManger.getPreferenceManger().setString(PrefKeys.Storage_doors, "1,0,0,0,0");
@@ -873,23 +805,13 @@ public class ConfirmationActivity extends BaseActivity {
                         door_img23.setVisibility(View.GONE);
 
                     }
-                }
+
 
                 break;
             case R.id.door_22:
 
                 value = "1";
 
-                if (PreferenceManger.getPreferenceManger().getString(PrefKeys.StorageType).equals(getResources().getString(R.string.loft))) {
-                    PreferenceManger.getPreferenceManger().setString(PrefKeys.Storage_doors, "0,1,0,0,0");
-                    door_img11.setVisibility(View.GONE);
-                    door_img12.setVisibility(View.VISIBLE);
-                    door_img12.setImageResource(R.drawable.loft_door);
-                    door_img13.setVisibility(View.GONE);
-                    door_img14.setVisibility(View.GONE);
-
-                }
-                else {
                     if (PreferenceManger.getPreferenceManger().getString(PrefKeys.DoorSelection).equals(getResources().getString(R.string.single_door))) {
                         PreferenceManger.getPreferenceManger().setString(PrefKeys.Storage_doors, "0,1,0,0,0");
                         door_img21.setVisibility(View.GONE);
@@ -916,7 +838,6 @@ public class ConfirmationActivity extends BaseActivity {
                         door_img23.setVisibility(View.GONE);
 
 
-
                         linear_door_21.setBackgroundResource(R.drawable.dash_img);
                         linear_door_22.setBackgroundResource(R.drawable.white_door);
                         linear_door_23.setBackgroundResource(R.drawable.dash_img);
@@ -931,28 +852,17 @@ public class ConfirmationActivity extends BaseActivity {
                         linear_door_23.setBackgroundResource(R.drawable.white_door);
 
 
-
                         door_img21.setVisibility(View.GONE);
                         door_img22.setVisibility(View.GONE);
                         door_img23.setVisibility(View.GONE);
 
                     }
-                }
+
                 break;
 
             case R.id.door_23:
 
                 value = "1";
-                if (PreferenceManger.getPreferenceManger().getString(PrefKeys.StorageType).equals(getResources().getString(R.string.loft))) {
-                    PreferenceManger.getPreferenceManger().setString(PrefKeys.Storage_doors, "0,0,1,0,0");
-                    door_img11.setVisibility(View.GONE);
-                    door_img12.setVisibility(View.GONE);
-                    door_img13.setVisibility(View.VISIBLE);
-                    door_img13.setImageResource(R.drawable.loft_door);
-                    door_img14.setVisibility(View.GONE);
-
-                }
-                else {
                     if (PreferenceManger.getPreferenceManger().getString(PrefKeys.DoorSelection).equals(getResources().getString(R.string.single_door))) {
                         PreferenceManger.getPreferenceManger().setString(PrefKeys.Storage_doors, "0,0,1,0,0");
                         door_img21.setVisibility(View.GONE);
@@ -994,7 +904,6 @@ public class ConfirmationActivity extends BaseActivity {
                         door_img23.setVisibility(View.GONE);
 
                     }
-                }
 
                 break;
 
@@ -1002,7 +911,139 @@ public class ConfirmationActivity extends BaseActivity {
     }
 
 
+
+
+    public class GridCellAdapter extends BaseAdapter {
+
+        private final String TAG = GridCellAdapter.class.getSimpleName();
+        Context mContext;
+        List<SelectedCellModel> playersArrayList;
+        ArrayList<StorageShapeModel.Storage.ShapsList> grid_cell_name;
+        LayoutInflater inflater;
+        String teamType;
+        private GridCellAdapter.ViewHolder holder;
+
+
+
+
+        public GridCellAdapter(Context mContext, List<SelectedCellModel> arrayList) {
+            this.mContext = mContext;
+            this.playersArrayList = arrayList;
+            inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+
+        }
+
+        public int getCount() {
+            return playersArrayList.size();
+        }
+
+        public Object getItem(int position) {
+            return playersArrayList.get(position);
+        }
+
+        public long getItemId(int position) {
+            return playersArrayList.indexOf(getItem(position));
+        }
+
+
+        public View getView(final int position, View convertView, final ViewGroup parent) {
+
+            if (convertView == null) {
+                LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                convertView = inflater.inflate(R.layout.grid_cell_item3, null);
+                holder = new GridCellAdapter.ViewHolder();
+
+                holder.item_layout = convertView.findViewById(R.id.garage_relative);
+                holder.info_text = convertView.findViewById(R.id.info_text);
+                holder.door_img = convertView.findViewById(R.id.door_img);
+
+                convertView.setTag(holder);
+            } else {
+                holder = (GridCellAdapter.ViewHolder) convertView.getTag();
+            }
+
+            if (playersArrayList.get(position).isChecked()) {
+                holder.item_layout.setBackgroundResource(R.drawable.green_back);
+            } else {
+                holder.item_layout.setBackgroundColor(mContext.getResources().getColor(R.color.diactive_grid));
+
+            }
+
+            if (playersArrayList.get(position).isChecked2()) {
+                holder.door_img.setVisibility(View.VISIBLE);
+            } else {
+                holder.door_img.setVisibility(View.GONE);
+
+            }
+
+
+            holder.item_layout.setOnClickListener(new GridCellAdapter.MainItemClick(position, holder));
+            return convertView;
+        }
+
+
+        public class ViewHolder {
+            RelativeLayout item_layout;
+            TextView info_text;
+            ImageView door_img;
+        }
+
+        class MainItemClick implements View.OnClickListener {
+
+            int position;
+            GridCellAdapter.ViewHolder viewHolder;
+
+            MainItemClick(int pos, GridCellAdapter.ViewHolder holder) {
+                position = pos;
+                viewHolder = holder;
+            }
+
+            @Override
+            public void onClick(View view) {
+
+                if (PreferenceManger.getPreferenceManger().getString(PrefKeys.StorageType).equals(getResources().getString(R.string.loft))) {
+                    value = "0";
+                    if (prevSelection == -1) //nothing selected
+                    {
+                        playersArrayList.get(position).setChecked2(true);
+                        arrayList.get(position).setChecked2(true);
+                        gridCellAdapter.notifyDataSetChanged();
+                        prevSelection = position;
+                        viewHolder.door_img.setVisibility(View.VISIBLE);
+                        viewHolder.item_layout.setBackgroundResource(R.drawable.green_back);
+                        SelectedGridDoorPosition = position;
+
+                    } else // Some other selection
+                    {
+                        //deselect previously selected
+                        if (prevSelection != position) {
+                            playersArrayList.get(prevSelection).setChecked2(false);
+                            arrayList.get(prevSelection).setChecked2(false);
+                            viewHolder.item_layout.setBackgroundResource(R.drawable.green_back);
+                            viewHolder.door_img.setVisibility(View.GONE);
+                            playersArrayList.get(position).setChecked2(true);
+                            arrayList.get(position).setChecked2(true);
+
+                            gridCellAdapter.notifyDataSetChanged();
+                            prevSelection = position;
+                            SelectedGridDoorPosition = position;
+                        }
+
+                    }
+
+
+
+                Log.e("SelectedGridLocation", String.valueOf(position));
+
+                notifyDataSetChanged();
+            }
+            }
+        }
+    }
+
 }
+
 
 
 

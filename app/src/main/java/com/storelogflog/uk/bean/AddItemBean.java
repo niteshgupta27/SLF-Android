@@ -3,9 +3,17 @@ package com.storelogflog.uk.bean;
 import java.io.Serializable;
 
 public class AddItemBean implements Serializable {
-    String storage_id,unit_id,name,description,length,width,height,qty,value,unittype,category,shape_id,rack_id,currency;
+    String storage_id,unit_id,name,description,length,width,height,qty,value,unittype,category,shape_id,rack_id,currency,showing_amount;
 
     int amount;
+
+    public String getShowing_amount() {
+        return showing_amount;
+    }
+
+    public void setShowing_amount(String showing_amount) {
+        this.showing_amount = showing_amount;
+    }
 
     public String getCurrency() {
         return currency;

@@ -18,7 +18,6 @@ import com.storelogflog.uk.R;
 import com.storelogflog.uk.apputil.Common;
 import com.storelogflog.uk.apputil.Utility;
 import com.storelogflog.uk.bean.itemListBean.Auction;
-import com.storelogflog.uk.bean.itemListBean.Item;
 import com.storelogflog.uk.fragment.ViewOffersFragment;
 
 import java.util.ArrayList;
@@ -94,7 +93,7 @@ public class AuctionItemsListAdapter extends RecyclerView.Adapter<AuctionItemsLi
         }
 
 
-        Utility.loadImage(auction.getImage(),holder.imgItem);
+        Utility.loadImage(activity, auction.getImage(),holder.imgItem);
 
           holder.txtViewOffers.setOnClickListener(new View.OnClickListener() {
               @Override

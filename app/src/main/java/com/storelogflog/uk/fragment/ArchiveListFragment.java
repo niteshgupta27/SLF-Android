@@ -1,6 +1,7 @@
 package com.storelogflog.uk.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -30,6 +31,7 @@ import com.storelogflog.uk.apputil.Logger;
 import com.storelogflog.uk.apputil.PrefKeys;
 import com.storelogflog.uk.apputil.PreferenceManger;
 import com.storelogflog.uk.apputil.Utility;
+import com.storelogflog.uk.bean.ArchiveListBean.ArchiveListBean;
 import com.storelogflog.uk.bean.activeListBean.ActiveAuction;
 import com.storelogflog.uk.bean.activeListBean.ActiveListBean;
 import com.storelogflog.uk.callBackInterFace.DrawerLocker;
@@ -43,7 +45,7 @@ public class ArchiveListFragment extends BaseFragment implements VolleyApiRespon
 
     private RecyclerView rvItemList;
     private ArchiveListAdapter adapter;
-    List<ActiveAuction> activeAuctionList;
+    List<ArchiveListBean.Auction> activeAuctionList;
     private Fragment fragment;
     private Bundle bundle;
     private AppCompatTextView txtErrorMsg;
@@ -87,6 +89,8 @@ public class ArchiveListFragment extends BaseFragment implements VolleyApiRespon
                 new ArchiveListApiCall(getContext(),this,token, Constants.ARCHIVE_LIST_CODE);
                 showLoading("Loading...");
 
+                Log.e(TAG,"auction-list-archive======>"+jsonObjectPayload.toString());
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -114,19 +118,22 @@ public class ArchiveListFragment extends BaseFragment implements VolleyApiRespon
                     {
                         response=Utility.decoded( payload[1]);
                         try {
+
                             JSONObject jsonObject=new JSONObject(response);
+                            Log.e(TAG,"auction-list-archive_res======>"+response);
+
                             Logger.debug(TAG,""+jsonObject.toString());
                             int result=getIntFromJsonObj(jsonObject,"result");
-                            String message=getStringFromJsonObj(jsonObject,"message");
+                       //     String message=getStringFromJsonObj(jsonObject,"message");
                             if(result==1)
                             {
-                                ActiveListBean activeListBean =new Gson().fromJson(response.toString(), ActiveListBean.class);
-                                if(activeListBean!=null && activeListBean.getAuctions()!=null && activeListBean.getAuctions().size()>0)
+                                ArchiveListBean archiveListBean =new Gson().fromJson(response.toString(), ArchiveListBean.class);
+                                if(archiveListBean!=null && archiveListBean.getAuctions()!=null && archiveListBean.getAuctions().size()>0)
                                 {
                                     rvItemList.setVisibility(View.VISIBLE);
                                     txtErrorMsg.setVisibility(View.GONE);
-                                    activeAuctionList=activeListBean.getAuctions();
-                                    adapter = new ArchiveListAdapter(getActivity(),activeListBean.getAuctions());
+                                    activeAuctionList=archiveListBean.getAuctions();
+                                    adapter = new ArchiveListAdapter(getActivity(),archiveListBean.getAuctions());
                                     rvItemList.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
                                     rvItemList.setAdapter(adapter);
                                 }

@@ -1,6 +1,7 @@
 package com.storelogflog.uk.adapter;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.storelogflog.uk.R;
 import com.storelogflog.uk.apputil.Utility;
 import com.storelogflog.uk.bean.activeListBean.ActiveAuction;
+import com.storelogflog.uk.bean.activeListBean.ActiveListBean;
 import com.storelogflog.uk.bean.storageBean.Storage;
 import com.storelogflog.uk.fragment.ViewOffersFragment;
 import com.storelogflog.uk.apputil.Common;
@@ -29,12 +31,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ActiveListAdapter extends RecyclerView.Adapter<ActiveListAdapter.ActiveListHolder> implements Filterable {
 
     FragmentActivity activity;
-    List<ActiveAuction>activeAuctionList;
-    List<ActiveAuction>activeAuctionListFiltered;
+    List<ActiveListBean.Auction>activeAuctionList;
+    List<ActiveListBean.Auction>activeAuctionListFiltered;
     private Fragment fragment;
     private Bundle bundle;
 
-    public ActiveListAdapter(FragmentActivity activity,List<ActiveAuction>activeAuctionList) {
+    public ActiveListAdapter(FragmentActivity activity,List<ActiveListBean.Auction>activeAuctionList) {
         this.activity = activity;
         this.activeAuctionList=activeAuctionList;
         this.activeAuctionListFiltered=activeAuctionList;
@@ -50,7 +52,7 @@ public class ActiveListAdapter extends RecyclerView.Adapter<ActiveListAdapter.Ac
     @Override
     public void onBindViewHolder(@NonNull ActiveListHolder holder, int position) {
 
-        final ActiveAuction activeAuction=activeAuctionListFiltered.get(position);
+        final ActiveListBean.Auction activeAuction=activeAuctionListFiltered.get(position);
         holder.txtItemName.setText(""+activeAuction.getName());
         holder.txtDescription.setText(""+activeAuction.getDesp());
         holder.txtOffers.setText(activeAuction.getTotalOffers()+" Offers");
@@ -60,10 +62,11 @@ public class ActiveListAdapter extends RecyclerView.Adapter<ActiveListAdapter.Ac
 
         if (activeAuction.getStatus().equals("W"))
         {
-             holder.txtStatusValue.setText("Waiting for offer");
+             holder.txtStatusValue.setText("Waiting for estimate");
              holder.llOffersChild.setVisibility(View.GONE);
              holder.llStatus.setVisibility(View.VISIBLE);
              holder.txtViewOffer2.setVisibility(View.GONE);
+
         }
         else if(activeAuction.getStatus().equals("P"))
         {
@@ -72,14 +75,28 @@ public class ActiveListAdapter extends RecyclerView.Adapter<ActiveListAdapter.Ac
             holder.llStatus.setVisibility(View.VISIBLE);
             holder.txtViewOffer2.setVisibility(View.GONE);
         }
-        else if (activeAuction.getStatus().equals("O"))
-        {
+        else  if(activeAuction.getStatus().equals("A")){
+            holder.txtStatusValue.setText("Offer accepted");
+            holder.llOffersChild.setVisibility(View.GONE);
+            holder.llStatus.setVisibility(View.VISIBLE);
+            holder.txtViewOffer2.setVisibility(View.GONE);
+        }else if (activeAuction.getStatus().equals("S")){
+            holder.txtStatusValue.setText("Sold");
+            holder.llOffersChild.setVisibility(View.GONE);
+            holder.llStatus.setVisibility(View.VISIBLE);
+            holder.txtViewOffer2.setVisibility(View.GONE);
+        }else if (activeAuction.getStatus().equals("N")){
+            holder.txtStatusValue.setText("Not Sold");
+            holder.llOffersChild.setVisibility(View.GONE);
+            holder.llStatus.setVisibility(View.VISIBLE);
+            holder.txtViewOffer2.setVisibility(View.GONE);
+        } else if (activeAuction.getStatus().equals("O")) {
             holder.llOffersChild.setVisibility(View.VISIBLE);
             holder.llStatus.setVisibility(View.GONE);
         }
 
-        Utility.loadImage(activeAuction.getImage(),holder.imgItem);
-
+        Utility.loadImage(activity, String.valueOf(activeAuction.getImage()),holder.imgItem);
+        Log.e("Image",String.valueOf(activeAuction.getImage()));
 
         holder.txtViewOffers.setOnClickListener(new View.OnClickListener() {
               @Override
@@ -118,6 +135,7 @@ public class ActiveListAdapter extends RecyclerView.Adapter<ActiveListAdapter.Ac
         private AppCompatTextView txtStorageName;
         private CircleImageView imgItem;
 
+
         public ActiveListHolder(@NonNull View itemView) {
             super(itemView);
             llOffersChild=itemView.findViewById(R.id.ll_offers_child);
@@ -147,10 +165,10 @@ public class ActiveListAdapter extends RecyclerView.Adapter<ActiveListAdapter.Ac
                 if (charString.isEmpty()) {
                     activeAuctionListFiltered = activeAuctionList;
                 } else {
-                    ArrayList<ActiveAuction> filteredAuctionList = new ArrayList<>();
+                    ArrayList<ActiveListBean.Auction> filteredAuctionList = new ArrayList<>();
 
 
-                    for (ActiveAuction model : activeAuctionList) {
+                    for (ActiveListBean.Auction model : activeAuctionList) {
                         if (model.getName().toLowerCase().contains(charString.toLowerCase())) {
                             filteredAuctionList.add(model);
                         }
@@ -166,7 +184,7 @@ public class ActiveListAdapter extends RecyclerView.Adapter<ActiveListAdapter.Ac
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
 
-                activeAuctionListFiltered = (ArrayList<ActiveAuction>) filterResults.values;
+                activeAuctionListFiltered = (ArrayList<ActiveListBean.Auction>) filterResults.values;
                 notifyDataSetChanged();
             }
         };

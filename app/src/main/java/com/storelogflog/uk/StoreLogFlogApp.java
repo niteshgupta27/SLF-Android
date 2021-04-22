@@ -14,7 +14,7 @@ public class StoreLogFlogApp extends Application {
         PicassoManger.initPicassoInstance(getApplicationContext());
         PaymentConfiguration.init(
                 getApplicationContext(),
-                "pk_test_TYooMQauvdEDq54NiTphI7jx"
+                "pk_live_zGBP0ZoG0tg6J0focqhzxHnm008rainrKD"
         );
 
 

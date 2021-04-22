@@ -8,7 +8,6 @@ import android.widget.Filter;
 import android.widget.Filterable;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.cardview.widget.CardView;
@@ -58,7 +57,7 @@ public class LocalStorageSearchAdapter extends RecyclerView.Adapter<LocalStorage
         holder.txtCity.setText(""+storage.getCity());
         holder.txtDescription.setText(""+storage.getShortDesp());
 
-        Utility.loadImage(storage.getImage(),holder.imgStorage);
+        Utility.loadImage(activity, storage.getImage(),holder.imgStorage);
 
         holder.cardViewTop.setOnClickListener(new View.OnClickListener() {
             @Override

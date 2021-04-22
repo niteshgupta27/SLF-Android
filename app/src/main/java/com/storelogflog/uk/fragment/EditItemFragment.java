@@ -3,6 +3,7 @@ package com.storelogflog.uk.fragment;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -38,6 +39,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.storelogflog.uk.R;
 import com.storelogflog.uk.StorageSelection.model.CardViewModel;
 import com.storelogflog.uk.StorageSelection.model.StorageShapeModel;
@@ -49,6 +51,7 @@ import com.storelogflog.uk.apiCall.GetListCategoryApiCall;
 import com.storelogflog.uk.apiCall.PricingApiCall;
 import com.storelogflog.uk.apiCall.StorageListShapeApiCall;
 import com.storelogflog.uk.apiCall.UpdateItemApiCall;
+import com.storelogflog.uk.apiCall.ViewItemApiCall;
 import com.storelogflog.uk.apiCall.VolleyApiResponseString;
 import com.storelogflog.uk.apputil.Common;
 import com.storelogflog.uk.apputil.Constants;
@@ -67,7 +70,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+
+import static com.storelogflog.uk.apputil.Utility.UNRELIABLE_INTEGER_FACTORY;
 
 
 public class EditItemFragment extends BaseFragment implements View.OnClickListener, VolleyApiResponseString {
@@ -92,14 +99,12 @@ public class EditItemFragment extends BaseFragment implements View.OnClickListen
     GridCellAdapter gridCellAdapter;
     int pondValue;
     int prevSelection = -1;
-    private  MenuItem action_edit_menu;
-    String SelectedGridShapeID, SelectedRack_ID, Selectedshape_name = "", Shape_id2, RackID_position;
+    String SelectedGridShapeID, SelectedRack_ID, Selectedshape_name = "", Shape_id2, RackID_position,RackID;
     ArrayList<StorageShapeModel.Storage.ShapsList> Shape_name = new ArrayList<StorageShapeModel.Storage.ShapsList>();
     String[] grid_cell = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O",
             "P", "Q", "R", "S", "T", "U", "V", "W", "X", "y", "Z",
             "AA", "BB", "CC", "DD", "EE", "FF", "GG", "HH", "II", "JJ", "KK", "LL", "MM", "NN", "OO",
             "PP", "QQ", "RR", "SS", "TT", "UU", "VV", "WW", "XX", "Yy", "ZZ"};
-
     ArrayList<String> GridCell_list = new ArrayList<>();
     List<StorageShapeModel.Storage.ShapsList> Shap_list5 = new ArrayList<>();
     List<StorageShapeModel.Storage.ShapsList> Shap_list4 = new ArrayList<>();
@@ -109,6 +114,8 @@ public class EditItemFragment extends BaseFragment implements View.OnClickListen
     ArrayList<Integer> Shape_value_list3 = new ArrayList<>();
     GridCellAdapter.CustomRacklistAdapter customracklistadapter;
     int prevSelection_rack = -1;
+    String Selection_rack_no="";
+    private MenuItem action_edit_menu;
     private AppCompatEditText editItemName, editItemDescription, editItemValue, editItemQty, editLength,
             editWidth, editHeight;
     private AppCompatTextView txtInch;
@@ -116,7 +123,6 @@ public class EditItemFragment extends BaseFragment implements View.OnClickListen
     private RecyclerView rvCategory;
     private Storage storage1;
     private CardViewModel.Item item;
-    private int locationNo = -1;
     private CategoryItemAdapter2 adapter;
     private AppCompatTextView txtAddCategory;
     private String numberofColumn;
@@ -227,6 +233,7 @@ public class EditItemFragment extends BaseFragment implements View.OnClickListen
             Log.e("Item_ID", String.valueOf(item.getID()));
             Shape_id2 = getArguments().getString("Shape_id2");
             RackID_position = getArguments().getString("RackID_position");
+            RackID = getArguments().getString("RackID");
 
 
             if (storage1 != null) {
@@ -361,7 +368,7 @@ public class EditItemFragment extends BaseFragment implements View.OnClickListen
             return showErrorMsg(editItemName, "Item name can't be blank");
         } else if (editItemDescription.getText().toString().isEmpty()) {
             return showErrorMsg(editItemDescription, "Description can't be blank");
-        } else if (editItemValue.getText().toString().isEmpty()) {
+        } /*else if (editItemValue.getText().toString().isEmpty()) {
             return showErrorMsg(editItemValue, "Item value can't be blank");
         } else if (editItemQty.getText().toString().isEmpty()) {
             return showErrorMsg(editItemQty, "Item Qty can't be blank");
@@ -377,7 +384,7 @@ public class EditItemFragment extends BaseFragment implements View.OnClickListen
         } else if (adapter != null && adapter.getSelectedCatId().size() == 0) {
             showToast(getActivity(), "Please add and select category first");
             return false;
-        } else if (TextUtils.isEmpty(SelectedGridShapeID)) {
+        } */ else if (TextUtils.isEmpty(SelectedGridShapeID)) {
             showToast(getActivity(), "Please select item location");
             return false;
 
@@ -421,7 +428,14 @@ public class EditItemFragment extends BaseFragment implements View.OnClickListen
                         jsonObjectPayload.put("value", "" + editItemValue.getText().toString());
                         jsonObjectPayload.put("unittype", unittype);
                         jsonObjectPayload.put("apikey", PreferenceManger.getPreferenceManger().getString(PrefKeys.APIKEY));
-                        jsonObjectPayload.put("category", getJsonCat(adapter.getSelectedCatId()));
+
+                        if (adapter.getSelectedCatId().size() == 0) {
+                            jsonObjectPayload.put("category", "[]");
+
+                        } else {
+                            jsonObjectPayload.put("category", getJsonCat(adapter.getSelectedCatId()));
+
+                        }
                         jsonObjectPayload.put("shape_id", SelectedGridShapeID);
                         jsonObjectPayload.put("rack_id", SelectedRack_ID);
                         jsonObjectPayload.put("item_id", item.getID());
@@ -528,6 +542,24 @@ public class EditItemFragment extends BaseFragment implements View.OnClickListen
         }
     }
 
+    private void CardItemList(Storage storage) {
+
+
+        try {
+            JSONObject jsonObjectPayload = new JSONObject();
+            jsonObjectPayload.put("apikey", PreferenceManger.getPreferenceManger().getString(PrefKeys.APIKEY));
+            jsonObjectPayload.put("unit_id", storage.getUnitID());
+            Logger.debug(TAG, jsonObjectPayload.toString());
+            String token = Utility.getJwtToken(jsonObjectPayload.toString());
+            new ViewItemApiCall(mContext, this, token, Constants.VIEW_ITEM);
+            //   showLoading("Login...");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
     @Override
     public void onAPiResponseSuccess(String response, int code) {
@@ -551,11 +583,13 @@ public class EditItemFragment extends BaseFragment implements View.OnClickListen
                                 Fragment fragment = new PhotoFragment();
                                 Bundle bundle = new Bundle();
                                 bundle.putSerializable("storage", storage1);
+                                bundle.putString("Fragment", "Edit Item Fragment");
                                 bundle.putString("sotrageId", String.valueOf(storage1.getID()));
-                                bundle.putString("itemId", String.valueOf(getIntFromJsonObj(jsonObject, "ItemId")));
+                                bundle.putString("itemId", String.valueOf(item.getID()));
                                 bundle.putString("position", getArguments().getString("position"));
+
                                 fragment.setArguments(bundle);
-                                Common.loadFragment(getActivity(), fragment, false, null);
+                                Common.loadFragment(getActivity(), fragment, true, null);
 
                             } else {
                                 //   showToast(getActivity(), message);
@@ -829,86 +863,199 @@ public class EditItemFragment extends BaseFragment implements View.OnClickListen
                                             }
 
 
-                                            if (numberofColumn.equals("5")) {
-                                                int j = 0;
-                                                for (int i = 0; i < GridCell_list.size(); i++) {
-
-                                                    if (i < Shape_value_list5.size()) {
-
-                                                        int value = Shape_value_list5.get(i);
-                                                        if (value == 0) {
-                                                            Log.e(TAG, "value =====> " + value);
-                                                            StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
-                                                            selectedGridModel.setShape_name("");
-                                                            Shape_name.add(selectedGridModel);
-                                                        } else {
-                                                            Log.e(TAG, "value =====> " + value);
-                                                            Log.e(TAG, "GridCell_list =====> " + GridCell_list.get(j));
+                                            if (storageShapeModel.getStorage().getDoorType().equals("5")) {
+                                                String door = String.valueOf(storageShapeModel.getStorage().getDoors());
+                                                List<String> myList = new ArrayList<String>(Arrays.asList(door.split(",")));
 
 
-                                                            StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
-                                                            selectedGridModel.setShape_name(GridCell_list.get(j));
-                                                            Shape_name.add(selectedGridModel);
+                                                if (numberofColumn.equals("5")) {
+                                                    int j = 0;
+                                                    for (int i = 0; i < GridCell_list.size(); i++) {
 
-                                                            j++;
+                                                        if (i < Shape_value_list5.size()) {
 
+                                                            int value = Shape_value_list5.get(i);
+                                                            if (value == 0) {
+                                                                Log.e(TAG, "value =====> " + value);
+                                                                StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
+                                                                selectedGridModel.setShape_name("");
+                                                                selectedGridModel.setDoorPosition("");
+                                                                Shape_name.add(selectedGridModel);
+                                                                Log.e("door_array", myList.get(j));
+                                                            } else {
+                                                                Log.e(TAG, "value =====> " + value);
+                                                                Log.e(TAG, "GridCell_list =====> " + GridCell_list.get(j));
+
+
+                                                                StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
+                                                                selectedGridModel.setShape_name(GridCell_list.get(j));
+                                                                selectedGridModel.setDoorPosition(myList.get(j));
+
+                                                                Shape_name.add(selectedGridModel);
+
+                                                                Log.e("door_array", myList.get(j));
+
+                                                                j++;
+
+                                                            }
+                                                        }
+                                                    }
+                                                } else if (numberofColumn.equals("4")) {
+                                                    int j = 0;
+                                                    for (int i = 0; i < GridCell_list.size(); i++) {
+
+                                                        if (i < Shape_value_list4.size()) {
+
+                                                            int value = Shape_value_list4.get(i);
+
+                                                            if (value == 0) {
+                                                                Log.e(TAG, "value =====> " + value);
+                                                                StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
+                                                                selectedGridModel.setShape_name("");
+                                                                selectedGridModel.setDoorPosition("");
+                                                                Shape_name.add(selectedGridModel);
+                                                            } else {
+                                                                Log.e(TAG, "value =====> " + value);
+                                                                Log.e(TAG, "GridCell_list =====> " + GridCell_list.get(j));
+
+
+                                                                StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
+                                                                selectedGridModel.setShape_name(GridCell_list.get(j));
+                                                                selectedGridModel.setDoorPosition(myList.get(j));
+                                                                Shape_name.add(selectedGridModel);
+
+                                                                j++;
+
+                                                            }
+                                                        }
+                                                    }
+                                                } else if (numberofColumn.equals("3")) {
+                                                    int j = 0;
+                                                    for (int i = 0; i < GridCell_list.size(); i++) {
+
+                                                        if (i < Shape_value_list3.size()) {
+
+                                                            int value = Shape_value_list3.get(i);
+
+                                                            if (value == 0) {
+                                                                Log.e(TAG, "value =====> " + value);
+                                                                StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
+                                                                selectedGridModel.setShape_name("");
+                                                                selectedGridModel.setDoorPosition("");
+                                                                Shape_name.add(selectedGridModel);
+                                                                Log.e("door_array", myList.get(j));
+                                                            } else {
+                                                                Log.e(TAG, "value =====> " + value);
+                                                                Log.e(TAG, "GridCell_list =====> " + GridCell_list.get(j));
+
+
+                                                                StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
+                                                                selectedGridModel.setShape_name(GridCell_list.get(j));
+                                                                selectedGridModel.setDoorPosition(myList.get(j));
+                                                                Shape_name.add(selectedGridModel);
+
+                                                                j++;
+
+                                                            }
                                                         }
                                                     }
                                                 }
-                                            } else if (numberofColumn.equals("4")) {
-                                                int j = 0;
-                                                for (int i = 0; i < GridCell_list.size(); i++) {
+                                            } else {
+                                                if (numberofColumn.equals("5")) {
+                                                    int j = 0;
+                                                    for (int i = 0; i < GridCell_list.size(); i++) {
 
-                                                    if (i < Shape_value_list4.size()) {
+                                                        if (i < Shape_value_list5.size()) {
 
-                                                        int value = Shape_value_list4.get(i);
+                                                            int value = Shape_value_list5.get(i);
+                                                            if (value == 0) {
+                                                                Log.e(TAG, "value =====> " + value);
+                                                                StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
+                                                                selectedGridModel.setShape_name("");
+                                                                selectedGridModel.setDoorPosition("");
+                                                                Shape_name.add(selectedGridModel);
 
-                                                        if (value == 0) {
-                                                            Log.e(TAG, "value =====> " + value);
-                                                            StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
-                                                            selectedGridModel.setShape_name("");
-                                                            Shape_name.add(selectedGridModel);
+                                                            } else {
+                                                                Log.e(TAG, "value =====> " + value);
+                                                                Log.e(TAG, "GridCell_list =====> " + GridCell_list.get(j));
 
-                                                        } else {
-                                                            Log.e(TAG, "value =====> " + value);
-                                                            Log.e(TAG, "GridCell_list =====> " + GridCell_list.get(j));
 
-                                                            StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
-                                                            selectedGridModel.setShape_name(GridCell_list.get(j));
-                                                            Shape_name.add(selectedGridModel);
+                                                                StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
+                                                                selectedGridModel.setShape_name(GridCell_list.get(j));
+                                                                selectedGridModel.setDoorPosition("");
 
-                                                            j++;
+                                                                Shape_name.add(selectedGridModel);
 
+
+                                                                j++;
+
+                                                            }
+                                                        }
+                                                    }
+                                                } else if (numberofColumn.equals("4")) {
+                                                    int j = 0;
+                                                    for (int i = 0; i < GridCell_list.size(); i++) {
+
+                                                        if (i < Shape_value_list4.size()) {
+
+                                                            int value = Shape_value_list4.get(i);
+
+                                                            if (value == 0) {
+                                                                Log.e(TAG, "value =====> " + value);
+                                                                StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
+                                                                selectedGridModel.setShape_name("");
+                                                                selectedGridModel.setDoorPosition("");
+                                                                Shape_name.add(selectedGridModel);
+
+                                                            } else {
+                                                                Log.e(TAG, "value =====> " + value);
+                                                                Log.e(TAG, "GridCell_list =====> " + GridCell_list.get(j));
+
+
+                                                                StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
+                                                                selectedGridModel.setShape_name(GridCell_list.get(j));
+                                                                selectedGridModel.setDoorPosition("");
+
+                                                                Shape_name.add(selectedGridModel);
+
+                                                                j++;
+
+                                                            }
+                                                        }
+                                                    }
+                                                } else if (numberofColumn.equals("3")) {
+                                                    int j = 0;
+                                                    for (int i = 0; i < GridCell_list.size(); i++) {
+
+                                                        if (i < Shape_value_list3.size()) {
+
+                                                            int value = Shape_value_list3.get(i);
+
+                                                            if (value == 0) {
+                                                                Log.e(TAG, "value =====> " + value);
+                                                                StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
+                                                                selectedGridModel.setShape_name("");
+                                                                selectedGridModel.setDoorPosition("");
+                                                                Shape_name.add(selectedGridModel);
+
+                                                            } else {
+                                                                Log.e(TAG, "value =====> " + value);
+                                                                Log.e(TAG, "GridCell_list =====> " + GridCell_list.get(j));
+
+
+                                                                StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
+                                                                selectedGridModel.setShape_name(GridCell_list.get(j));
+                                                                selectedGridModel.setDoorPosition("");
+
+                                                                Shape_name.add(selectedGridModel);
+
+                                                                j++;
+
+                                                            }
                                                         }
                                                     }
                                                 }
-                                            } else if (numberofColumn.equals("3")) {
-                                                int j = 0;
-                                                for (int i = 0; i < GridCell_list.size(); i++) {
 
-                                                    if (i < Shape_value_list3.size()) {
-
-                                                        int value = Shape_value_list3.get(i);
-
-                                                        if (value == 0) {
-                                                            Log.e(TAG, "value =====> " + value);
-                                                            StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
-                                                            selectedGridModel.setShape_name("");
-                                                            Shape_name.add(selectedGridModel);
-
-                                                        } else {
-                                                            Log.e(TAG, "value =====> " + value);
-                                                            Log.e(TAG, "GridCell_list =====> " + GridCell_list.get(j));
-
-                                                            StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
-                                                            selectedGridModel.setShape_name(GridCell_list.get(j));
-                                                            Shape_name.add(selectedGridModel);
-
-                                                            j++;
-
-                                                        }
-                                                    }
-                                                }
                                             }
                                         }
 
@@ -1620,45 +1767,8 @@ public class EditItemFragment extends BaseFragment implements View.OnClickListen
                                                         }
                                                     }
                                                 }
-                                            } else if (storageShapeModel.getStorage().getDoorType().equals("5")) {
-
-                                                if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
-                                                    door_img1.setImageResource(R.drawable.loft_door);
-                                                    door_img1.setVisibility(View.VISIBLE);
-                                                    door_img2.setVisibility(View.GONE);
-                                                    door_img3.setVisibility(View.GONE);
-                                                    door_img4.setVisibility(View.GONE);
-                                                    door_img5.setVisibility(View.GONE);
-                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
-                                                    door_img2.setImageResource(R.drawable.loft_door);
-                                                    door_img1.setVisibility(View.GONE);
-                                                    door_img2.setVisibility(View.VISIBLE);
-                                                    door_img3.setVisibility(View.GONE);
-                                                    door_img4.setVisibility(View.GONE);
-                                                    door_img5.setVisibility(View.GONE);
-                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
-                                                    door_img3.setImageResource(R.drawable.loft_door);
-                                                    door_img1.setVisibility(View.GONE);
-                                                    door_img2.setVisibility(View.GONE);
-                                                    door_img3.setVisibility(View.VISIBLE);
-                                                    door_img4.setVisibility(View.GONE);
-                                                    door_img5.setVisibility(View.GONE);
-                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,0")) {
-                                                    door_img4.setImageResource(R.drawable.loft_door);
-                                                    door_img1.setVisibility(View.GONE);
-                                                    door_img2.setVisibility(View.GONE);
-                                                    door_img3.setVisibility(View.GONE);
-                                                    door_img4.setVisibility(View.VISIBLE);
-                                                    door_img5.setVisibility(View.GONE);
-                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,0,1")) {
-                                                    door_img5.setImageResource(R.drawable.loft_door);
-                                                    door_img1.setVisibility(View.GONE);
-                                                    door_img2.setVisibility(View.GONE);
-                                                    door_img3.setVisibility(View.GONE);
-                                                    door_img4.setVisibility(View.GONE);
-                                                    door_img5.setVisibility(View.VISIBLE);
-                                                }
                                             }
+
                                         } else if (numberofColumn.equals("4")) {
                                             if (storageShapeModel.getStorage().getDoorType().equals("1")) {
                                                 if (storageShapeModel.getStorage().getDoorColor() != null) {
@@ -2293,44 +2403,6 @@ public class EditItemFragment extends BaseFragment implements View.OnClickListen
                                                         }
                                                     }
                                                 }
-                                            } else if (storageShapeModel.getStorage().getDoorType().equals("5")) {
-
-                                                if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
-                                                    door_img11.setImageResource(R.drawable.loft_door);
-                                                    door_img11.setVisibility(View.VISIBLE);
-                                                    door_img12.setVisibility(View.GONE);
-                                                    door_img13.setVisibility(View.GONE);
-                                                    door_img14.setVisibility(View.GONE);
-
-                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
-                                                    door_img12.setImageResource(R.drawable.loft_door);
-                                                    door_img11.setVisibility(View.GONE);
-                                                    door_img12.setVisibility(View.VISIBLE);
-                                                    door_img13.setVisibility(View.GONE);
-                                                    door_img14.setVisibility(View.GONE);
-
-                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
-                                                    door_img13.setImageResource(R.drawable.loft_door);
-                                                    door_img11.setVisibility(View.GONE);
-                                                    door_img12.setVisibility(View.GONE);
-                                                    door_img13.setVisibility(View.VISIBLE);
-                                                    door_img14.setVisibility(View.GONE);
-
-                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,0")) {
-                                                    door_img14.setImageResource(R.drawable.loft_door);
-                                                    door_img11.setVisibility(View.GONE);
-                                                    door_img12.setVisibility(View.GONE);
-                                                    door_img13.setVisibility(View.GONE);
-                                                    door_img14.setVisibility(View.VISIBLE);
-
-                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,0,1")) {
-                                                    door_img14.setImageResource(R.drawable.loft_door);
-                                                    door_img11.setVisibility(View.GONE);
-                                                    door_img12.setVisibility(View.GONE);
-                                                    door_img13.setVisibility(View.GONE);
-                                                    door_img14.setVisibility(View.VISIBLE);
-
-                                                }
                                             }
 
                                         } else if (numberofColumn.equals("3")) {
@@ -2679,30 +2751,10 @@ public class EditItemFragment extends BaseFragment implements View.OnClickListen
                                                         }
                                                     }
                                                 }
-                                            } else if (storageShapeModel.getStorage().getDoorType().equals("5")) {
-
-                                                if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
-                                                    door_img21.setImageResource(R.drawable.loft_door);
-                                                    door_img21.setVisibility(View.VISIBLE);
-                                                    door_img22.setVisibility(View.GONE);
-                                                    door_img23.setVisibility(View.GONE);
-
-                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
-                                                    door_img22.setImageResource(R.drawable.loft_door);
-                                                    door_img21.setVisibility(View.GONE);
-                                                    door_img22.setVisibility(View.VISIBLE);
-                                                    door_img23.setVisibility(View.GONE);
-
-                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
-                                                    door_img23.setImageResource(R.drawable.loft_door);
-                                                    door_img21.setVisibility(View.GONE);
-                                                    door_img22.setVisibility(View.GONE);
-                                                    door_img23.setVisibility(View.VISIBLE);
-
-                                                }
                                             }
 
                                         }
+
                                     }
                                 }
                             }
@@ -2741,7 +2793,7 @@ public class EditItemFragment extends BaseFragment implements View.OnClickListen
                 break;
 
             case Constants.DELETE_ITEM_CODE:
-                hideLoading();
+//                hideLoading();
 
                 if (response != null) {
                     String payload[] = response.split("\\.");
@@ -2749,16 +2801,12 @@ public class EditItemFragment extends BaseFragment implements View.OnClickListen
                         response = Utility.decoded(payload[1]);
                         try {
                             JSONObject jsonObject = new JSONObject(response);
-                            Logger.debug(TAG, "" + jsonObject.toString());
+                            Logger.debug(TAG, "Delete Card Item" + jsonObject.toString());
                             int result = getIntFromJsonObj(jsonObject, "result");
                             String message = getStringFromJsonObj(jsonObject, "Message");
                             if (result == 1) {
                                 showToast(getActivity(), message);
-                                Fragment fragment = new LogFragment();
-                              Bundle bundle = new Bundle();
-                                bundle.putSerializable("storage", storage1);
-                                fragment.setArguments(bundle);
-                                Common.loadFragment(getActivity(), fragment, false, null);
+                                CardItemList(storage1);
 
                             } else {
                                 showToast(getActivity(), message);
@@ -2772,10 +2820,45 @@ public class EditItemFragment extends BaseFragment implements View.OnClickListen
                 }
 
                 break;
+            case Constants.VIEW_ITEM:
+                hideLoading();
+                if (response != null) {
+                    String payload[] = response.split("\\.");
+                    if (payload[1] != null) {
+                        response = Utility.decoded(payload[1]);
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
 
+
+                            Gson gson = new GsonBuilder()
+                                    .registerTypeAdapterFactory(UNRELIABLE_INTEGER_FACTORY)
+                                    .create();
+                            CardViewModel cardViewModel = gson.fromJson(response.toString(), CardViewModel.class);
+                            if (cardViewModel.getItems() != null) {
+                                if (cardViewModel.getItems().size()>0) {
+                                Fragment fragment = new LogFragment();
+                                Bundle bundle = new Bundle();
+                                bundle.putSerializable("storage", storage1);
+                                fragment.setArguments(bundle);
+                                Common.loadFragment(getActivity(), fragment, false, null);
+
+                                }else {
+                                    ((HomeActivity) getActivity()).EnableView(true);
+                                }
+
+                            }
+                        } catch (Exception e) {
+
+                        }
+                    }
+                }
+
+                break;
         }
 
+
     }
+
 
     @Override
     public void onAPiResponseError(VolleyError error, int code) {
@@ -2803,6 +2886,11 @@ public class EditItemFragment extends BaseFragment implements View.OnClickListen
                 hideLoading();
                 break;
 
+
+            case Constants.VIEW_ITEM:
+                hideLoading();
+                break;
+
         }
     }
 
@@ -2812,10 +2900,11 @@ public class EditItemFragment extends BaseFragment implements View.OnClickListen
         super.onCreate(savedInstanceState);
 
     }
+
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
 
-        getActivity().getMenuInflater().inflate(R.menu.edit_menu,menu);
+        getActivity().getMenuInflater().inflate(R.menu.edit_menu, menu);
 
         action_edit_menu = menu.findItem(R.id.action_edit_menu);
 
@@ -2827,8 +2916,7 @@ public class EditItemFragment extends BaseFragment implements View.OnClickListen
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem menuItem) {
 
-        switch (menuItem.getItemId())
-        {
+        switch (menuItem.getItemId()) {
             case R.id.action_edit_menu:
                 SelectItem();
                 break;
@@ -2837,6 +2925,7 @@ public class EditItemFragment extends BaseFragment implements View.OnClickListen
 
         return super.onOptionsItemSelected(menuItem);
     }
+
     private void SelectItem() {
 
         LayoutInflater inflater = (LayoutInflater) mContext.getApplicationContext()
@@ -2861,7 +2950,7 @@ public class EditItemFragment extends BaseFragment implements View.OnClickListen
         TextView Take_Photo_txt = layout.findViewById(R.id.Take_Photo_txt);
         TextView Choose_from_Library_txt = layout.findViewById(R.id.Choose_from_Library_txt);
 
-        Take_Photo_txt.setText("Edit Item");
+        Take_Photo_txt.setText("Edit Photo");
         Choose_from_Library_txt.setText("Delete Item");
 
         Take_Photo.setOnClickListener(new View.OnClickListener() {
@@ -2871,6 +2960,7 @@ public class EditItemFragment extends BaseFragment implements View.OnClickListen
                 Fragment fragment = new PhotoFragment();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("storage", storage1);
+                bundle.putString("Fragment", "Edit Item Fragment");
                 bundle.putString("sotrageId", String.valueOf(storage1.getID()));
                 bundle.putString("itemId", String.valueOf(item.getID()));
                 bundle.putString("position", getArguments().getString("position"));
@@ -2884,7 +2974,7 @@ public class EditItemFragment extends BaseFragment implements View.OnClickListen
         Gallary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                callDeleteItemApi();
+                callDeleteItem();
                 alertDialog.dismiss();
             }
         });
@@ -2899,6 +2989,27 @@ public class EditItemFragment extends BaseFragment implements View.OnClickListen
 
     }
 
+    private void callDeleteItem() {
+        AlertDialog alertDialog = new AlertDialog.Builder(mContext).create();
+        alertDialog.setTitle("Alert");
+        alertDialog.setMessage("Do you want delete?");
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Delete",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        callDeleteItemApi();
+                        dialog.dismiss();
+                    }
+                });
+
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "No",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
+    }
 
 
     void callDeleteItemApi() {
@@ -2930,7 +3041,7 @@ public class EditItemFragment extends BaseFragment implements View.OnClickListen
         ArrayList<StorageShapeModel.Storage.ShapsList> grid_cell_name;
         LayoutInflater inflater;
         String teamType;
-        private GridCellAdapter.ViewHolder holder;
+        private ViewHolder holder;
 
 
         public GridCellAdapter(Context context, List<StorageShapeModel.Storage.ShapsList> arrayList, ArrayList<StorageShapeModel.Storage.ShapsList> grid_cell) {
@@ -2958,15 +3069,16 @@ public class EditItemFragment extends BaseFragment implements View.OnClickListen
             if (convertView == null) {
                 LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 convertView = inflater.inflate(R.layout.grid_cell_item2, null);
-                holder = new GridCellAdapter.ViewHolder();
+                holder = new ViewHolder();
 
                 holder.item_layout = convertView.findViewById(R.id.garage_relative);
                 holder.info_text = convertView.findViewById(R.id.info_text);
                 holder.rack_list_avalablity = convertView.findViewById(R.id.rack_list_avalablity);
+                holder.door_img = convertView.findViewById(R.id.door_img);
 
                 convertView.setTag(holder);
             } else {
-                holder = (GridCellAdapter.ViewHolder) convertView.getTag();
+                holder = (ViewHolder) convertView.getTag();
             }
 
             if (playersArrayList.get(position).isChecked()) {
@@ -2983,7 +3095,7 @@ public class EditItemFragment extends BaseFragment implements View.OnClickListen
 
             if (grid_cell_name.get(position).getShape_name().equals(Selectedshape_name)) {
                 if (!grid_cell_name.get(position).getShape_name().equals("")) {
-                    holder.info_text.setText(String.valueOf(grid_cell_name.get(position).getShape_name()) + "-" + String.valueOf(prevSelection_rack + 1));
+                    holder.info_text.setText(String.valueOf(grid_cell_name.get(position).getShape_name()) + "-" + String.valueOf(Selection_rack_no));
                 } else {
                     holder.item_layout.setBackgroundColor(mContext.getResources().getColor(R.color.diactive_grid));
                 }
@@ -3012,6 +3124,14 @@ public class EditItemFragment extends BaseFragment implements View.OnClickListen
                             SelectedRack_ID = "0";
                         }
                     }
+                    if (grid_cell_name.get(position).getDoorPosition().equals("1")) {
+                        holder.door_img.setVisibility(View.VISIBLE);
+                        holder.info_text.setVisibility(View.GONE);
+                    } else {
+                        holder.door_img.setVisibility(View.GONE);
+                        holder.info_text.setVisibility(View.VISIBLE);
+                    }
+
                 }
             } else {
                 if (!Shape_id2.equals("")) {
@@ -3026,6 +3146,14 @@ public class EditItemFragment extends BaseFragment implements View.OnClickListen
                     }
                 }
                 holder.rack_list_avalablity.setVisibility(View.GONE);
+                if (grid_cell_name.get(position).getDoorPosition().equals("1")) {
+                    holder.door_img.setVisibility(View.VISIBLE);
+                    holder.info_text.setVisibility(View.GONE);
+                } else {
+                    holder.door_img.setVisibility(View.GONE);
+                    holder.info_text.setVisibility(View.VISIBLE);
+                }
+
             }
 
             //finalConvertView = convertView;
@@ -3046,8 +3174,35 @@ public class EditItemFragment extends BaseFragment implements View.OnClickListen
             LinearLayout toolbar_back = dialog.findViewById(R.id.toolbar_back);
             TextView proceed_btn = dialog.findViewById(R.id.proceed_btn);
 
+            List<StorageShapeModel.Storage.ShapsList.RackList> rack_list = new ArrayList();
+            rack_list = playersArrayList.get(position).getRackList();
 
-            customracklistadapter = new CustomRacklistAdapter(mContext, playersArrayList.get(position).getRackList(), rack_id_position);
+            ArrayList<Integer>Sr_no_list = new ArrayList<>();
+
+            int Index = 0;
+             for (int j=0; j<rack_list.size(); j++){
+
+                 if (Index==0){
+                     Index = rack_list.size() - 1;
+
+                     Log.e("Index11", String.valueOf(Index));
+                     Sr_no_list.add(Index);
+
+                 }else {
+
+                     Index = Index-1;
+                     Log.e("Index12", String.valueOf(Index));
+                     Sr_no_list.add(Index);
+
+                 }
+
+             }
+
+
+
+            Collections.reverse(rack_list);
+
+            customracklistadapter = new CustomRacklistAdapter(mContext, rack_list, rack_id_position,Sr_no_list);
             Rack_list.setAdapter(customracklistadapter);
             customracklistadapter.notifyDataSetChanged();
             dialog.show();
@@ -3079,6 +3234,7 @@ public class EditItemFragment extends BaseFragment implements View.OnClickListen
             RelativeLayout item_layout;
             TextView info_text;
             View rack_list_avalablity;
+            ImageView door_img;
         }
 
         class MainItemClick implements View.OnClickListener {
@@ -3094,64 +3250,68 @@ public class EditItemFragment extends BaseFragment implements View.OnClickListen
             @Override
             public void onClick(View view) {
 
-                Selectedshape_name = "";
+
                 if (!grid_cell_name.get(position).getShape_name().equals("")) {
-                    String name = String.valueOf(playersArrayList.get(position).getShapID());
-                    if (prevSelection == -1) //nothing selected
-                    {
-                        playersArrayList.get(position).setChecked(true);
+                    if (!grid_cell_name.get(position).getDoorPosition().equals("1")) {
 
-                        prevSelection = position;
-                        viewHolder.item_layout.setBackgroundResource(R.drawable.green_back);
-                        SelectedGridShapeID = String.valueOf(playersArrayList.get(position).getShapID());
-                        if (playersArrayList.get(position).getRackList().size() > 0) {
-                            SelectedRack_ID = String.valueOf(playersArrayList.get(position).getRackList().get(0).getFldRacksId());
-                        } else {
-                            SelectedRack_ID = "0";
-                        }
-
-                    } else // Some other selection
-                    {
-                        //deselect previously selected
-                        if (prevSelection != position) {
-                            playersArrayList.get(prevSelection).setChecked(false);
-                            viewHolder.item_layout.setBackgroundResource(R.drawable.background_edit_square);
+                        String name = String.valueOf(playersArrayList.get(position).getShapID());
+                        if (prevSelection == -1) //nothing selected
+                        {
                             playersArrayList.get(position).setChecked(true);
+
                             prevSelection = position;
+                            viewHolder.item_layout.setBackgroundResource(R.drawable.green_back);
                             SelectedGridShapeID = String.valueOf(playersArrayList.get(position).getShapID());
                             if (playersArrayList.get(position).getRackList().size() > 0) {
                                 SelectedRack_ID = String.valueOf(playersArrayList.get(position).getRackList().get(0).getFldRacksId());
                             } else {
                                 SelectedRack_ID = "0";
                             }
+
+                        } else // Some other selection
+                        {
+                            //deselect previously selected
+                            if (prevSelection != position) {
+                                playersArrayList.get(prevSelection).setChecked(false);
+                                viewHolder.item_layout.setBackgroundResource(R.drawable.background_edit_square);
+                                playersArrayList.get(position).setChecked(true);
+                                prevSelection = position;
+                                SelectedGridShapeID = String.valueOf(playersArrayList.get(position).getShapID());
+                                if (playersArrayList.get(position).getRackList().size() > 0) {
+                                    SelectedRack_ID = String.valueOf(playersArrayList.get(position).getRackList().get(0).getFldRacksId());
+                                } else {
+                                    SelectedRack_ID = "0";
+                                }
+                            }
+
                         }
+                        if (!Shape_id2.equals("")) {
+                            if (String.valueOf(playersArrayList.get(position).getShapID()).equals(String.valueOf(Shape_id2))) {
+                                if (playersArrayList.get(position).getRackList().size() > 0) {
 
-                    }
-                    if (!Shape_id2.equals("")) {
-                        if (String.valueOf(playersArrayList.get(position).getShapID()).equals(String.valueOf(Shape_id2))) {
-                            if (playersArrayList.get(position).getRackList().size() > 0) {
+                                    ShowRack_dialog(prevSelection, holder, RackID_position);
+                                }
+                            } else {
+                                if (playersArrayList.get(position).getRackList().size() > 0) {
 
-                                ShowRack_dialog(prevSelection, holder, RackID_position);
+                                    ShowRack_dialog(prevSelection, holder, "");
+                                }
                             }
                         } else {
                             if (playersArrayList.get(position).getRackList().size() > 0) {
 
                                 ShowRack_dialog(prevSelection, holder, "");
                             }
-                        }
-                    } else {
-                        if (playersArrayList.get(position).getRackList().size() > 0) {
 
-                            ShowRack_dialog(prevSelection, holder, "");
                         }
+                        Selectedshape_name = "";
+                        Shape_id2 = "";
 
+                        Log.e("SelectedGridRackID", String.valueOf(SelectedRack_ID));
+                        Log.e("SelectedGridLocation", String.valueOf(SelectedGridShapeID));
+
+                        notifyDataSetChanged();
                     }
-                    Shape_id2 = "";
-
-                    Log.e("SelectedGridRackID", String.valueOf(SelectedRack_ID));
-                    Log.e("SelectedGridLocation", String.valueOf(SelectedGridShapeID));
-
-                    notifyDataSetChanged();
                 }
             }
         }
@@ -3164,13 +3324,15 @@ public class EditItemFragment extends BaseFragment implements View.OnClickListen
 
             LayoutInflater inflater;
             String rack_id_position;
-            private CustomRacklistAdapter.ViewHolder holder;
+            ArrayList<Integer> sr_no_list;
+            private ViewHolder holder;
 
 
-            public CustomRacklistAdapter(Context mContext, List<StorageShapeModel.Storage.ShapsList.RackList> rackList, String rack_id_position) {
+            public CustomRacklistAdapter(Context mContext, List<StorageShapeModel.Storage.ShapsList.RackList> rackList, String rack_id_position, ArrayList<Integer> sr_no_list) {
                 this.mContext = mContext;
                 CustomRackList = rackList;
                 this.rack_id_position = rack_id_position;
+                this.sr_no_list = sr_no_list;
                 inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             }
 
@@ -3192,38 +3354,46 @@ public class EditItemFragment extends BaseFragment implements View.OnClickListen
                 if (convertView == null) {
                     LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                     convertView = inflater.inflate(R.layout.rack_list_item, null);
-                    holder = new CustomRacklistAdapter.ViewHolder();
+                    holder = new ViewHolder();
 
                     holder.rack_relative = convertView.findViewById(R.id.rack_relative);
                     holder.sr_no_txt = convertView.findViewById(R.id.sr_no_txt);
                     holder.rack = convertView.findViewById(R.id.rack);
+
+
                     convertView.setTag(holder);
                 } else {
-                    holder = (CustomRacklistAdapter.ViewHolder) convertView.getTag();
+                    holder = (ViewHolder) convertView.getTag();
                 }
 
-                holder.sr_no_txt.setText(String.valueOf(position + 1));
+                holder.sr_no_txt.setText(String.valueOf(sr_no_list.get(position)));
+
 
                 if (!rack_id_position.equals("")) {
-                    if (String.valueOf(position + 1).equals(rack_id_position)) {
+                    if (String.valueOf(sr_no_list.get(position)).equals(rack_id_position)) {
                         holder.rack.setBackgroundColor(Color.WHITE);
                         SelectedRack_ID = String.valueOf(CustomRackList.get(position).getFldRacksId());
-                        CustomRackList.get(position).setCheckRack(true);
                         prevSelection_rack = position;
-
+                        Selection_rack_no = String.valueOf(sr_no_list.get(position));
+                        CustomRackList.get(position).setCheckRack(true);
                     } else {
                         holder.rack.setBackgroundColor(Color.parseColor("#41464D"));
                     }
                 }
-                if (CustomRackList.get(position).isCheckRack()) {
-                    holder.rack.setBackgroundColor(Color.WHITE);
 
-                } else {
+                if(!TextUtils.isEmpty(String.valueOf(Selection_rack_no))) {
+                    if (Selection_rack_no .equals(String.valueOf(sr_no_list.get(position)))) {
+                        holder.rack.setBackgroundColor(Color.WHITE);
+                    } else {
+                        holder.rack.setBackgroundColor(Color.parseColor("#41464D"));
+                    }
+                }else {
                     holder.rack.setBackgroundColor(Color.parseColor("#41464D"));
                 }
 
 
-                holder.rack_relative.setOnClickListener(new CustomRacklistAdapter.RackClick(position, holder));
+
+                holder.rack_relative.setOnClickListener(new RackClick(position, holder));
 
                 //finalConvertView = convertView;
                 return convertView;
@@ -3238,9 +3408,9 @@ public class EditItemFragment extends BaseFragment implements View.OnClickListen
             class RackClick implements View.OnClickListener {
 
                 int position;
-                CustomRacklistAdapter.ViewHolder viewHolder;
+                ViewHolder viewHolder;
 
-                RackClick(int pos, CustomRacklistAdapter.ViewHolder holder) {
+                RackClick(int pos, ViewHolder holder) {
                     position = pos;
                     viewHolder = holder;
                 }
@@ -3249,18 +3419,19 @@ public class EditItemFragment extends BaseFragment implements View.OnClickListen
                 public void onClick(View view) {
 
                     rack_id_position = "";
-                    if (prevSelection_rack == -1) //nothing selected
+                    RackID ="";
+
+                    if (prevSelection_rack ==-1) //nothing selected
                     {
+
                         CustomRackList.get(position).setCheckRack(true);
                         customracklistadapter.notifyDataSetChanged();
                         prevSelection_rack = position;
                         viewHolder.rack.setBackgroundColor(Color.WHITE);
-                        SelectedRack_ID = String.valueOf(CustomRackList.get(position).getFldRacksId());
+                        Selection_rack_no = String.valueOf(sr_no_list.get(position));
 
+                    } else {
 
-                    } else // Some other selection
-                    {
-                        //deselect previously selected
                         if (prevSelection_rack != position) {
                             CustomRackList.get(prevSelection_rack).setCheckRack(false);
 
@@ -3270,11 +3441,12 @@ public class EditItemFragment extends BaseFragment implements View.OnClickListen
                             prevSelection_rack = position;
                             SelectedRack_ID = String.valueOf(CustomRackList.get(position).getFldRacksId());
 
+                            Selection_rack_no = String.valueOf(sr_no_list.get(position));
                         }
 
                     }
                     Log.e("SelectedRack_ID", String.valueOf(CustomRackList.get(position).getFldRacksId()));
-                    Log.e("SelectedRack_Position", String.valueOf(position));
+                    Log.e("SelectedRack_Position", String.valueOf(Selection_rack_no));
 
 
                     notifyDataSetChanged();

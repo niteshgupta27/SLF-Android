@@ -27,13 +27,13 @@
     <string name="menu_send">Send</string>
 
 
-    <string name="facebook_app_id">631919030968696</string>
-    <string name="fb_login_protocol_scheme">fb631919030968696</string>
+    <string name="facebook_app_id">3628091277254455</string>
+    <string name="fb_login_protocol_scheme">fb3628091277254455</string>
 
 
-    <string name="text_dummy">The placeholder text to say: If you are a tenant at a storage facility/yard then press the button below:</string>
-    <string name="text_dummy12">If you are looking for a local self storage facility or want to create your own personal storage space. i.e the garage press the button below:</string>
-    <string name="text_dummy13">If you want to create your own personal storage space. i.e the garage press the button below</string>
+    <string name="text_dummy">If you are an existing or new tenant at a storage facility/yard then press the button below.</string>
+    <string name="text_dummy12">If you are looking for a local self storage facility. press the button below.</string>
+    <string name="text_dummy13">If you want to create your own personal storage space i.e the garage press the button below.</string>
 
 
     <string name="text_dummy5">There are many variations of passages of Lorem available,
@@ -91,13 +91,13 @@
         but the majority have suffered attention in some form,by injected humour randomised words which dont
         look even slightly believable.
     </string>
-    <string name="i_agree_to_auction_valution_terms_condition"><![CDATA[I agree to Auction valution Terms & Condition]]></string>
+    <string name="i_agree_to_auction_valution_terms_condition"><![CDATA[I agree to the Terms & Condition]]></string>
     <string name="menu_store">Store</string>
     <string name="menu_log">Log</string>
     <string name="menu_flog">Flog</string>
     <string name="menu_buy_storage">Buy Storage</string>
     <string name="menu_notifications">Notifications</string>
-    <string name="menu_setting">Setting</string>
+    <string name="menu_setting">Settings</string>
     <string name="menu_about_us">About us</string>
     <string name="menu_contact_us">Contact us</string>
     <string name="menu_logout">Logout</string>
@@ -124,7 +124,7 @@
     <string name="Reset">RESET</string>
     <string name="DoorSelection">Door Selection</string>
     <string name="select_door">3.Select which type of door you have.</string>
-    <string name="select_door2">Please select the position of your doors from the wall above. If you are adding a double garage door, please note the maximum squares you can select is 4. </string>
+    <string name="select_door2">Please select the position of your door(s) from the wall above.</string>
     <string name="single_door">SINGLE DOOR</string>
     <string name="double_door">DOUBLE DOOR</string>
     <string name="single_garage">SINGLE GARAGE</string>
@@ -136,12 +136,16 @@
     <string name="Proceed">Proceed</string>
     <string name="AddStorage">Add Storage</string>
     <string name="detail_information">Please add your storage space name, email and country of residence.</string>
+    <string name="detail_information2">Please update your storage space name, email and country of residence.</string>
+
     <string name="staorage_spcae_name">Storage Space Name, i.e Home,Loft,Garage*</string>
     <string name="short_desxription">Short Description</string>
     <string name="address1">Address1</string>
     <string name="address2">Address2</string>
     <string name="select_resign">Select Region</string>
     <string name="select_country">Select Country*</string>
+    <string name="select_category">Select Category</string>
+    <string name="select_category2">Select Category*</string>
     <string name="enter_city">Enter City*</string>
     <string name="postcode">Post Code</string>
     <string name="agree_term_condition">I agree to the Terms &amp; Conditions</string>
@@ -152,10 +156,10 @@
     <string name="submit">Submit</string>
     <string name="created_store_flog">Created by StoreLogFlog</string>
     <string name="item_category">Item Category</string>
-    <string name="select_shelf">Select Shelf</string>
-    <string name="select_shelf_location">Please select shelf location</string>
-    <string name="select_shelft">Please select how many shelft</string>
-    <string name="shelft_not_available">The amount of shelft selected is not available. Please select again.</string>
+    <string name="select_shelf">Select Shelves</string>
+    <string name="select_shelf_location">Please select shelves location</string>
+    <string name="select_Shelves">Please select how many shelves</string>
+    <string name="Shelves_not_available">The amount of shelves selected is not available. Please select again.</string>
 
     <string name="Take_Photo">Take Photo</string>
     <string name="Choose_from_Library">Gallery</string>
@@ -163,8 +167,13 @@
     <string name="Camera_permission_txt">Please give StoreLogFlog access to this  device\'s camera to click your pictures </string>
     <string name="Cancel">Cancel</string>
     <string name="OK">Ok</string>
-    <string name="delete_rack">Do you wan\'t to delete the racks?</string>
+    <string name="delete_rack">If you want to amend the number of shelves you need to clear and start again</string>
     <string name="update">Update</string>
     <string name="delete">Delete</string>
+    <string name="add_image">Please add an Image(s) from your gallery or camera, pressing the Icon below</string>
+    <string name="search_cards">Search Cards</string>
+     <string name="continued">Continue</string>
+    <string name="subscription_expiered">Your subscription for the storage space is expiered. Please continue to renew the subscription.</string>
+
 
 </resources>

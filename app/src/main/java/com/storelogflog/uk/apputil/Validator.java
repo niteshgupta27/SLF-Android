@@ -26,10 +26,24 @@ public class Validator {
                 + "([a-zA-Z]+[\\w-]+\\.)+[a-zA-Z]{2,4})$").matcher(email).matches();
     }
 
-    public static boolean isValidMobileNo(final String hex) {
+    /*public static boolean isValidMobileNo(final String hex) {
         return hex.matches(MOBILE_NO_PATTERN);
-    }
+    }*/
 
+    public static boolean isValidMobileNo(String phone) {
+        boolean check=false;
+        if(!Pattern.matches("[a-zA-Z]+", phone)) {
+            if(phone.length() < 10 || phone.length() > 20) {
+                // if(phone.length() != 10) {
+                check = false;
+            } else {
+                check = true;
+            }
+        } else {
+            check=false;
+        }
+        return check;
+    }
 
     public static boolean isUrlValid(Context context, String url, String error_msg) {
 

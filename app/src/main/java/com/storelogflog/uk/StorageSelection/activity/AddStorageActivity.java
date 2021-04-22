@@ -1,13 +1,9 @@
 package com.storelogflog.uk.StorageSelection.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.fragment.app.Fragment;
 
 import android.app.Dialog;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -34,17 +30,12 @@ import com.storelogflog.uk.R;
 import com.storelogflog.uk.StorageSelection.model.SelectedCellModel;
 import com.storelogflog.uk.activity.BaseActivity;
 import com.storelogflog.uk.activity.HomeActivity;
-import com.storelogflog.uk.activity.LoginActivity;
-import com.storelogflog.uk.activity.PaymentActivity;
-import com.storelogflog.uk.activity.RegisterActivity;
 import com.storelogflog.uk.adapter.CountryAdapter;
-import com.storelogflog.uk.adapter.RegionAdapter2;
 import com.storelogflog.uk.apiCall.AddStorageApiCall;
+import com.storelogflog.uk.apiCall.EditStorageApiCall;
 import com.storelogflog.uk.apiCall.GetAllCountryApiCall;
 import com.storelogflog.uk.apiCall.PricingApiCall;
-import com.storelogflog.uk.apiCall.RegionApiCall;
 import com.storelogflog.uk.apiCall.VolleyApiResponseString;
-import com.storelogflog.uk.apputil.Common;
 import com.storelogflog.uk.apputil.Constants;
 import com.storelogflog.uk.apputil.Logger;
 import com.storelogflog.uk.apputil.PrefKeys;
@@ -52,9 +43,7 @@ import com.storelogflog.uk.apputil.PreferenceManger;
 import com.storelogflog.uk.apputil.Utility;
 import com.storelogflog.uk.bean.AddStorageRequestBean;
 import com.storelogflog.uk.bean.countryBean.CountryBean;
-import com.storelogflog.uk.bean.regionBean.RegionBean;
-import com.storelogflog.uk.fragment.CommonMsgFragment;
-import com.storelogflog.uk.fragment.ThankYouFragment;
+import com.storelogflog.uk.bean.storageBean.Storage;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -64,7 +53,7 @@ import java.util.List;
 
 import static com.storelogflog.uk.apputil.Constants.pound;
 
-public class AddStorageActivity extends BaseActivity implements VolleyApiResponseString, View.OnClickListener, TextWatcher {
+public class AddStorageActivity extends BaseActivity implements VolleyApiResponseString, View.OnClickListener {
     String TAG = this.getClass().getSimpleName();
     private Context mContext;
     private LinearLayout toolbar_back;
@@ -74,13 +63,14 @@ public class AddStorageActivity extends BaseActivity implements VolleyApiRespons
     private CountryBean countryBean;
     private AppCompatEditText staorage_spcae_name_ext, short_desxription_ext, address1_ext, address2_ext,
             enter_city_ext, postcode_ext;
-    private AppCompatTextView txt_country;
-    TextView price_txt;
+    private AppCompatTextView txt_country,txt_toolbar_title,detail_information;
+    TextView price_txt,submit_txt;
     private CheckBox term_check;
     private RelativeLayout submit_relative, policy_linear;
     int pondValue = 0;
     private AddStorageRequestBean addStorageRequestBean;
-    String value;
+    String value, Edit_storage;
+    Storage storage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,12 +99,31 @@ public class AddStorageActivity extends BaseActivity implements VolleyApiRespons
         toolbar_back = findViewById(R.id.toolbar_back);
         policy_linear = findViewById(R.id.policy_linear);
         price_txt = findViewById(R.id.price_txt);
+        submit_txt = findViewById(R.id.submit_txt);
+        txt_toolbar_title = findViewById(R.id.txt_toolbar_title);
+        detail_information = findViewById(R.id.detail_information);
+
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
         Gson gson = new Gson();
         String json = sharedPrefs.getString(PrefKeys.GridCell, "");
         Type type = new TypeToken<List<SelectedCellModel>>() {
         }.getType();
         List<SelectedCellModel> arrayList = gson.fromJson(json, type);
+
+        if( getIntent().getExtras() != null)
+        {
+            storage = (Storage) getIntent().getSerializableExtra("storage");
+            Edit_storage = getIntent().getStringExtra("Edit");
+            staorage_spcae_name_ext.setText(storage.getName());
+            short_desxription_ext.setText(storage.getLongDesp());
+            txt_country.setText(storage.getCountry());
+            enter_city_ext.setText(storage.getCity());
+            txt_toolbar_title.setText("Edit Storage");
+            detail_information.setText(getResources().getString(R.string.detail_information2));
+            submit_txt.setText(getResources().getString(R.string.update));
+            callAllCountryApi2();
+        }
+
     }
 
     @Override
@@ -126,12 +135,80 @@ public class AddStorageActivity extends BaseActivity implements VolleyApiRespons
 
 
 
-        staorage_spcae_name_ext.addTextChangedListener(this);
-        short_desxription_ext.addTextChangedListener(this);
-        address1_ext.addTextChangedListener(this);
-        address2_ext.addTextChangedListener(this);
-        enter_city_ext.addTextChangedListener(this);
-        postcode_ext.addTextChangedListener(this);
+        staorage_spcae_name_ext.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (String.valueOf(s).equals("")) {
+                    staorage_spcae_name_ext.setBackgroundResource(R.drawable.red_border_light);
+                  }else {
+                    staorage_spcae_name_ext.setBackgroundResource(R.drawable.background_edit_square);
+                }
+                }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (String.valueOf(s).equals("")) {
+                    staorage_spcae_name_ext.setBackgroundResource(R.drawable.red_border_light);
+                }else {
+                    staorage_spcae_name_ext.setBackgroundResource(R.drawable.background_edit_square);
+                }
+
+            }
+        });
+        short_desxription_ext.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (String.valueOf(s).equals("")) {
+                    short_desxription_ext.setBackgroundResource(R.drawable.red_border_light);
+                }else {
+                    short_desxription_ext.setBackgroundResource(R.drawable.background_edit_square);
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (String.valueOf(s).equals("")) {
+                    short_desxription_ext.setBackgroundResource(R.drawable.red_border_light);
+                }else {
+                    short_desxription_ext.setBackgroundResource(R.drawable.background_edit_square);
+                }
+            }
+        });
+        enter_city_ext.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (String.valueOf(s).equals("")) {
+                    enter_city_ext.setBackgroundResource(R.drawable.red_border_light);
+                }else {
+                    enter_city_ext.setBackgroundResource(R.drawable.background_edit_square);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (String.valueOf(s).equals("")) {
+                    enter_city_ext.setBackgroundResource(R.drawable.red_border_light);
+                }else {
+                    enter_city_ext.setBackgroundResource(R.drawable.background_edit_square);
+                }
+            }
+        });
 
 
         callPricingApi();
@@ -157,15 +234,59 @@ public class AddStorageActivity extends BaseActivity implements VolleyApiRespons
                 break;
 
             case R.id.submit_relative:
-                navigatePaymentScreen();
+                if (TextUtils.isEmpty(Edit_storage)) {
+                    navigatePaymentScreen();
+                }else {
+                    Log.e(Tag,"Edit API Apply");
+                    EditAddStorage();
+                }
                 break;
+        }
+    }
+
+    private void EditAddStorage() {
+        if (Utility.isInternetConnected(mContext)) {
+
+            if (isValidate()) {
+                try {
+
+
+                    JSONObject jsonObjectPayload=new JSONObject();
+                    jsonObjectPayload.put("storage_id","" + storage.getID());
+                    jsonObjectPayload.put("name", staorage_spcae_name_ext.getText().toString());
+                    jsonObjectPayload.put("descriptionshort",short_desxription_ext.getText().toString());
+                    jsonObjectPayload.put("country",""+ countryId);
+                    jsonObjectPayload.put("city","" + enter_city_ext.getText().toString());
+                    jsonObjectPayload.put("apikey", PreferenceManger.getPreferenceManger().getString(PrefKeys.APIKEY));
+
+
+                    Logger.debug(TAG,jsonObjectPayload.toString());
+                    String token=Utility.getJwtToken(jsonObjectPayload.toString());
+
+                    Log.e("jsonObjectPayload", String.valueOf(jsonObjectPayload));
+                    Log.e("token", String.valueOf(token));
+                    showLoading("Loading...");
+                    new EditStorageApiCall(this,this,token, Constants.Edit_STORAGE_CODE);
+
+                }catch (Exception e){
+                }
+            }
+        }else {
+            showToast("No Internet Connection");
         }
     }
 
 
     public boolean isValidate() {
-        Changebackground();
         if (staorage_spcae_name_ext.getText().toString().isEmpty()) {
+            staorage_spcae_name_ext.setBackgroundResource(R.drawable.red_border_light);
+            short_desxription_ext.setBackgroundResource(R.drawable.background_edit_square);
+            address1_ext.setBackgroundResource(R.drawable.background_edit_square);
+            address2_ext.setBackgroundResource(R.drawable.background_edit_square);
+            txt_country.setBackgroundResource(R.drawable.background_edit_square);
+            enter_city_ext.setBackgroundResource(R.drawable.background_edit_square);
+            postcode_ext.setBackgroundResource(R.drawable.background_edit_square);
+
             return showErrorMsg(staorage_spcae_name_ext, "Storage name can't be blank");
         } /*else if (address1_ext.getText().toString().isEmpty()) {
             return showErrorMsg(address1_ext, "Address1 can't be blank");
@@ -173,10 +294,27 @@ public class AddStorageActivity extends BaseActivity implements VolleyApiRespons
             return showErrorMsg(address2_ext, "Address2 can't be blank");
         }*/
         else if (txt_country.getText().toString().isEmpty()) {
+            staorage_spcae_name_ext.setBackgroundResource(R.drawable.background_edit_square);
+            short_desxription_ext.setBackgroundResource(R.drawable.background_edit_square);
+            address1_ext.setBackgroundResource(R.drawable.background_edit_square);
+            address2_ext.setBackgroundResource(R.drawable.background_edit_square);
+            txt_country.setBackgroundResource(R.drawable.red_border_light);
+            enter_city_ext.setBackgroundResource(R.drawable.background_edit_square);
+            postcode_ext.setBackgroundResource(R.drawable.background_edit_square);
+
             showToast("Please select country");
             return false;
         }
         else if (enter_city_ext.getText().toString().isEmpty()) {
+            staorage_spcae_name_ext.setBackgroundResource(R.drawable.background_edit_square);
+            short_desxription_ext.setBackgroundResource(R.drawable.background_edit_square);
+            address1_ext.setBackgroundResource(R.drawable.background_edit_square);
+            address2_ext.setBackgroundResource(R.drawable.background_edit_square);
+            txt_country.setBackgroundResource(R.drawable.background_edit_square);
+            enter_city_ext.setBackgroundResource(R.drawable.red_border_light);
+            postcode_ext.setBackgroundResource(R.drawable.background_edit_square);
+
+
             return showErrorMsg(enter_city_ext, "Please select city");
 
         }  /*else if (postcode_ext.getText().toString().isEmpty()) {
@@ -303,11 +441,7 @@ public class AddStorageActivity extends BaseActivity implements VolleyApiRespons
                 jsonObjectPayload.put("storage_shaps",""+ this.addStorageRequestBean.getStorage_shaps());
                 jsonObjectPayload.put("door_type",""+ this.addStorageRequestBean.getDoor_type());
                 jsonObjectPayload.put("storage_doors",""+ this.addStorageRequestBean.getStorage_doors());
-
-
                 jsonObjectPayload.put("apikey", PreferenceManger.getPreferenceManger().getString(PrefKeys.APIKEY));
-
-
 
 
                 Logger.debug(TAG,jsonObjectPayload.toString());
@@ -316,7 +450,7 @@ public class AddStorageActivity extends BaseActivity implements VolleyApiRespons
                 Log.e("jsonObjectPayload", String.valueOf(jsonObjectPayload));
                 Log.e("token", String.valueOf(token));
                 showLoading("Loading...");
-              new AddStorageApiCall(this,this,token, Constants.ADD_STORAGE_CODE);
+                new AddStorageApiCall(this,this,token, Constants.ADD_STORAGE_CODE);
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -349,8 +483,15 @@ public class AddStorageActivity extends BaseActivity implements VolleyApiRespons
                 txt_country.setText(countryBean.getCountries().get(position).getName());
 
                 countryId = countryBean.getCountries().get(position).getID();
-                Changebackground();
+
+                if (txt_country.getText().toString().isEmpty()) {
+                    txt_country.setBackgroundResource(R.drawable.red_border_light);
+                }else {
+                    txt_country.setBackgroundResource(R.drawable.background_edit_square);
+                }
                 dialog.dismiss();
+
+
 
             }
         });
@@ -366,6 +507,16 @@ public class AddStorageActivity extends BaseActivity implements VolleyApiRespons
                 new GetAllCountryApiCall(AddStorageActivity.this,this,null, Constants.ALL_COUNTRY_CODE);
 
                 progressBarDialog.setVisibility(View.VISIBLE);
+
+        } else {
+            Toast.makeText(mContext, "No Internet Connection", Toast.LENGTH_SHORT).show();
+        }
+    }
+    void callAllCountryApi2() {
+        if (Utility.isInternetConnected(mContext)) {
+
+            new GetAllCountryApiCall(AddStorageActivity.this,this,null, Constants.ALL_COUNTRY_CODE2);
+
 
         } else {
             Toast.makeText(mContext, "No Internet Connection", Toast.LENGTH_SHORT).show();
@@ -412,6 +563,38 @@ public class AddStorageActivity extends BaseActivity implements VolleyApiRespons
                     }
                 }
                 break;
+
+            case Constants.ALL_COUNTRY_CODE2:
+                if (response != null) {
+                    String payload[]=response.split("\\.");
+                    if (payload[1]!=null)
+                    {
+                        response=Utility.decoded( payload[1]);
+                        try {
+                            JSONObject jsonObject=new JSONObject(response);
+                            Logger.debug(TAG,""+jsonObject.toString());
+                            int result=getIntFromJsonObj(jsonObject,"result");
+                            if(result==1)
+                            {
+                                countryBean = new Gson().fromJson(response, CountryBean.class);
+
+                                if (!TextUtils.isEmpty(Edit_storage)) {
+                                    for (int i = 0; i < countryBean.getCountries().size(); i++) {
+                                        if (countryBean.getCountries().get(i).getName().equals(storage.getCountry())) {
+                                            countryId = countryBean.getCountries().get(i).getID();
+
+                                            Log.e("countryId", String.valueOf(countryId));
+                                        }
+                                    }
+                                }
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                break;
+
 
 
             case Constants.PRICING_CODE:
@@ -472,6 +655,38 @@ public class AddStorageActivity extends BaseActivity implements VolleyApiRespons
                     }
                 }
                 break;
+
+            case Constants.Edit_STORAGE_CODE:
+                hideLoading();
+                if(response!=null)
+                {
+                    String payload[]=response.split("\\.");
+                    if (payload[1]!=null)
+                    {
+                        response=Utility.decoded( payload[1]);
+                        try {
+                            JSONObject jsonObject=new JSONObject(response);
+                            Logger.debug(TAG,""+jsonObject.toString());
+                            int result=getIntFromJsonObj(jsonObject,"result");
+                            String message=getStringFromJsonObj(jsonObject,"Message");
+                            Log.e("Edit_STORAGE_RESPONSE",jsonObject.toString());
+                            if(result==1)
+                            {
+
+                                Intent intent = new Intent(mContext, HomeActivity.class);
+                                intent.putExtra("From",Constants.FROM_PAYMENT_SCREEN);
+                                intent.putExtra("message",message);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                mContext.startActivity(intent);
+                            }
+
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                break;
         }
     }
 
@@ -482,11 +697,18 @@ public class AddStorageActivity extends BaseActivity implements VolleyApiRespons
                 progressBarDialog.setVisibility(View.GONE);
                 hideLoading();
                 break;
+
+            case Constants.ALL_COUNTRY_CODE2:
+               hideLoading();
+                break;
             case Constants.PRICING_CODE:
                 hideLoading();
                 break;
             case Constants.ADD_STORAGE_CODE:
               hideLoading();
+                break;
+            case Constants.Edit_STORAGE_CODE:
+                hideLoading();
                 break;
         }
     }
@@ -497,98 +719,8 @@ public class AddStorageActivity extends BaseActivity implements VolleyApiRespons
         super.onBackPressed();
     }
 
-    @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-    }
-
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-        Changebackground();
-    }
-
-    @Override
-    public void afterTextChanged(Editable s) {
-        Changebackground();
-    }
 
 
-    private void Changebackground() {
 
 
-        if (staorage_spcae_name_ext.getText().toString().trim().isEmpty()) {
-            staorage_spcae_name_ext.setBackgroundResource(R.drawable.green_border_light);
-            short_desxription_ext.setBackgroundResource(R.drawable.background_edit_square);
-            address1_ext.setBackgroundResource(R.drawable.background_edit_square);
-            address2_ext.setBackgroundResource(R.drawable.background_edit_square);
-            txt_country.setBackgroundResource(R.drawable.background_edit_square);
-            enter_city_ext.setBackgroundResource(R.drawable.background_edit_square);
-            postcode_ext.setBackgroundResource(R.drawable.background_edit_square);
-
-        } /*else if (short_desxription_ext.getText().toString().trim().isEmpty()) {
-            short_desxription_ext.setBackgroundResource(R.drawable.green_border_light);
-            staorage_spcae_name_ext.setBackgroundResource(R.drawable.background_edit_square);
-            address1_ext.setBackgroundResource(R.drawable.background_edit_square);
-            address2_ext.setBackgroundResource(R.drawable.background_edit_square);
-            txt_country.setBackgroundResource(R.drawable.background_edit_square);
-            enter_city_ext.setBackgroundResource(R.drawable.background_edit_square);
-            postcode_ext.setBackgroundResource(R.drawable.background_edit_square);
-
-        } else if (address1_ext.getText().toString().trim().isEmpty()) {
-            address1_ext.setBackgroundResource(R.drawable.green_border_light);
-            staorage_spcae_name_ext.setBackgroundResource(R.drawable.background_edit_square);
-            short_desxription_ext.setBackgroundResource(R.drawable.background_edit_square);
-            address2_ext.setBackgroundResource(R.drawable.background_edit_square);
-            txt_country.setBackgroundResource(R.drawable.background_edit_square);
-            enter_city_ext.setBackgroundResource(R.drawable.background_edit_square);
-            postcode_ext.setBackgroundResource(R.drawable.background_edit_square);
-
-        } else if (address2_ext.getText().toString().trim().isEmpty()) {
-            address2_ext.setBackgroundResource(R.drawable.green_border_light);
-            staorage_spcae_name_ext.setBackgroundResource(R.drawable.background_edit_square);
-            short_desxription_ext.setBackgroundResource(R.drawable.background_edit_square);
-            address1_ext.setBackgroundResource(R.drawable.background_edit_square);
-            txt_country.setBackgroundResource(R.drawable.background_edit_square);
-            enter_city_ext.setBackgroundResource(R.drawable.background_edit_square);
-            postcode_ext.setBackgroundResource(R.drawable.background_edit_square);
-
-        }*/else if (txt_country.getText().toString().trim().isEmpty()) {
-            txt_country.setBackgroundResource(R.drawable.green_border_light);
-            staorage_spcae_name_ext.setBackgroundResource(R.drawable.background_edit_square);
-            short_desxription_ext.setBackgroundResource(R.drawable.background_edit_square);
-            address1_ext.setBackgroundResource(R.drawable.background_edit_square);
-            address2_ext.setBackgroundResource(R.drawable.background_edit_square);
-            enter_city_ext.setBackgroundResource(R.drawable.background_edit_square);
-            postcode_ext.setBackgroundResource(R.drawable.background_edit_square);
-
-        } else if (enter_city_ext.getText().toString().trim().isEmpty()) {
-            enter_city_ext.setBackgroundResource(R.drawable.green_border_light);
-            staorage_spcae_name_ext.setBackgroundResource(R.drawable.background_edit_square);
-            short_desxription_ext.setBackgroundResource(R.drawable.background_edit_square);
-            address1_ext.setBackgroundResource(R.drawable.background_edit_square);
-            address2_ext.setBackgroundResource(R.drawable.background_edit_square);
-            txt_country.setBackgroundResource(R.drawable.background_edit_square);
-            postcode_ext.setBackgroundResource(R.drawable.background_edit_square);
-
-        }/* else if (postcode_ext.getText().toString().trim().isEmpty()) {
-            postcode_ext.setBackgroundResource(R.drawable.green_border_light);
-            staorage_spcae_name_ext.setBackgroundResource(R.drawable.background_edit_square);
-            short_desxription_ext.setBackgroundResource(R.drawable.background_edit_square);
-            address1_ext.setBackgroundResource(R.drawable.background_edit_square);
-            address2_ext.setBackgroundResource(R.drawable.background_edit_square);
-            txt_country.setBackgroundResource(R.drawable.background_edit_square);
-            enter_city_ext.setBackgroundResource(R.drawable.background_edit_square);
-
-        }*/ else {
-            staorage_spcae_name_ext.setBackgroundResource(R.drawable.background_edit_square);
-            short_desxription_ext.setBackgroundResource(R.drawable.background_edit_square);
-            address1_ext.setBackgroundResource(R.drawable.background_edit_square);
-            address2_ext.setBackgroundResource(R.drawable.background_edit_square);
-            txt_country.setBackgroundResource(R.drawable.background_edit_square);
-            enter_city_ext.setBackgroundResource(R.drawable.background_edit_square);
-            postcode_ext.setBackgroundResource(R.drawable.background_edit_square);
-
-
-        }
-    }
 }

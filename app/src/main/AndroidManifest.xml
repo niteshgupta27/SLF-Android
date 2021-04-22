@@ -20,7 +20,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".StorageSelection.activity.ShanpeInfoActivity"></activity>
+        <activity android:name=".StorageSelection.activity.ShanpeInfoActivity"
+            android:screenOrientation="portrait"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"

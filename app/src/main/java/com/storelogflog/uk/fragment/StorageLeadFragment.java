@@ -30,7 +30,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-public class StorageLeadFragment extends BaseFragment implements VolleyApiResponseString, TextWatcher {
+public class StorageLeadFragment extends BaseFragment implements VolleyApiResponseString {
 
     private RelativeLayout rlSubmit;
     private AppCompatEditText editStorageName;
@@ -79,12 +79,96 @@ public class StorageLeadFragment extends BaseFragment implements VolleyApiRespon
             }
         });
 
-        editStorageName.addTextChangedListener(this);
-        editContactPerson.addTextChangedListener(this);
-        editContactNumber.addTextChangedListener(this);
-        editContactAddress.addTextChangedListener(this);
-        editStorageCity.addTextChangedListener(this);
-        editMessage.addTextChangedListener(this);
+        editStorageName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                if (String.valueOf(s).equals("")){
+                    editStorageName.setBackgroundResource(R.drawable.red_border_light);
+
+                }else {
+                    editStorageName.setBackgroundResource(R.drawable.background_edit_square);
+
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (String.valueOf(s).equals("")){
+                    editStorageName.setBackgroundResource(R.drawable.red_border_light);
+
+                }else {
+                    editStorageName.setBackgroundResource(R.drawable.background_edit_square);
+
+                }
+
+
+            }
+        });
+        editContactNumber.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (String.valueOf(s).equals("")){
+                    editContactNumber.setBackgroundResource(R.drawable.red_border_light);
+
+                }else {
+                    editContactNumber.setBackgroundResource(R.drawable.background_edit_square);
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (String.valueOf(s).equals("")){
+                    editContactNumber.setBackgroundResource(R.drawable.red_border_light);
+
+                }else {
+                    editContactNumber.setBackgroundResource(R.drawable.background_edit_square);
+
+                }
+            }
+        });
+        editStorageCity.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                if (String.valueOf(s).equals("")){
+                    editStorageCity.setBackgroundResource(R.drawable.red_border_light);
+
+                }else {
+                    editStorageCity.setBackgroundResource(R.drawable.background_edit_square);
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (String.valueOf(s).equals("")){
+                    editStorageCity.setBackgroundResource(R.drawable.red_border_light);
+
+                }else {
+                    editStorageCity.setBackgroundResource(R.drawable.background_edit_square);
+
+                }
+
+            }
+        });
 
 
     }
@@ -132,23 +216,52 @@ public class StorageLeadFragment extends BaseFragment implements VolleyApiRespon
     }
 
     public boolean isValidate() {
-        Changebackground();
         if (editStorageName.getText().toString().isEmpty()) {
+            editStorageName.setBackgroundResource(R.drawable.red_border_light);
+            editContactPerson.setBackgroundResource(R.drawable.background_edit_square);
+            editContactNumber.setBackgroundResource(R.drawable.background_edit_square);
+            editContactAddress.setBackgroundResource(R.drawable.background_edit_square);
+            editStorageCity.setBackgroundResource(R.drawable.background_edit_square);
+            editMessage.setBackgroundResource(R.drawable.background_edit_square);
+
+
             return showErrorMsg(editStorageName, "Business name can't be blank");
         } /*else if (editContactPerson.getText().toString().isEmpty()) {
 
             return showErrorMsg(editContactPerson, "Contact person can't be blank");
         }*/ else if (editContactNumber.getText().toString().isEmpty()) {
 
+            editStorageName.setBackgroundResource(R.drawable.background_edit_square);
+            editContactPerson.setBackgroundResource(R.drawable.background_edit_square);
+            editContactNumber.setBackgroundResource(R.drawable.red_border_light);
+            editContactAddress.setBackgroundResource(R.drawable.background_edit_square);
+            editStorageCity.setBackgroundResource(R.drawable.background_edit_square);
+            editMessage.setBackgroundResource(R.drawable.background_edit_square);
+
 
             return showErrorMsg(editContactNumber, "Contact number can't be blank");
         } else if (!Validator.isValidMobileNo(editContactNumber.getText().toString())) {
+
+            editStorageName.setBackgroundResource(R.drawable.background_edit_square);
+            editContactPerson.setBackgroundResource(R.drawable.background_edit_square);
+            editContactNumber.setBackgroundResource(R.drawable.red_border_light);
+            editContactAddress.setBackgroundResource(R.drawable.background_edit_square);
+            editStorageCity.setBackgroundResource(R.drawable.background_edit_square);
+            editMessage.setBackgroundResource(R.drawable.background_edit_square);
 
             return showErrorMsg(editContactNumber, "Invalid Mobile Number");
         }/* else if (editContactAddress.getText().toString().isEmpty()) {
 
             return showErrorMsg(editContactAddress, "Address can't be blank");
         } */else if (editStorageCity.getText().toString().isEmpty()) {
+
+
+            editStorageName.setBackgroundResource(R.drawable.background_edit_square);
+            editContactPerson.setBackgroundResource(R.drawable.background_edit_square);
+            editContactNumber.setBackgroundResource(R.drawable.background_edit_square);
+            editContactAddress.setBackgroundResource(R.drawable.background_edit_square);
+            editStorageCity.setBackgroundResource(R.drawable.red_border_light);
+            editMessage.setBackgroundResource(R.drawable.background_edit_square);
 
             return showErrorMsg(editStorageCity, "Storage City can't be blank");
         } else {
@@ -197,79 +310,5 @@ public class StorageLeadFragment extends BaseFragment implements VolleyApiRespon
     }
 
 
-    private void Changebackground() {
 
-
-        if (editStorageName.getText().toString().trim().isEmpty()) {
-            editStorageName.setBackgroundResource(R.drawable.green_border_light);
-            editContactPerson.setBackgroundResource(R.drawable.background_edit_square);
-            editContactNumber.setBackgroundResource(R.drawable.background_edit_square);
-            editContactAddress.setBackgroundResource(R.drawable.background_edit_square);
-            editStorageCity.setBackgroundResource(R.drawable.background_edit_square);
-            editMessage.setBackgroundResource(R.drawable.background_edit_square);
-
-        } /*else if (editContactPerson.getText().toString().trim().isEmpty()) {
-            editContactPerson.setBackgroundResource(R.drawable.green_border_light);
-            editStorageName.setBackgroundResource(R.drawable.background_edit_square);
-            editContactNumber.setBackgroundResource(R.drawable.background_edit_square);
-            editContactAddress.setBackgroundResource(R.drawable.background_edit_square);
-            editStorageCity.setBackgroundResource(R.drawable.background_edit_square);
-            editMessage.setBackgroundResource(R.drawable.background_edit_square);
-
-        }*/ else if (editContactNumber.getText().toString().trim().isEmpty()) {
-            editContactNumber.setBackgroundResource(R.drawable.green_border_light);
-            editStorageName.setBackgroundResource(R.drawable.background_edit_square);
-            editContactPerson.setBackgroundResource(R.drawable.background_edit_square);
-            editContactAddress.setBackgroundResource(R.drawable.background_edit_square);
-            editStorageCity.setBackgroundResource(R.drawable.background_edit_square);
-            editMessage.setBackgroundResource(R.drawable.background_edit_square);
-
-        } /*else if (editContactAddress.getText().toString().trim().isEmpty()) {
-            editContactAddress.setBackgroundResource(R.drawable.green_border_light);
-            editStorageName.setBackgroundResource(R.drawable.background_edit_square);
-            editContactPerson.setBackgroundResource(R.drawable.background_edit_square);
-            editContactNumber.setBackgroundResource(R.drawable.background_edit_square);
-            editStorageCity.setBackgroundResource(R.drawable.background_edit_square);
-            editMessage.setBackgroundResource(R.drawable.background_edit_square);
-
-        } */else if (editStorageCity.getText().toString().trim().isEmpty()) {
-            editStorageCity.setBackgroundResource(R.drawable.green_border_light);
-            editStorageName.setBackgroundResource(R.drawable.background_edit_square);
-            editContactPerson.setBackgroundResource(R.drawable.background_edit_square);
-            editContactNumber.setBackgroundResource(R.drawable.background_edit_square);
-            editContactAddress.setBackgroundResource(R.drawable.background_edit_square);
-            editMessage.setBackgroundResource(R.drawable.background_edit_square);
-
-        } /*else if (editMessage.getText().toString().trim().isEmpty()) {
-            editMessage.setBackgroundResource(R.drawable.green_border_light);
-            editStorageName.setBackgroundResource(R.drawable.background_edit_square);
-            editContactPerson.setBackgroundResource(R.drawable.background_edit_square);
-            editContactNumber.setBackgroundResource(R.drawable.background_edit_square);
-            editContactAddress.setBackgroundResource(R.drawable.background_edit_square);
-            editStorageCity.setBackgroundResource(R.drawable.background_edit_square);
-
-        }*/ else {
-            editStorageName.setBackgroundResource(R.drawable.background_edit_square);
-            editContactPerson.setBackgroundResource(R.drawable.background_edit_square);
-            editContactNumber.setBackgroundResource(R.drawable.background_edit_square);
-            editContactAddress.setBackgroundResource(R.drawable.background_edit_square);
-            editStorageCity.setBackgroundResource(R.drawable.background_edit_square);
-            editMessage.setBackgroundResource(R.drawable.background_edit_square);
-        }
-    }
-
-    @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-    }
-
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-             Changebackground();
-    }
-
-    @Override
-    public void afterTextChanged(Editable s) {
-        Changebackground();
-    }
-}
+   }

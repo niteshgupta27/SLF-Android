@@ -28,6 +28,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
 import com.storelogflog.uk.R;
@@ -124,6 +125,8 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                 .centerCrop()
                 .dontAnimate()
                 .fitCenter()
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
                 .placeholder(R.drawable.place_holder)
                 .error(R.drawable.place_holder);
 
@@ -158,7 +161,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
             @Override
             public void onResponse(NetworkResponse response) {
 
-                hideLoading();
+             //   hideLoading();
                 String resultResponse = new String(response.data);
 
                 if (resultResponse != null) {
@@ -172,14 +175,15 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                             String message = getStringFromJsonObj(jsonObject, "Message");
                             if (result == 1) {
                                 showToast(message);
-                                LoginBean loginBean= new Gson().fromJson(response.toString(), LoginBean.class);
+                                callGetProfileApi2();
+         /*                       LoginBean loginBean= new Gson().fromJson(response.toString(), LoginBean.class);
                                 PreferenceManger.getPreferenceManger().setObject(PrefKeys.USER_INFO,loginBean);
 
                                 PreferenceManger.getPreferenceManger().setString(PrefKeys.EMAIL,loginBean.getEmail());
                                 PreferenceManger.getPreferenceManger().setString(PrefKeys.APIKEY,loginBean.getApikey());
                                 PreferenceManger.getPreferenceManger().setString(PrefKeys.SECRET,loginBean.getSecret());
                                 PreferenceManger.getPreferenceManger().setString(PrefKeys.UserProfile,loginBean.getImage());
-
+*/
 
                             } else {
                                 showToast(message);
@@ -424,7 +428,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
 
         if(profile.getImage()!=null)
         {
-            Utility.loadImage(profile.getImage(),imgProfile);
+            Utility.loadImage(ProfileActivity.this,profile.getImage(),imgProfile);
         }
 
 
@@ -449,11 +453,13 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
             return showErrorMsg(editAddress1, "Address1 can't be blank");
 
         }
+/*
         else if (editAddress2.getText().toString().isEmpty()) {
 
             return showErrorMsg(editAddress2, "Address2 can't be blank");
 
         }
+*/
        /* else if (txtCountry.getText().toString().isEmpty()) {
             showToast("Country can't be blank");
             return false;
@@ -665,8 +671,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                             if(result==1)
                             {
                                ProfileBean profileBean=new Gson().fromJson(response.toString(), ProfileBean.class);
-                               if (profileBean!=null && profileBean.getProfile()!=null)
-                               {
+                               if (profileBean.getProfile()!=null) {
                                    updateUi(profileBean.getProfile());
                                }
 
@@ -755,6 +760,28 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         }
     }
 
+
+    void callGetProfileApi2()
+    {
+        if(Utility.isInternetConnected(ProfileActivity.this))
+        {
+            try {
+                JSONObject jsonObjectPayload=new JSONObject();
+                jsonObjectPayload.put("apikey",PreferenceManger.getPreferenceManger().getString(PrefKeys.APIKEY));
+                Logger.debug(TAG,jsonObjectPayload.toString());
+                String token=Utility.getJwtToken(jsonObjectPayload.toString());
+             //   showLoading("Loading...");
+                new GetUserProfileDataApiCall(ProfileActivity.this,this,token, Constants.GET_PROFILE_CODE);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        else
+        {
+            showToast("No Internet Connection");
+        }
+    }
 
  /*   void callAllCityApi(int id)
     {

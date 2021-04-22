@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.storelogflog.uk.R;
+import com.storelogflog.uk.StorageSelection.model.SelectedCellModel;
 import com.storelogflog.uk.StorageSelection.model.StorageShapeModel;
 import com.storelogflog.uk.activity.HomeActivity;
 import com.storelogflog.uk.apiCall.AddRackAPICall;
@@ -36,10 +37,12 @@ import com.storelogflog.uk.bean.storageBean.Storage;
 import com.storelogflog.uk.fragment.AddItemFragment;
 import com.storelogflog.uk.fragment.BaseFragment;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -161,7 +164,7 @@ public class ManageShelftFragment extends BaseFragment implements VolleyApiRespo
             if (storage1 != null) {
                 GetStorageShape(String.valueOf(storage1.getUnitID()));
 
-                Log.e("UnitID", storage1.getUnitID());
+           //     Log.e("UnitID", storage1.getUnitID());
             }
 
         }
@@ -414,90 +417,207 @@ public class ManageShelftFragment extends BaseFragment implements VolleyApiRespo
                                         }
                                     }
 
-                                    if (numberofColumn.equals("5")) {
-                                        int j = 0;
-                                        for (int i = 0; i < GridCell_list.size(); i++) {
-
-                                            if (i < Shape_value_list5.size()) {
-
-                                                int value = Shape_value_list5.get(i);
-                                                if (value == 0) {
-                                                    Log.e(TAG, "value =====> " + value);
-                                                    StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
-                                                    selectedGridModel.setShape_name("");
-                                                    Shape_name.add(selectedGridModel);
-                                                } else {
-                                                    Log.e(TAG, "value =====> " + value);
-                                                    Log.e(TAG, "GridCell_list =====> " + GridCell_list.get(j));
 
 
-                                                    StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
-                                                    selectedGridModel.setShape_name(GridCell_list.get(j));
-                                                    Shape_name.add(selectedGridModel);
+                                       if (storageShapeModel.getStorage().getDoorType().equals("5")) {
+                                           String door = String.valueOf(storageShapeModel.getStorage().getDoors());
+                                           List<String> myList = new ArrayList<String>(Arrays.asList(door.split(",")));
 
-                                                    j++;
 
-                                                }
-                                            }
-                                        }
-                                    }
-                                    else if (numberofColumn.equals("4")) {
-                                        int j = 0;
-                                        for (int i = 0; i < GridCell_list.size(); i++) {
+                                           if (numberofColumn.equals("5")) {
+                                               int j = 0;
+                                               for (int i = 0; i < GridCell_list.size(); i++) {
 
-                                            if (i < Shape_value_list4.size()) {
+                                                   if (i < Shape_value_list5.size()) {
 
-                                                int value = Shape_value_list4.get(i);
+                                                       int value = Shape_value_list5.get(i);
+                                                       if (value == 0) {
+                                                           Log.e(TAG, "value =====> " + value);
+                                                           StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
+                                                           selectedGridModel.setShape_name("");
+                                                           selectedGridModel.setDoorPosition("");
+                                                           Shape_name.add(selectedGridModel);
+                                                           Log.e("door_array", myList.get(j));
+                                                       } else {
+                                                           Log.e(TAG, "value =====> " + value);
+                                                           Log.e(TAG, "GridCell_list =====> " + GridCell_list.get(j));
 
-                                                if (value == 0) {
-                                                    Log.e(TAG, "value =====> " + value);
-                                                    StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
-                                                    selectedGridModel.setShape_name("");
-                                                    Shape_name.add(selectedGridModel);
 
-                                                } else {
-                                                    Log.e(TAG, "value =====> " + value);
-                                                    Log.e(TAG, "GridCell_list =====> " + GridCell_list.get(j));
+                                                           StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
+                                                           selectedGridModel.setShape_name(GridCell_list.get(j));
+                                                           selectedGridModel.setDoorPosition(myList.get(j));
 
-                                                    StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
-                                                    selectedGridModel.setShape_name(GridCell_list.get(j));
-                                                    Shape_name.add(selectedGridModel);
+                                                           Shape_name.add(selectedGridModel);
 
-                                                    j++;
+                                                           Log.e("door_array", myList.get(j));
 
-                                                }
-                                            }
-                                        }
-                                    }
-                                    else if (numberofColumn.equals("3")) {
-                                        int j = 0;
-                                        for (int i = 0; i < GridCell_list.size(); i++) {
+                                                           j++;
 
-                                            if (i < Shape_value_list3.size()) {
+                                                       }
+                                                   }
+                                               }
+                                           } else if (numberofColumn.equals("4")) {
+                                               int j = 0;
+                                               for (int i = 0; i < GridCell_list.size(); i++) {
 
-                                                int value = Shape_value_list3.get(i);
+                                                   if (i < Shape_value_list4.size()) {
 
-                                                if (value == 0) {
-                                                    Log.e(TAG, "value =====> " + value);
-                                                    StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
-                                                    selectedGridModel.setShape_name("");
-                                                    Shape_name.add(selectedGridModel);
+                                                       int value = Shape_value_list4.get(i);
 
-                                                } else {
-                                                    Log.e(TAG, "value =====> " + value);
-                                                    Log.e(TAG, "GridCell_list =====> " + GridCell_list.get(j));
+                                                       if (value == 0) {
+                                                           Log.e(TAG, "value =====> " + value);
+                                                           StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
+                                                           selectedGridModel.setShape_name("");
+                                                           selectedGridModel.setDoorPosition("");
+                                                           Shape_name.add(selectedGridModel);
+                                                       } else {
+                                                           Log.e(TAG, "value =====> " + value);
+                                                           Log.e(TAG, "GridCell_list =====> " + GridCell_list.get(j));
 
-                                                    StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
-                                                    selectedGridModel.setShape_name(GridCell_list.get(j));
-                                                    Shape_name.add(selectedGridModel);
 
-                                                    j++;
+                                                           StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
+                                                           selectedGridModel.setShape_name(GridCell_list.get(j));
+                                                           selectedGridModel.setDoorPosition(myList.get(j));
+                                                           Shape_name.add(selectedGridModel);
 
-                                                }
-                                            }
-                                        }
-                                    }
+                                                           j++;
+
+                                                       }
+                                                   }
+                                               }
+                                           } else if (numberofColumn.equals("3")) {
+                                               int j = 0;
+                                               for (int i = 0; i < GridCell_list.size(); i++) {
+
+                                                   if (i < Shape_value_list3.size()) {
+
+                                                       int value = Shape_value_list3.get(i);
+
+                                                       if (value == 0) {
+                                                           Log.e(TAG, "value =====> " + value);
+                                                           StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
+                                                           selectedGridModel.setShape_name("");
+                                                           selectedGridModel.setDoorPosition("");
+                                                           Shape_name.add(selectedGridModel);
+                                                           Log.e("door_array", myList.get(j));
+                                                       } else {
+                                                           Log.e(TAG, "value =====> " + value);
+                                                           Log.e(TAG, "GridCell_list =====> " + GridCell_list.get(j));
+
+
+                                                           StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
+                                                           selectedGridModel.setShape_name(GridCell_list.get(j));
+                                                           selectedGridModel.setDoorPosition(myList.get(j));
+                                                           Shape_name.add(selectedGridModel);
+
+                                                           j++;
+
+                                                       }
+                                                   }
+                                               }
+                                           }
+                                       }else {
+                                           if (numberofColumn.equals("5")) {
+                                               int j = 0;
+                                               for (int i = 0; i < GridCell_list.size(); i++) {
+
+                                                   if (i < Shape_value_list5.size()) {
+
+                                                       int value = Shape_value_list5.get(i);
+                                                       if (value == 0) {
+                                                           Log.e(TAG, "value =====> " + value);
+                                                           StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
+                                                           selectedGridModel.setShape_name("");
+                                                           selectedGridModel.setDoorPosition("");
+                                                           Shape_name.add(selectedGridModel);
+
+                                                       } else {
+                                                           Log.e(TAG, "value =====> " + value);
+                                                           Log.e(TAG, "GridCell_list =====> " + GridCell_list.get(j));
+
+
+                                                           StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
+                                                           selectedGridModel.setShape_name(GridCell_list.get(j));
+                                                           selectedGridModel.setDoorPosition("");
+
+                                                           Shape_name.add(selectedGridModel);
+
+
+                                                           j++;
+
+                                                       }
+                                                   }
+                                               }
+                                           } else if (numberofColumn.equals("4")) {
+                                               int j = 0;
+                                               for (int i = 0; i < GridCell_list.size(); i++) {
+
+                                                   if (i < Shape_value_list4.size()) {
+
+                                                       int value = Shape_value_list4.get(i);
+
+                                                       if (value == 0) {
+                                                           Log.e(TAG, "value =====> " + value);
+                                                           StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
+                                                           selectedGridModel.setShape_name("");
+                                                           selectedGridModel.setDoorPosition("");
+                                                           Shape_name.add(selectedGridModel);
+
+                                                       } else {
+                                                           Log.e(TAG, "value =====> " + value);
+                                                           Log.e(TAG, "GridCell_list =====> " + GridCell_list.get(j));
+
+
+                                                           StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
+                                                           selectedGridModel.setShape_name(GridCell_list.get(j));
+                                                           selectedGridModel.setDoorPosition("");
+
+                                                           Shape_name.add(selectedGridModel);
+
+                                                           j++;
+
+                                                       }
+                                                   }
+                                               }
+                                           } else if (numberofColumn.equals("3")) {
+                                               int j = 0;
+                                               for (int i = 0; i < GridCell_list.size(); i++) {
+
+                                                   if (i < Shape_value_list3.size()) {
+
+                                                       int value = Shape_value_list3.get(i);
+
+                                                       if (value == 0) {
+                                                           Log.e(TAG, "value =====> " + value);
+                                                           StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
+                                                           selectedGridModel.setShape_name("");
+                                                           selectedGridModel.setDoorPosition("");
+                                                           Shape_name.add(selectedGridModel);
+
+                                                       } else {
+                                                           Log.e(TAG, "value =====> " + value);
+                                                           Log.e(TAG, "GridCell_list =====> " + GridCell_list.get(j));
+
+
+                                                           StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
+                                                           selectedGridModel.setShape_name(GridCell_list.get(j));
+                                                           selectedGridModel.setDoorPosition("");
+
+                                                           Shape_name.add(selectedGridModel);
+
+                                                           j++;
+
+                                                       }
+                                                   }
+                                               }
+                                           }
+
+                                       }
+
+
                                 }
+
+
 
                                 if (numberofColumn.equals("5")) {
                                     Grid3_linear.setVisibility(View.GONE);
@@ -723,7 +843,8 @@ public class ManageShelftFragment extends BaseFragment implements VolleyApiRespo
                                                 }
                                             }
                                         }
-                                    } else if (storageShapeModel.getStorage().getDoorType().equals("2")) {
+                                    }
+                                    else if (storageShapeModel.getStorage().getDoorType().equals("2")) {
                                         if (storageShapeModel.getStorage().getDoorColor() != null) {
                                             if (storageShapeModel.getStorage().getDoorColor().equals("1")) {
                                                 if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
@@ -901,7 +1022,8 @@ public class ManageShelftFragment extends BaseFragment implements VolleyApiRespo
                                             }
                                         }
 
-                                    } else if (storageShapeModel.getStorage().getDoorType().equals("3")) {
+                                    }
+                                    else if (storageShapeModel.getStorage().getDoorType().equals("3")) {
                                         if (storageShapeModel.getStorage().getDoorColor() != null) {
                                             if (storageShapeModel.getStorage().getDoorColor().equals("1")) {
                                                 if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
@@ -1068,180 +1190,144 @@ public class ManageShelftFragment extends BaseFragment implements VolleyApiRespo
                                                 }
 
                                             }
-                                        }
-                                    } else if (storageShapeModel.getStorage().getDoorType().equals("4")) {
-                                        if (storageShapeModel.getStorage().getDoorColor() != null) {
-                                            if (storageShapeModel.getStorage().getDoorColor().equals("1")) {
-                                                if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
-                                                    linear_door_1.setBackgroundResource(R.drawable.white_door);
-                                                    linear_door_2.setBackgroundResource(R.drawable.white_door);
-                                                    linear_door_3.setBackgroundResource(R.drawable.dash_img);
-                                                    linear_door_4.setBackgroundResource(R.drawable.dash_img);
-                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
-                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
-                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
-                                                    linear_door_2.setBackgroundResource(R.drawable.white_door);
-                                                    linear_door_3.setBackgroundResource(R.drawable.white_door);
-                                                    linear_door_4.setBackgroundResource(R.drawable.dash_img);
-                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
-                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,1,0")) {
-                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
-                                                    linear_door_2.setBackgroundResource(R.drawable.dash_img);
-                                                    linear_door_3.setBackgroundResource(R.drawable.white_door);
-                                                    linear_door_4.setBackgroundResource(R.drawable.white_door);
-                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
-                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,1")) {
-                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
-                                                    linear_door_2.setBackgroundResource(R.drawable.dash_img);
-                                                    linear_door_3.setBackgroundResource(R.drawable.dash_img);
-                                                    linear_door_4.setBackgroundResource(R.drawable.white_door);
-                                                    linear_door_5.setBackgroundResource(R.drawable.white_door);
-                                                }
-                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("2")) {
-                                                if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
-                                                    linear_door_1.setBackgroundResource(R.drawable.blue_door);
-                                                    linear_door_2.setBackgroundResource(R.drawable.blue_door);
-                                                    linear_door_3.setBackgroundResource(R.drawable.dash_img);
-                                                    linear_door_4.setBackgroundResource(R.drawable.dash_img);
-                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
-                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
-                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
-                                                    linear_door_2.setBackgroundResource(R.drawable.blue_door);
-                                                    linear_door_3.setBackgroundResource(R.drawable.blue_door);
-                                                    linear_door_4.setBackgroundResource(R.drawable.dash_img);
-                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
-                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,1,0")) {
-                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
-                                                    linear_door_2.setBackgroundResource(R.drawable.dash_img);
-                                                    linear_door_3.setBackgroundResource(R.drawable.blue_door);
-                                                    linear_door_4.setBackgroundResource(R.drawable.blue_door);
-                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
-                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,1")) {
-                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
-                                                    linear_door_2.setBackgroundResource(R.drawable.dash_img);
-                                                    linear_door_3.setBackgroundResource(R.drawable.dash_img);
-                                                    linear_door_4.setBackgroundResource(R.drawable.blue_door);
-                                                    linear_door_5.setBackgroundResource(R.drawable.blue_door);
-                                                }
-                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("3")) {
-                                                if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
-                                                    linear_door_1.setBackgroundResource(R.drawable.red_door);
-                                                    linear_door_2.setBackgroundResource(R.drawable.red_door);
-                                                    linear_door_3.setBackgroundResource(R.drawable.dash_img);
-                                                    linear_door_4.setBackgroundResource(R.drawable.dash_img);
-                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
-                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
-                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
-                                                    linear_door_2.setBackgroundResource(R.drawable.red_door);
-                                                    linear_door_3.setBackgroundResource(R.drawable.red_door);
-                                                    linear_door_4.setBackgroundResource(R.drawable.dash_img);
-                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
-                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,1,0")) {
-                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
-                                                    linear_door_2.setBackgroundResource(R.drawable.dash_img);
-                                                    linear_door_3.setBackgroundResource(R.drawable.red_door);
-                                                    linear_door_4.setBackgroundResource(R.drawable.red_door);
-                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
-                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,1")) {
-                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
-                                                    linear_door_2.setBackgroundResource(R.drawable.dash_img);
-                                                    linear_door_3.setBackgroundResource(R.drawable.dash_img);
-                                                    linear_door_4.setBackgroundResource(R.drawable.red_door);
-                                                    linear_door_5.setBackgroundResource(R.drawable.red_door);
-                                                }
-                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("4")) {
-                                                if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
-                                                    linear_door_1.setBackgroundResource(R.drawable.green_door);
-                                                    linear_door_2.setBackgroundResource(R.drawable.green_door);
-                                                    linear_door_3.setBackgroundResource(R.drawable.dash_img);
-                                                    linear_door_4.setBackgroundResource(R.drawable.dash_img);
-                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
-                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
-                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
-                                                    linear_door_2.setBackgroundResource(R.drawable.green_door);
-                                                    linear_door_3.setBackgroundResource(R.drawable.green_door);
-                                                    linear_door_4.setBackgroundResource(R.drawable.dash_img);
-                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
-                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,1,0")) {
-                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
-                                                    linear_door_2.setBackgroundResource(R.drawable.dash_img);
-                                                    linear_door_3.setBackgroundResource(R.drawable.green_door);
-                                                    linear_door_4.setBackgroundResource(R.drawable.green_door);
-                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
-                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,1")) {
-                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
-                                                    linear_door_2.setBackgroundResource(R.drawable.dash_img);
-                                                    linear_door_3.setBackgroundResource(R.drawable.dash_img);
-                                                    linear_door_4.setBackgroundResource(R.drawable.green_door);
-                                                    linear_door_5.setBackgroundResource(R.drawable.green_door);
-                                                }
-                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("5")) {
-                                                if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
-                                                    linear_door_1.setBackgroundResource(R.drawable.yellow_door);
-                                                    linear_door_2.setBackgroundResource(R.drawable.yellow_door);
-                                                    linear_door_3.setBackgroundResource(R.drawable.dash_img);
-                                                    linear_door_4.setBackgroundResource(R.drawable.dash_img);
-                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
-                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
-                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
-                                                    linear_door_2.setBackgroundResource(R.drawable.yellow_door);
-                                                    linear_door_3.setBackgroundResource(R.drawable.yellow_door);
-                                                    linear_door_4.setBackgroundResource(R.drawable.dash_img);
-                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
-                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,1,0")) {
-                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
-                                                    linear_door_2.setBackgroundResource(R.drawable.dash_img);
-                                                    linear_door_3.setBackgroundResource(R.drawable.yellow_door);
-                                                    linear_door_4.setBackgroundResource(R.drawable.yellow_door);
-                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
-                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,1")) {
-                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
-                                                    linear_door_2.setBackgroundResource(R.drawable.dash_img);
-                                                    linear_door_3.setBackgroundResource(R.drawable.dash_img);
-                                                    linear_door_4.setBackgroundResource(R.drawable.yellow_door);
-                                                    linear_door_5.setBackgroundResource(R.drawable.yellow_door);
-                                                }
-                                            }
-                                        }
-                                    } else if (storageShapeModel.getStorage().getDoorType().equals("5")) {
-
-                                        if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
-                                            door_img1.setImageResource(R.drawable.loft_door);
-                                            door_img1.setVisibility(View.VISIBLE);
-                                            door_img2.setVisibility(View.GONE);
-                                            door_img3.setVisibility(View.GONE);
-                                            door_img4.setVisibility(View.GONE);
-                                            door_img5.setVisibility(View.GONE);
-                                        } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
-                                            door_img2.setImageResource(R.drawable.loft_door);
-                                            door_img1.setVisibility(View.GONE);
-                                            door_img2.setVisibility(View.VISIBLE);
-                                            door_img3.setVisibility(View.GONE);
-                                            door_img4.setVisibility(View.GONE);
-                                            door_img5.setVisibility(View.GONE);
-                                        } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
-                                            door_img3.setImageResource(R.drawable.loft_door);
-                                            door_img1.setVisibility(View.GONE);
-                                            door_img2.setVisibility(View.GONE);
-                                            door_img3.setVisibility(View.VISIBLE);
-                                            door_img4.setVisibility(View.GONE);
-                                            door_img5.setVisibility(View.GONE);
-                                        } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,0")) {
-                                            door_img4.setImageResource(R.drawable.loft_door);
-                                            door_img1.setVisibility(View.GONE);
-                                            door_img2.setVisibility(View.GONE);
-                                            door_img3.setVisibility(View.GONE);
-                                            door_img4.setVisibility(View.VISIBLE);
-                                            door_img5.setVisibility(View.GONE);
-                                        } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,0,1")) {
-                                            door_img5.setImageResource(R.drawable.loft_door);
-                                            door_img1.setVisibility(View.GONE);
-                                            door_img2.setVisibility(View.GONE);
-                                            door_img3.setVisibility(View.GONE);
-                                            door_img4.setVisibility(View.GONE);
-                                            door_img5.setVisibility(View.VISIBLE);
                                         }
                                     }
+                                    else if (storageShapeModel.getStorage().getDoorType().equals("4")) {
+                                        if (storageShapeModel.getStorage().getDoorColor() != null) {
+                                            if (storageShapeModel.getStorage().getDoorColor().equals("1")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.white_door);
+                                                    linear_door_2.setBackgroundResource(R.drawable.white_door);
+                                                    linear_door_3.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_4.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_2.setBackgroundResource(R.drawable.white_door);
+                                                    linear_door_3.setBackgroundResource(R.drawable.white_door);
+                                                    linear_door_4.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,1,0")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_2.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_3.setBackgroundResource(R.drawable.white_door);
+                                                    linear_door_4.setBackgroundResource(R.drawable.white_door);
+                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,1")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_2.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_3.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_4.setBackgroundResource(R.drawable.white_door);
+                                                    linear_door_5.setBackgroundResource(R.drawable.white_door);
+                                                }
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("2")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.blue_door);
+                                                    linear_door_2.setBackgroundResource(R.drawable.blue_door);
+                                                    linear_door_3.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_4.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_2.setBackgroundResource(R.drawable.blue_door);
+                                                    linear_door_3.setBackgroundResource(R.drawable.blue_door);
+                                                    linear_door_4.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,1,0")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_2.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_3.setBackgroundResource(R.drawable.blue_door);
+                                                    linear_door_4.setBackgroundResource(R.drawable.blue_door);
+                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,1")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_2.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_3.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_4.setBackgroundResource(R.drawable.blue_door);
+                                                    linear_door_5.setBackgroundResource(R.drawable.blue_door);
+                                                }
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("3")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.red_door);
+                                                    linear_door_2.setBackgroundResource(R.drawable.red_door);
+                                                    linear_door_3.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_4.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_2.setBackgroundResource(R.drawable.red_door);
+                                                    linear_door_3.setBackgroundResource(R.drawable.red_door);
+                                                    linear_door_4.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,1,0")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_2.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_3.setBackgroundResource(R.drawable.red_door);
+                                                    linear_door_4.setBackgroundResource(R.drawable.red_door);
+                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,1")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_2.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_3.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_4.setBackgroundResource(R.drawable.red_door);
+                                                    linear_door_5.setBackgroundResource(R.drawable.red_door);
+                                                }
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("4")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.green_door);
+                                                    linear_door_2.setBackgroundResource(R.drawable.green_door);
+                                                    linear_door_3.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_4.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_2.setBackgroundResource(R.drawable.green_door);
+                                                    linear_door_3.setBackgroundResource(R.drawable.green_door);
+                                                    linear_door_4.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,1,0")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_2.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_3.setBackgroundResource(R.drawable.green_door);
+                                                    linear_door_4.setBackgroundResource(R.drawable.green_door);
+                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,1")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_2.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_3.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_4.setBackgroundResource(R.drawable.green_door);
+                                                    linear_door_5.setBackgroundResource(R.drawable.green_door);
+                                                }
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("5")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.yellow_door);
+                                                    linear_door_2.setBackgroundResource(R.drawable.yellow_door);
+                                                    linear_door_3.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_4.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_2.setBackgroundResource(R.drawable.yellow_door);
+                                                    linear_door_3.setBackgroundResource(R.drawable.yellow_door);
+                                                    linear_door_4.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,1,0")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_2.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_3.setBackgroundResource(R.drawable.yellow_door);
+                                                    linear_door_4.setBackgroundResource(R.drawable.yellow_door);
+                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,1")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_2.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_3.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_4.setBackgroundResource(R.drawable.yellow_door);
+                                                    linear_door_5.setBackgroundResource(R.drawable.yellow_door);
+                                                }
+                                            }
+                                        }
+                                    }
+
                                 }
                                 else if (numberofColumn.equals("4")) {
                                     if (storageShapeModel.getStorage().getDoorType().equals("1")) {
@@ -1413,7 +1499,8 @@ public class ManageShelftFragment extends BaseFragment implements VolleyApiRespo
                                                 }
                                             }
                                         }
-                                    } else if (storageShapeModel.getStorage().getDoorType().equals("2")) {
+                                    }
+                                    else if (storageShapeModel.getStorage().getDoorType().equals("2")) {
                                         if (storageShapeModel.getStorage().getDoorColor() != null) {
                                             if (storageShapeModel.getStorage().getDoorColor().equals("1")) {
                                                 if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
@@ -1578,7 +1665,8 @@ public class ManageShelftFragment extends BaseFragment implements VolleyApiRespo
                                             }
                                         }
 
-                                    } else if (storageShapeModel.getStorage().getDoorType().equals("3")) {
+                                    }
+                                    else if (storageShapeModel.getStorage().getDoorType().equals("3")) {
                                         if (storageShapeModel.getStorage().getDoorColor() != null) {
                                             if (storageShapeModel.getStorage().getDoorColor().equals("1")) {
                                                 if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
@@ -1743,7 +1831,8 @@ public class ManageShelftFragment extends BaseFragment implements VolleyApiRespo
 
                                             }
                                         }
-                                    } else if (storageShapeModel.getStorage().getDoorType().equals("4")) {
+                                    }
+                                    else if (storageShapeModel.getStorage().getDoorType().equals("4")) {
                                         if (storageShapeModel.getStorage().getDoorColor() != null) {
                                             if (storageShapeModel.getStorage().getDoorColor().equals("1")) {
                                                 if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
@@ -1876,44 +1965,6 @@ public class ManageShelftFragment extends BaseFragment implements VolleyApiRespo
 
                                                 }
                                             }
-                                        }
-                                    } else if (storageShapeModel.getStorage().getDoorType().equals("5")) {
-
-                                        if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
-                                            door_img11.setImageResource(R.drawable.loft_door);
-                                            door_img11.setVisibility(View.VISIBLE);
-                                            door_img12.setVisibility(View.GONE);
-                                            door_img13.setVisibility(View.GONE);
-                                            door_img14.setVisibility(View.GONE);
-
-                                        } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
-                                            door_img12.setImageResource(R.drawable.loft_door);
-                                            door_img11.setVisibility(View.GONE);
-                                            door_img12.setVisibility(View.VISIBLE);
-                                            door_img13.setVisibility(View.GONE);
-                                            door_img14.setVisibility(View.GONE);
-
-                                        } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
-                                            door_img13.setImageResource(R.drawable.loft_door);
-                                            door_img11.setVisibility(View.GONE);
-                                            door_img12.setVisibility(View.GONE);
-                                            door_img13.setVisibility(View.VISIBLE);
-                                            door_img14.setVisibility(View.GONE);
-
-                                        } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,0")) {
-                                            door_img14.setImageResource(R.drawable.loft_door);
-                                            door_img11.setVisibility(View.GONE);
-                                            door_img12.setVisibility(View.GONE);
-                                            door_img13.setVisibility(View.GONE);
-                                            door_img14.setVisibility(View.VISIBLE);
-
-                                        } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,0,1")) {
-                                            door_img14.setImageResource(R.drawable.loft_door);
-                                            door_img11.setVisibility(View.GONE);
-                                            door_img12.setVisibility(View.GONE);
-                                            door_img13.setVisibility(View.GONE);
-                                            door_img14.setVisibility(View.VISIBLE);
-
                                         }
                                     }
 
@@ -2019,7 +2070,8 @@ public class ManageShelftFragment extends BaseFragment implements VolleyApiRespo
                                                 }
                                             }
                                         }
-                                    } else if (storageShapeModel.getStorage().getDoorType().equals("2")) {
+                                    }
+                                    else if (storageShapeModel.getStorage().getDoorType().equals("2")) {
                                         if (storageShapeModel.getStorage().getDoorColor() != null) {
                                             if (storageShapeModel.getStorage().getDoorColor().equals("1")) {
                                                 if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
@@ -2105,7 +2157,8 @@ public class ManageShelftFragment extends BaseFragment implements VolleyApiRespo
                                             }
                                         }
 
-                                    } else if (storageShapeModel.getStorage().getDoorType().equals("3")) {
+                                    }
+                                    else if (storageShapeModel.getStorage().getDoorType().equals("3")) {
                                         if (storageShapeModel.getStorage().getDoorColor() != null) {
                                             if (storageShapeModel.getStorage().getDoorColor().equals("1")) {
                                                 if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
@@ -2198,7 +2251,8 @@ public class ManageShelftFragment extends BaseFragment implements VolleyApiRespo
 
                                             }
                                         }
-                                    } else if (storageShapeModel.getStorage().getDoorType().equals("4")) {
+                                    }
+                                    else if (storageShapeModel.getStorage().getDoorType().equals("4")) {
                                         if (storageShapeModel.getStorage().getDoorColor() != null) {
                                             if (storageShapeModel.getStorage().getDoorColor().equals("1")) {
                                                 if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
@@ -2263,27 +2317,6 @@ public class ManageShelftFragment extends BaseFragment implements VolleyApiRespo
 
                                                 }
                                             }
-                                        }
-                                    } else if (storageShapeModel.getStorage().getDoorType().equals("5")) {
-
-                                        if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
-                                            door_img21.setImageResource(R.drawable.loft_door);
-                                            door_img21.setVisibility(View.VISIBLE);
-                                            door_img22.setVisibility(View.GONE);
-                                            door_img23.setVisibility(View.GONE);
-
-                                        } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
-                                            door_img22.setImageResource(R.drawable.loft_door);
-                                            door_img21.setVisibility(View.GONE);
-                                            door_img22.setVisibility(View.VISIBLE);
-                                            door_img23.setVisibility(View.GONE);
-
-                                        } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
-                                            door_img23.setImageResource(R.drawable.loft_door);
-                                            door_img21.setVisibility(View.GONE);
-                                            door_img22.setVisibility(View.GONE);
-                                            door_img23.setVisibility(View.VISIBLE);
-
                                         }
                                     }
 
@@ -2463,22 +2496,14 @@ public class ManageShelftFragment extends BaseFragment implements VolleyApiRespo
                 holder.item_layout = convertView.findViewById(R.id.garage_relative);
                 holder.info_text = convertView.findViewById(R.id.info_text);
                 holder.rack_list_avalablity = convertView.findViewById(R.id.rack_list_avalablity);
+                holder.door_img = convertView.findViewById(R.id.door_img);
+
 
                 convertView.setTag(holder);
             } else {
                 holder = (GridCellAdapter.ViewHolder) convertView.getTag();
             }
 
-           /* if (playersArrayList.get(position).isChecked()) {
-                holder.item_layout.setBackgroundResource(R.drawable.green_back);
-            } else {
-                if (!grid_cell_name.get(position).getShape_name().equals("")) {
-                    holder.item_layout.setBackgroundResource(R.drawable.deactive_character);
-                } else {
-
-                    holder.item_layout.setBackgroundColor(mContext.getResources().getColor(R.color.diactive_grid));
-                }
-            }*/
 
 
             if (grid_cell_name.get(position).getShape_name().equals(Selectedshape_name)) {
@@ -2498,8 +2523,16 @@ public class ManageShelftFragment extends BaseFragment implements VolleyApiRespo
                 if (playersArrayList.get(position).getRackList().size() > 0) {
                     holder.rack_list_avalablity.setVisibility(View.VISIBLE);
                     if (!grid_cell_name.get(position).getShape_name().equals("")) {
-                        holder.info_text.setText(String.valueOf(grid_cell_name.get(position).getShape_name())+"-"+String.valueOf(playersArrayList.get(position).getRackList().size()));
+                        holder.info_text.setText(String.valueOf(grid_cell_name.get(position).getShape_name())+"-"+String.valueOf(playersArrayList.get(position).getRackList().size()-1));
                         holder.item_layout.setBackgroundResource(R.drawable.green_back);
+                        if (grid_cell_name.get(position).getDoorPosition().equals("1")){
+                            holder.door_img.setVisibility(View.GONE);
+                            holder.info_text.setVisibility(View.GONE);
+                        }else {
+                            holder.info_text.setVisibility(View.VISIBLE);
+                            holder.door_img.setVisibility(View.GONE);
+                        }
+
                     } else {
                         holder.item_layout.setBackgroundColor(mContext.getResources().getColor(R.color.diactive_grid));
                     }
@@ -2508,6 +2541,14 @@ public class ManageShelftFragment extends BaseFragment implements VolleyApiRespo
                     if (!grid_cell_name.get(position).getShape_name().equals("")) {
                         holder.info_text.setText(String.valueOf(grid_cell_name.get(position).getShape_name()));
                         holder.item_layout.setBackgroundResource(R.drawable.deactive_character);
+                        if (grid_cell_name.get(position).getDoorPosition().equals("1")){
+                            holder.door_img.setVisibility(View.VISIBLE);
+                            holder.info_text.setVisibility(View.GONE);
+                        }else {
+                            holder.info_text.setVisibility(View.VISIBLE);
+                            holder.door_img.setVisibility(View.GONE);
+                        }
+
                     } else {
 
                         holder.item_layout.setBackgroundColor(mContext.getResources().getColor(R.color.diactive_grid));
@@ -2583,6 +2624,7 @@ public class ManageShelftFragment extends BaseFragment implements VolleyApiRespo
                 public void onClick(View v) {
                     Count = 1;
                     count_txt.setText(String.valueOf(Count));
+                    alertDialog.dismiss();
                 }
             });
 
@@ -2711,6 +2753,7 @@ public class ManageShelftFragment extends BaseFragment implements VolleyApiRespo
             RelativeLayout item_layout;
             TextView info_text;
             View rack_list_avalablity;
+            ImageView door_img;
         }
 
         class MainItemClick implements View.OnClickListener {
@@ -2727,49 +2770,52 @@ public class ManageShelftFragment extends BaseFragment implements VolleyApiRespo
             public void onClick(View view) {
 
                 if (!grid_cell_name.get(position).getShape_name().equals("")) {
-                    if (prevSelection == -1) //nothing selected
-                    {
-                        playersArrayList.get(position).setChecked(true);
-                        gridCellAdapter.notifyDataSetChanged();
-                        prevSelection = position;
-                        viewHolder.item_layout.setBackgroundResource(R.drawable.green_back);
-                        SelectedGridShapeID = String.valueOf(playersArrayList.get(position).getShapID());
-                        if (playersArrayList.get(position).getRackList().size() > 0) {
-                            SelectedGridRackID = String.valueOf(playersArrayList.get(position).getRackList().get(0).getFldRacksId());
-                        } else {
-                            SelectedGridRackID = "0";
-                        }
+                    if (!grid_cell_name.get(position).getDoorPosition().equals("1")) {
 
-
-                    } else // Some other selection
-                    {
-                        //deselect previously selected
-                        if (prevSelection != position) {
-                            playersArrayList.get(prevSelection).setChecked(false);
-
-                            viewHolder.item_layout.setBackgroundResource(R.drawable.deactive_character);
+                        if (prevSelection == -1) //nothing selected
+                        {
                             playersArrayList.get(position).setChecked(true);
                             gridCellAdapter.notifyDataSetChanged();
                             prevSelection = position;
+                            viewHolder.item_layout.setBackgroundResource(R.drawable.green_back);
                             SelectedGridShapeID = String.valueOf(playersArrayList.get(position).getShapID());
                             if (playersArrayList.get(position).getRackList().size() > 0) {
                                 SelectedGridRackID = String.valueOf(playersArrayList.get(position).getRackList().get(0).getFldRacksId());
                             } else {
                                 SelectedGridRackID = "0";
                             }
+
+
+                        } else // Some other selection
+                        {
+                            //deselect previously selected
+                            if (prevSelection != position) {
+                                playersArrayList.get(prevSelection).setChecked(false);
+
+                                viewHolder.item_layout.setBackgroundResource(R.drawable.deactive_character);
+                                playersArrayList.get(position).setChecked(true);
+                                gridCellAdapter.notifyDataSetChanged();
+                                prevSelection = position;
+                                SelectedGridShapeID = String.valueOf(playersArrayList.get(position).getShapID());
+                                if (playersArrayList.get(position).getRackList().size() > 0) {
+                                    SelectedGridRackID = String.valueOf(playersArrayList.get(position).getRackList().get(0).getFldRacksId());
+                                } else {
+                                    SelectedGridRackID = "0";
+                                }
+                            }
+
                         }
 
+
+                        if (playersArrayList.get(position).getRackList().size() > 0) {
+                            // showToast(mContext, "You have already added rack to this loaction");
+                            DeleteRack_dialog(playersArrayList.get(position).getShapID());
+                        } else {
+
+                            AddRack_dialog(prevSelection, holder);
+
+                        }
                     }
-
-                    if (playersArrayList.get(position).getRackList().size() > 0) {
-                        // showToast(mContext, "You have already added rack to this loaction");
-                        DeleteRack_dialog(playersArrayList.get(position).getShapID());
-                    } else {
-
-                        AddRack_dialog(prevSelection, holder);
-
-                    }
-
                 }
 
                 Log.e("SelectedGridRackID", String.valueOf(SelectedGridRackID));

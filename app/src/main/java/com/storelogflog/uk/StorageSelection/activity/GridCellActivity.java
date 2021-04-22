@@ -393,7 +393,7 @@ public class GridCellActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
 
-                if (position==0){
+                if (position == 0) {
                     int id = Integer.parseInt(playersArrayList.get(position).getGridcell());
                     for (int i = 0; i < GridCell_array.size(); i++) {
                         if (Integer.parseInt(GridCell_array.get(i).getGridcell()) == id) {
@@ -410,9 +410,9 @@ public class GridCellActivity extends BaseActivity {
                             }
                         }
                     }
-                }else if (playersArrayList.get(0).isChecked()==false){
-                    Toast.makeText(mContext,"Please select from top first row", Toast.LENGTH_SHORT).show();
-                }else {
+                } else if (playersArrayList.get(0).isChecked() == false) {
+                    Toast.makeText(mContext, "Please select from top first row", Toast.LENGTH_SHORT).show();
+                } else {
                     int id = Integer.parseInt(playersArrayList.get(position).getGridcell());
                     for (int i = 0; i < GridCell_array.size(); i++) {
                         if (Integer.parseInt(GridCell_array.get(i).getGridcell()) == id) {

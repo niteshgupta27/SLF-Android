@@ -54,9 +54,9 @@ public class StorageListAdapter extends RecyclerView.Adapter<StorageListAdapter.
         holder.txtTitle.setText(""+storage.getName());
         holder.txtDescription.setText(""+storage.getShortDesp());
         holder.txtAvailabilityValue.setText(""+storage.getAvailability());
-        holder.txtPriceValue.setText(Constants.pound+""+storage.getPricing()+" per month");
+        holder.txtPriceValue.setText(storage.getPricing());
 
-        Utility.loadImage(storage.getImage(),holder.imgStorage);
+        Utility.loadImage(activity, storage.getImage(),holder.imgStorage);
 
 
 
@@ -64,11 +64,11 @@ public class StorageListAdapter extends RecyclerView.Adapter<StorageListAdapter.
             @Override
             public void onClick(View view) {
 
-                Fragment fragment=new StorageDetailsFragment();
-                Bundle bundle=new Bundle();
-                bundle.putSerializable("storage",storage);
+           Fragment     fragment = new StorageDetailsFragment();
+              Bundle  bundle = new Bundle();
+                bundle.putSerializable("storage", storage);
                 fragment.setArguments(bundle);
-                Common.loadFragment(activity,fragment,true,null);
+                Common.loadFragment(activity, fragment, true, null);
 
             }
         });

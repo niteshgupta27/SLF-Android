@@ -62,6 +62,21 @@ public class Storage implements Serializable
     @SerializedName("Zip")
     @Expose
     private String zip;
+
+
+    public String getSubscribtion() {
+        return Subscribtion;
+    }
+
+    public void setSubscribtion(String subscribtion) {
+        Subscribtion = subscribtion;
+    }
+
+    @SerializedName("Subscribtion")
+    @Expose
+    private String Subscribtion;
+
+
     @SerializedName("Units")
     @Expose
     private String units;

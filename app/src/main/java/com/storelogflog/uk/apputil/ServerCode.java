@@ -57,5 +57,11 @@ public interface ServerCode {
     int Edit_CATEGORY_CODE = 47;
     int Update_Item_API = 48;
     int Delete_Rack = 49;
+    int Delete_storage = 50;
+    int AuctionCategory = 51;
+    int ALL_COUNTRY_CODE2 = 52;
+    int Edit_STORAGE_CODE = 53;
+    int Search_storage_Item = 54;
+    int Auction_check = 55;
 
 }

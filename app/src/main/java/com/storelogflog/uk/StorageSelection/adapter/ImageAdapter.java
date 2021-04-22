@@ -78,6 +78,9 @@ public class ImageAdapter extends PagerAdapter {
 
         Glide.with(context).load(Image_list.get(position).getURL()).apply(options).into(card_img);
 
+        Log.e("Image_list", String.valueOf(Image_list.get(position).getURL()));
+
+
         container.addView(itemView);
         return itemView;
     }

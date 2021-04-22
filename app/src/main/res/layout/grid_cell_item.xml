@@ -20,5 +20,17 @@
             android:textSize="@dimen/_16sdp"
             android:textStyle="bold" />
 
+
+        <ImageView
+            android:id="@+id/door_img"
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:src="@drawable/loft_door"
+            android:visibility="gone"/>
+
+
     </RelativeLayout>
 </LinearLayout>

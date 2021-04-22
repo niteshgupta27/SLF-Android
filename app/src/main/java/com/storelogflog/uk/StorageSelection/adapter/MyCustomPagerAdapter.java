@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,7 +18,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.cardview.widget.CardView;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -30,15 +28,14 @@ import androidx.viewpager.widget.ViewPager;
 import com.bumptech.glide.request.RequestOptions;
 import com.storelogflog.uk.R;
 import com.storelogflog.uk.StorageSelection.activity.ShanpeInfoActivity;
+import com.storelogflog.uk.StorageSelection.fragment.Card_fragment2;
 import com.storelogflog.uk.StorageSelection.model.CardViewModel;
 import com.storelogflog.uk.StorageSelection.model.StorageShapeModel;
 import com.storelogflog.uk.adapter.CategryListAdapter;
 import com.storelogflog.uk.apputil.Common;
 import com.storelogflog.uk.apputil.Constants;
-import com.storelogflog.uk.apputil.ScreenshotUtils;
 import com.storelogflog.uk.bean.storageBean.Storage;
 import com.storelogflog.uk.fragment.AddAuctionItemFragment;
-import com.storelogflog.uk.fragment.AddItemFragment;
 import com.storelogflog.uk.fragment.EditItemFragment;
 import com.storelogflog.uk.fragment.StoreFragment;
 
@@ -53,17 +50,15 @@ import java.util.TimerTask;
 
 public class MyCustomPagerAdapter extends PagerAdapter {
 
+    final long DELAY_MS = 500;//delay in milliseconds before task is to be executed
+    final long PERIOD_MS = 5000; // time in milliseconds between successive task executions.
     FragmentActivity context;
     LayoutInflater layoutInflater;
     List<CardViewModel.Item> arPhotoIn;
     RequestOptions options;
     int currentPage = 0;
     Timer timer;
-    final long DELAY_MS = 500;//delay in milliseconds before task is to be executed
-    final long PERIOD_MS = 5000; // time in milliseconds between successive task executions.
-
     AlertDialog alertDialog;
-
     int pagNo = 0;
     Storage storage;
     ArrayList<StorageShapeModel.Storage.ShapsList> shape_name_list;
@@ -75,6 +70,8 @@ public class MyCustomPagerAdapter extends PagerAdapter {
         shape_name_list = shape_name;
         this.storage = storage;
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+
     }
 
     @Override
@@ -96,6 +93,7 @@ public class MyCustomPagerAdapter extends PagerAdapter {
         TextView value_txt = itemView.findViewById(R.id.value_txt);
         TextView category_txt = itemView.findViewById(R.id.category_txt);
         TextView size_txt = itemView.findViewById(R.id.size_txt);
+        TextView size = itemView.findViewById(R.id.size);
         TextView location_txt = itemView.findViewById(R.id.location_txt);
         // ImageView card_img = itemView.findViewById(R.id.card_img);
         TextView short_desc = itemView.findViewById(R.id.short_desc);
@@ -106,9 +104,9 @@ public class MyCustomPagerAdapter extends PagerAdapter {
         RelativeLayout rlPre = itemView.findViewById(R.id.rlPre);
         RelativeLayout rlNext = itemView.findViewById(R.id.rlNext);
         RelativeLayout viewpager_relative = itemView.findViewById(R.id.viewpager_relative);
-        CardView img_cardview = itemView.findViewById(R.id.img_cardview);
+        ImageView img_cardview = itemView.findViewById(R.id.card_img);
         AppCompatTextView add_value = itemView.findViewById(R.id.add_value);
-        AppCompatTextView  relocate_item = itemView.findViewById(R.id.relocate_item);
+        AppCompatTextView relocate_item = itemView.findViewById(R.id.relocate_item);
         RelativeLayout card_relative = itemView.findViewById(R.id.card_relative);
         AppCompatTextView Get_value = itemView.findViewById(R.id.Get_value);
         AppCompatTextView edit_item = itemView.findViewById(R.id.edit_item);
@@ -131,43 +129,79 @@ public class MyCustomPagerAdapter extends PagerAdapter {
         card_category_txt.setText(String.valueOf(position + 1) + "/" + String.valueOf(arPhotoIn.size()));
 
         item_title_txt.setText(arPhotoIn.get(position).getName());
+
+        if (arPhotoIn.get(position).getQty() != null) {
+            if (!arPhotoIn.get(position).getQty().equals("")) {
+                if (Integer.parseInt(arPhotoIn.get(position).getQty()) > 1) {
+                    item_title_txt.setText(String.valueOf(arPhotoIn.get(position).getName()+ " (" + String.valueOf(arPhotoIn.get(position).getQty())+ ") " ));
+                } else {
+                    item_title_txt.setText(String.valueOf(arPhotoIn.get(position).getName()));
+                }
+            }
+
+        } else {
+            item_title_txt.setText(String.valueOf(arPhotoIn.get(position).getName()));
+        }
+
         value_txt.setText(String.valueOf(arPhotoIn.get(position).getValue()));
+
         if (arPhotoIn.get(position).getCategory().size() > 0) {
             category_txt.setText(String.valueOf(arPhotoIn.get(position).getCategory().get(0).getName()));
         }
+
         if (arPhotoIn.get(position).getCategory().size() > 1) {
             add_plus.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             add_plus.setVisibility(View.GONE);
         }
 
-       // Log.e("Item_size", String.valueOf(arPhotoIn.size()));
-        if (arPhotoIn.size()>1){
+        // Log.e("Item_size", String.valueOf(arPhotoIn.size()));
+
+        if (arPhotoIn.size() > 1) {
             item_linear.setVisibility(View.VISIBLE);
             item_linear2.setVisibility(View.GONE);
-        }else {
+        } else {
             item_linear2.setVisibility(View.GONE);
             item_linear2.setVisibility(View.VISIBLE);
         }
 
+        if (arPhotoIn.get(position).getLength() != null && arPhotoIn.get(position).getWidth() != null && arPhotoIn.get(position).getHeight() != null) {
 
-        size_txt.setText(String.valueOf(arPhotoIn.get(position).getLength()) + "x" + String.valueOf(arPhotoIn.get(position).getWidth()) + "x" + String.valueOf(arPhotoIn.get(position).getHeight()));
+            if (!arPhotoIn.get(position).getLength().equals("") && !(arPhotoIn.get(position).getWidth().equals("")) && !(arPhotoIn.get(position).getHeight().equals(""))) {
 
-              if (!shape_name_list.get(position).getShape_name().equals("")) {
-                  location_txt.setText(String.valueOf(shape_name_list.get(position).getShape_name()));
-              }
+                size_txt.setText(String.valueOf(arPhotoIn.get(position).getLength()) + "x" + String.valueOf(arPhotoIn.get(position).getWidth()) + "x" + String.valueOf(arPhotoIn.get(position).getHeight()));
+
+                if (arPhotoIn.get(position).getUnit().equals("I")) {
+
+                    size.setText("Size (Inches) (LxWxT)");
+                } else {
+                    size.setText("Size (CM) (LxWxT)");
+
+                }
+
+            }
+        }
+
+        if (shape_name_list.get(position).getShape_name() != null) {
+            if (!shape_name_list.get(position).getShape_name().equals("")) {
+                location_txt.setText(String.valueOf(shape_name_list.get(position).getShape_name()));
+            }
+        }
+
         String fromServerUnicodeDecoded = StringEscapeUtils.unescapeJava(arPhotoIn.get(position).getDesp());
         short_desc.setText(fromServerUnicodeDecoded);
 
 
-       if (arPhotoIn.get(position).getPhotos().size()>0){
+        if (arPhotoIn.get(position).getPhotos().size() > 0) {
             viewpager_relative.setVisibility(View.VISIBLE);
             img_cardview.setVisibility(View.GONE);
 
             ImageAdapter image_adapter = new ImageAdapter(context, arPhotoIn.get(position).getPhotos());
             img_viewpager.setAdapter(image_adapter);
             img_viewpager.setCurrentItem(pagNo);
-        }else {
+
+            Log.e("Photos", String.valueOf(arPhotoIn.get(position).getPhotos()));
+        } else {
             viewpager_relative.setVisibility(View.GONE);
             img_cardview.setVisibility(View.VISIBLE);
 
@@ -202,7 +236,7 @@ public class MyCustomPagerAdapter extends PagerAdapter {
             @Override
             public void onClick(View v) {
 
-               // Bitmap bitmap = ScreenshotUtils.getScreenShot(card_relative);
+                // Bitmap bitmap = ScreenshotUtils.getScreenShot(card_relative);
 
                 card_relative.setDrawingCacheEnabled(true);
                 Bitmap bitmap = Bitmap.createBitmap(card_relative.getDrawingCache());
@@ -211,11 +245,10 @@ public class MyCustomPagerAdapter extends PagerAdapter {
         });
 
 
-
         category_linear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if ( arPhotoIn.get(position).getCategory().size()>1) {
+                if (arPhotoIn.get(position).getCategory().size() > 1) {
                     CategoryDialog(position);
                 }
             }
@@ -227,8 +260,10 @@ public class MyCustomPagerAdapter extends PagerAdapter {
 
                 Intent intent = new Intent(context, ShanpeInfoActivity.class);
                 intent.putExtra("unitID", storage.getUnitID());
+                intent.putExtra("title_name", arPhotoIn.get(position).getName());
                 intent.putExtra("Shape_id2", shape_name_list.get(position).getShape_id2());
                 intent.putExtra("RackID_position", shape_name_list.get(position).getRackID_position());
+                intent.putExtra("RackID", shape_name_list.get(position).getRackID());
                 context.startActivity(intent);
 
             }
@@ -291,8 +326,8 @@ public class MyCustomPagerAdapter extends PagerAdapter {
         add_value.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              Fragment fragment = new AddItemFragment();
-               Bundle bundle = new Bundle();
+                Fragment fragment = new Card_fragment2();
+                Bundle bundle = new Bundle();
                 bundle.putSerializable("storage", storage);
                 bundle.putString("AddedItems", String.valueOf(arPhotoIn.size()));
                 fragment.setArguments(bundle);
@@ -303,9 +338,9 @@ public class MyCustomPagerAdapter extends PagerAdapter {
         relocate_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               Fragment fragment = new StoreFragment();
+                Fragment fragment = new StoreFragment();
                 Bundle bundle = new Bundle();
-                bundle.putString("from","store");
+                bundle.putString("from", "store");
                 bundle.putString(Constants.ItemID, String.valueOf(arPhotoIn.get(position).getID()));
                 fragment.setArguments(bundle);
                 Common.loadFragment(context, fragment, true, null);
@@ -317,10 +352,13 @@ public class MyCustomPagerAdapter extends PagerAdapter {
             public void onClick(View v) {
                 Fragment fragment = new AddAuctionItemFragment();
                 Bundle bundle = new Bundle();
-
-                bundle.putSerializable("item",item);
+                bundle.putSerializable("storage", storage);
+                bundle.putSerializable("item", item);
                 fragment.setArguments(bundle);
                 Common.loadFragment(context, fragment, true, null);
+
+                Log.e("storage", String.valueOf(storage));
+
             }
         });
 
@@ -330,21 +368,21 @@ public class MyCustomPagerAdapter extends PagerAdapter {
                 Fragment fragment = new EditItemFragment();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("storage", storage);
-                bundle.putSerializable("item",item);
+                bundle.putSerializable("item", item);
                 bundle.putString("position", String.valueOf(position));
                 bundle.putString("Shape_id2", shape_name_list.get(position).getShape_id2());
                 bundle.putString("RackID_position", shape_name_list.get(position).getRackID_position());
+                bundle.putString("RackID", shape_name_list.get(position).getRackID());
                 fragment.setArguments(bundle);
                 Common.loadFragment(context, fragment, true, null);
             }
         });
 
 
-
         add_value2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment fragment = new AddItemFragment();
+                Fragment fragment = new Card_fragment2();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("storage", storage);
                 bundle.putString("AddedItems", String.valueOf(arPhotoIn.size()));
@@ -354,18 +392,20 @@ public class MyCustomPagerAdapter extends PagerAdapter {
         });
 
 
-
         Get_value2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Fragment fragment = new AddAuctionItemFragment();
                 Bundle bundle = new Bundle();
-
-                bundle.putSerializable("item",item);
+                bundle.putSerializable("storage", storage);
+                bundle.putSerializable("item", item);
                 fragment.setArguments(bundle);
                 Common.loadFragment(context, fragment, true, null);
+
+                Log.e("storage", String.valueOf(storage));
             }
         });
+
 
         edit_item2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -373,9 +413,10 @@ public class MyCustomPagerAdapter extends PagerAdapter {
                 Fragment fragment = new EditItemFragment();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("storage", storage);
-                bundle.putSerializable("item",item);
+                bundle.putSerializable("item", item);
                 bundle.putString("Shape_id2", shape_name_list.get(position).getShape_id2());
                 bundle.putString("RackID_position", shape_name_list.get(position).getRackID_position());
+                bundle.putString("RackID", shape_name_list.get(position).getRackID());
                 fragment.setArguments(bundle);
                 Common.loadFragment(context, fragment, true, null);
             }
@@ -384,8 +425,6 @@ public class MyCustomPagerAdapter extends PagerAdapter {
         container.addView(itemView);
         return itemView;
     }
-
-
 
 
     public void NextPre(boolean check, ViewPager img_viewpager, int position) {

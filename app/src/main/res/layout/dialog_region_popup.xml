@@ -27,7 +27,6 @@
         android:layout_height="wrap_content"
         android:divider="@color/colorGray"
         android:layout_marginTop="10dp"
-        android:layout_below="@+id/tv_title"
         android:dividerHeight="1dp"/>
 
 
