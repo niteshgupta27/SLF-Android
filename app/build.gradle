@@ -9,8 +9,8 @@ android {
         applicationId "com.storelogflog.uk"
         minSdkVersion 19
         targetSdkVersion 30
-        versionCode 8
-        versionName "1.7"
+        versionCode 10
+        versionName "1.9"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner" 
     }

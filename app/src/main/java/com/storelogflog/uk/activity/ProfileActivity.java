@@ -63,7 +63,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
 
     String TAG = this.getClass().getSimpleName();
     private AppCompatTextView txtEditProfile;
-    private AppCompatEditText editName,editEmail,editPhone,editAddress1,editAddress2;
+    private AppCompatEditText edit_firstname,edit_Lastname,editEmail,editPhone,editAddress1,editAddress2;
     private AppCompatTextView txtCountry,txtRegion;
     private LinearLayout llCountry;
     private LinearLayout llRegion;
@@ -99,7 +99,8 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void initViews() {
 
-        editName=findViewById(R.id.edit_name);
+        edit_firstname = findViewById(R.id.edit_firstname);
+        edit_Lastname = findViewById(R.id.edit_Lastname);
         editEmail=findViewById(R.id.edit_email);
         editPhone=findViewById(R.id.edit_phone);
         editAddress1=findViewById(R.id.edit_address1);
@@ -342,8 +343,10 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
 
     public void updateUi(Profile profile)
     {
+             Log.e("full name",profile.getFirstName()+""+profile.getLastName());
 
-        editName.setText(""+profile.getFirstName()+" "+profile.getLastName());
+        edit_firstname.setText(""+profile.getFirstName());
+        edit_Lastname.setText(""+profile.getLastName());
         editEmail.setText(""+profile.getEmail());
 
         if(profile.getPhone()!=null)
@@ -440,7 +443,15 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
     public boolean isValidate()
     {
 
-        if (editPhone.getText().toString().isEmpty()) {
+        if (edit_firstname.getText().toString().isEmpty()) {
+
+            return showErrorMsg(edit_firstname, "Please enter first name");
+
+        }else if (edit_Lastname.getText().toString().isEmpty()) {
+
+            return showErrorMsg(edit_Lastname, "Please enter last name");
+
+        }else if (editPhone.getText().toString().isEmpty()) {
 
             return showErrorMsg(editPhone, "Mobile number can't be blank");
 
@@ -448,33 +459,32 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
 
             return showErrorMsg(editPhone, "Invalid Mobile Number");
         }
-        else if (editAddress1.getText().toString().isEmpty()) {
+/*        else if (editAddress1.getText().toString().isEmpty()) {
 
             return showErrorMsg(editAddress1, "Address1 can't be blank");
 
         }
-/*
+
         else if (editAddress2.getText().toString().isEmpty()) {
 
             return showErrorMsg(editAddress2, "Address2 can't be blank");
 
         }
-*/
-       /* else if (txtCountry.getText().toString().isEmpty()) {
+
+       else if (txtCountry.getText().toString().isEmpty()) {
             showToast("Country can't be blank");
             return false;
-        }*/
+        }
         else if (editCity.getText().toString().isEmpty()) {
 
             return showErrorMsg(editCity, "City can't be blank");
 
         }
-
         else if (txtRegion.getText().toString().isEmpty()) {
             showToast("Region can't be blank");
             return false;
         }
-
+*/
         else {
             return true;
         }
@@ -495,6 +505,8 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
 
         txtEditProfile.setVisibility(View.VISIBLE);
         txtChangePhoto.setVisibility(View.VISIBLE);
+        edit_firstname.setEnabled(true);
+        edit_Lastname.setEnabled(true);
 
         llRegion.setClickable(true);
         llCountry.setClickable(true);
@@ -521,7 +533,8 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
 
         txtEditProfile.setVisibility(View.GONE);
         txtChangePhoto.setVisibility(View.GONE);
-        editName.setClickable(false);
+        edit_firstname.setEnabled(false);
+        edit_Lastname.setEnabled(false);
 
         llRegion.setClickable(false);
         llCountry.setClickable(false);
@@ -805,8 +818,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
     }*/
 
 
-    void callUpdateApi()
-    {
+    void callUpdateApi() {
         if(Utility.isInternetConnected(ProfileActivity.this))
         {
 
@@ -814,9 +826,12 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
             {
                 try {
                     JSONObject jsonObjectPayload=new JSONObject();
+                    jsonObjectPayload.put("firstname",edit_firstname.getText().toString());
+                    jsonObjectPayload.put("lastname",edit_Lastname.getText().toString());
                     jsonObjectPayload.put("address1",editAddress1.getText().toString());
                     jsonObjectPayload.put("address2",editAddress2.getText().toString());
                     jsonObjectPayload.put("region",""+regionId);
+                    jsonObjectPayload.put("email",""+editEmail.getText().toString());
                     jsonObjectPayload.put("country","1");
                     jsonObjectPayload.put("city",""+editCity.getText().toString());
                     jsonObjectPayload.put("phonenumber",""+editPhone.getText().toString());
@@ -840,8 +855,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
 
 
 
-    void regionDialog()
-    {
+    void regionDialog() {
         final Dialog dialog = new Dialog(ProfileActivity.this);
 
         dialog.setContentView(R.layout.dialog_sppiner_popup);

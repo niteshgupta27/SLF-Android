@@ -79,17 +79,19 @@
 
                     <androidx.appcompat.widget.AppCompatTextView
                         style="@style/textview_style_heading"
-                        android:text="Full Name"
+                        android:text="First Name"
                         android:textColor="@color/colorWhite"
                         android:textStyle="bold"/>
 
+
+
                     <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/edit_name"
+                        android:id="@+id/edit_firstname"
                         style="@style/textview_style_heading"
                         android:text=""
                         android:enabled="false"
                         android:layout_marginTop="5dp"
-                        android:hint="Full Name"
+                        android:hint="First Name"
                         android:textColorHint="@color/colorGray"
                         android:singleLine="true"
                         android:maxLines="1"
@@ -105,6 +107,41 @@
 
                 </LinearLayout>
 
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/textview_style_heading"
+                        android:text="Last Name"
+                        android:textColor="@color/colorWhite"
+                        android:textStyle="bold"/>
+
+
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/edit_Lastname"
+                        style="@style/textview_style_heading"
+                        android:text=""
+                        android:enabled="false"
+                        android:layout_marginTop="5dp"
+                        android:hint="Last Name"
+                        android:textColorHint="@color/colorGray"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:backgroundTint="@color/colorLightBackground"
+                        android:textColor="@color/colorWhite"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="15dp"
+                        android:visibility="gone"
+                        android:background="@color/colorLightBackground"/>
+
+                </LinearLayout>
 
 
                 <LinearLayout
@@ -186,7 +223,7 @@
 
                     <androidx.appcompat.widget.AppCompatTextView
                         style="@style/textview_style_heading"
-                        android:text="Address 1"
+                        android:text="Address 1 (Optional)"
                         android:textColor="@color/colorWhite"
                         android:textStyle="bold"/>
 
@@ -219,7 +256,7 @@
 
                     <androidx.appcompat.widget.AppCompatTextView
                         style="@style/textview_style_heading"
-                        android:text="Address 2"
+                        android:text="Address 2 (Optional)"
                         android:textColor="@color/colorWhite"
                         android:textStyle="bold"/>
 
@@ -310,7 +347,7 @@
                         <androidx.appcompat.widget.AppCompatTextView
                             style="@style/textview_style_heading"
                             android:layout_width="wrap_content"
-                            android:text="City"
+                            android:text="City (Optional)"
                             android:textColor="@color/colorWhite"
                             android:textStyle="bold"/>
 
