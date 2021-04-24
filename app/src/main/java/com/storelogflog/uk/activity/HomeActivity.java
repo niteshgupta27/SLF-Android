@@ -245,7 +245,7 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
 
 
     public void updateUi(Profile profile) {
-        txtUserName.setText("" + profile.getFirstName());
+        txtUserName.setText("" + profile.getFirstName()+""+profile.getLastName());
         txtEmail.setText("" + profile.getEmail());
 
         Log.e("profileImage",profile.getImage());
