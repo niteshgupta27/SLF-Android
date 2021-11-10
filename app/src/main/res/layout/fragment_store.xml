@@ -30,18 +30,20 @@
             android:textColor="@color/colorPrimary"/>
 
 
-
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/menu_floating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end|bottom"
-            android:src="@drawable/fab_add"
-            android:contentDescription="@string/submit"
-            android:layout_margin="16dp"
-            android:visibility="visible"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"/>
+            android:layout_gravity="end|bottom"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:contentDescription="@string/submit"
+            android:src="@drawable/fab_add"
+            android:visibility="visible" />
 
         <!--  <com.github.clans.fab.FloatingActionMenu
               android:id="@+id/menu_floating"

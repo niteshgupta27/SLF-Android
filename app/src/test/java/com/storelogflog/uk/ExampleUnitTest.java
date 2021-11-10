@@ -1,4 +1,4 @@
-package com.storelogflog.uk;
+package com.storelogflog;
 
 import org.junit.Test;
 

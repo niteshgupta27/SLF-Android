@@ -80,7 +80,7 @@
             <androidx.appcompat.widget.AppCompatTextView
                 style="@style/textview_style_medium"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:text="Item Value" />
+                android:text="Total Value" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -94,8 +94,8 @@
                     style="@style/mEditText"
                     android:layout_weight="0.2"
                     android:background="@drawable/background_edit_square"
-                    android:hint="Item Value"
-                    android:inputType="numberDecimal" />
+                    android:hint="Total Value"
+                    android:inputType="number" />
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
@@ -210,7 +210,8 @@
                 android:id="@+id/rv_item_category"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp" />
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center" />
 
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -247,7 +248,7 @@
                     android:layout_marginEnd="@dimen/_15sdp">
 
 
-                    <com.storelogflog.uk.apputil.ExpandableHeightGridView
+                    <com.storelogflog.apputil.ExpandableHeightGridView
                         android:id="@+id/Grid_View5"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -433,7 +434,7 @@
                     android:layout_marginEnd="@dimen/_40sdp">
 
 
-                    <com.storelogflog.uk.apputil.ExpandableHeightGridView
+                    <com.storelogflog.apputil.ExpandableHeightGridView
                         android:id="@+id/Grid_View4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -597,7 +598,7 @@
                     android:layout_marginEnd="@dimen/_57sdp">
 
 
-                    <com.storelogflog.uk.apputil.ExpandableHeightGridView
+                    <com.storelogflog.apputil.ExpandableHeightGridView
                         android:id="@+id/Grid_View3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

@@ -80,7 +80,7 @@
                         android:background="@drawable/dashborder">
 
 
-                        <com.storelogflog.uk.apputil.ExpandableHeightGridView
+                        <com.storelogflog.apputil.ExpandableHeightGridView
                             android:id="@+id/Grid_View5"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -267,7 +267,7 @@
                         android:background="@drawable/dashborder">
 
 
-                        <com.storelogflog.uk.apputil.ExpandableHeightGridView
+                        <com.storelogflog.apputil.ExpandableHeightGridView
                             android:id="@+id/Grid_View4"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -431,7 +431,7 @@
                         android:background="@drawable/dashborder">
 
 
-                        <com.storelogflog.uk.apputil.ExpandableHeightGridView
+                        <com.storelogflog.apputil.ExpandableHeightGridView
                             android:id="@+id/Grid_View3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

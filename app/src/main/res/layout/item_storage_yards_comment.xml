@@ -22,7 +22,7 @@
             android:id="@+id/img_storage"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/_10sdp"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
             android:src="@drawable/place_holder" />
@@ -99,29 +99,63 @@
 
 
         <LinearLayout
+            android:id="@+id/total_unit_linear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_unit_linear"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/img_storage"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/total_unit_label"
+                style="@style/textview_style_small"
+                android:layout_width="wrap_content"
+                android:layout_below="@+id/txt_des"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@+id/img_storage"
+                android:textColor="@color/yellow_color"
+                android:textStyle="bold" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/total_unit_value"
+                style="@style/textview_style_small"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/yellow_color"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
             android:id="@+id/ll_chat_log_flog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txt_unit_linear"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_toEndOf="@+id/img_storage"
+            android:layout_below="@+id/img_storage"
+            android:layout_marginTop="@dimen/_10sdp"
             android:gravity="start"
             android:orientation="horizontal"
-            android:weightSum="3">
+            android:weightSum="4">
 
 
             <RelativeLayout
                 android:id="@+id/img_card"
                 android:layout_width="@dimen/_60sdp"
-                android:layout_height="@dimen/_30sdp">
+                android:layout_height="@dimen/_30sdp"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/img_sheft"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="@dimen/_5sdp"
                     android:layout_centerVertical="true"
                     android:src="@drawable/card_img"
-                    android:tint="@color/colorPrimary" />
+                    android:tint="@color/colorWhite" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
@@ -142,16 +176,21 @@
 
             <RelativeLayout
                 android:id="@+id/img_log"
-                android:layout_width="@dimen/_60sdp"
-                android:layout_height="@dimen/_30sdp">
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                android:layout_marginStart="@dimen/_2sdp">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/img_Item"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+
+                    android:layout_marginStart="@dimen/_5sdp"
                     android:layout_centerVertical="true"
                     android:src="@drawable/menu_log"
-                    android:tint="@color/colorPrimary" />
+                    android:tint="@color/colorWhite" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
@@ -171,15 +210,20 @@
                 android:id="@+id/img_chat"
                 android:layout_width="@dimen/_60sdp"
                 android:layout_height="@dimen/_30sdp"
-                android:visibility="visible">
+                android:background="@color/colorPrimary"
+                android:visibility="visible"
+                android:layout_weight="1"
+                android:layout_marginStart="@dimen/_2sdp">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/img_contact"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_centerVertical="true"
+
+                    android:layout_marginStart="@dimen/_5sdp"
                     android:src="@drawable/ic_insert_comment_black_24dp"
-                    android:tint="@color/colorPrimary" />
+                    android:tint="@color/colorWhite" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
@@ -199,15 +243,19 @@
                 android:id="@+id/delete_relative"
                 android:layout_width="@dimen/_50sdp"
                 android:layout_height="@dimen/_30sdp"
-                android:visibility="gone">
+                android:visibility="gone"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                android:layout_marginStart="@dimen/_2sdp">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/img_edit"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_centerVertical="true"
                     android:src="@drawable/edit"
-                    android:tint="@color/colorPrimary" />
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:tint="@color/colorWhite" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
@@ -223,14 +271,37 @@
 
             </RelativeLayout>
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/img_delete"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center"
-                android:src="@drawable/trash_icon"
-                android:tint="@color/colorPrimary" />
+
+            <RelativeLayout
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:visibility="visible"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                android:layout_marginStart="@dimen/_2sdp">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/img_delete"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:src="@drawable/trash_icon"
+                    android:tint="@color/colorWhite" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="5dp"
+                    android:layout_toEndOf="@+id/img_delete"
+                    android:gravity="start|center"
+                    android:text="Delete"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="10sp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
 
 
         </LinearLayout>

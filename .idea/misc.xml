@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/project's/officeproject/Storelogflog/Storelogflog/app/src/main/res/drawable/bg_circle.xml" value="0.3125" />
+        <entry key="..\:/project's/officeproject/Storelogflog/Storelogflog/app/src/main/res/drawable/bg_circle2.xml" value="0.3125" />
+        <entry key="..\:/project's/officeproject/Storelogflog/Storelogflog/app/src/main/res/layout/activity_forgot_password.xml" value="0.1921875" />
+        <entry key="..\:/project's/officeproject/Storelogflog/Storelogflog/app/src/main/res/layout/activity_home.xml" value="0.1921875" />
+        <entry key="..\:/project's/officeproject/Storelogflog/Storelogflog/app/src/main/res/layout/activity_login.xml" value="0.18923076923076923" />
+        <entry key="..\:/project's/officeproject/Storelogflog/Storelogflog/app/src/main/res/layout/fragment_add_item.xml" value="0.1921875" />
+        <entry key="..\:/project's/officeproject/Storelogflog/Storelogflog/app/src/main/res/layout/fragment_edit_item.xml" value="0.1921875" />
+        <entry key="..\:/project's/officeproject/Storelogflog/Storelogflog/app/src/main/res/layout/fragment_manage_shelft.xml" value="0.1921875" />
+        <entry key="..\:/project's/officeproject/Storelogflog/Storelogflog/app/src/main/res/layout/fragment_storage_claim.xml" value="0.1921875" />
+        <entry key="..\:/project's/officeproject/Storelogflog/Storelogflog/app/src/main/res/layout/fragment_storage_details.xml" value="0.33" />
+        <entry key="..\:/project's/officeproject/Storelogflog/Storelogflog/app/src/main/res/layout/fragment_storage_search.xml" value="0.1921875" />
+        <entry key="..\:/project's/officeproject/Storelogflog/Storelogflog/app/src/main/res/layout/fragment_store.xml" value="0.1921875" />
+        <entry key="..\:/project's/officeproject/Storelogflog/Storelogflog/app/src/main/res/layout/item_storage_yards.xml" value="0.1921875" />
+        <entry key="..\:/project's/officeproject/Storelogflog/Storelogflog/app/src/main/res/layout/item_storage_yards_comment.xml" value="0.5" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

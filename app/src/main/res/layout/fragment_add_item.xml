@@ -66,9 +66,9 @@
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/edit_item_value"
                     style="@style/mEditText"
-                    android:inputType="numberDecimal"
+                    android:inputType="number"
                     android:background="@drawable/background_edit_square"
-                    android:hint="Item Value"
+                    android:hint="Total Value"
                     android:layout_weight="0.2"/>
 
                 <RelativeLayout
@@ -163,7 +163,8 @@
                 android:id="@+id/rv_item_category"
                 android:layout_width="match_parent"
                 android:layout_marginTop="5dp"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"/>
 
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -203,7 +204,7 @@
 
 
 
-                <com.storelogflog.uk.apputil.ExpandableHeightGridView
+                <com.storelogflog.apputil.ExpandableHeightGridView
                     android:id="@+id/Grid_View5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -387,7 +388,7 @@
                     android:layout_marginEnd="@dimen/_40sdp">
 
 
-                    <com.storelogflog.uk.apputil.ExpandableHeightGridView
+                    <com.storelogflog.apputil.ExpandableHeightGridView
                         android:id="@+id/Grid_View4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -551,7 +552,7 @@
                     android:layout_marginEnd="@dimen/_57sdp">
 
 
-                    <com.storelogflog.uk.apputil.ExpandableHeightGridView
+                    <com.storelogflog.apputil.ExpandableHeightGridView
                         android:id="@+id/Grid_View3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

@@ -80,7 +80,7 @@
 
 
 
-                    <com.storelogflog.uk.apputil.ExpandableHeightGridView
+                    <com.storelogflog.apputil.ExpandableHeightGridView
                         android:id="@+id/Grid_View"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

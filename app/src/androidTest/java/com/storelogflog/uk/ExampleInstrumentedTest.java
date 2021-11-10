@@ -1,4 +1,4 @@
-package com.storelogflog.uk;
+package com.storelogflog;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("com.storelogflog.uk", appContext.getPackageName());
+        assertEquals("com.storelogflog", appContext.getPackageName());
     }
 }

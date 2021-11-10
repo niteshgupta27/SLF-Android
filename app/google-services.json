@@ -1,43 +1,57 @@
 {
   "project_info": {
-    "project_number": "178506954680",
-    "firebase_url": "https://storelogflogandroid.firebaseio.com",
-    "project_id": "storelogflogandroid",
-    "storage_bucket": "storelogflogandroid.appspot.com"
+    "project_number": "408287814689",
+    "project_id": "storelogfog",
+    "storage_bucket": "storelogfog.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:178506954680:android:1eaaccabb6a7ca41a3814d",
+        "mobilesdk_app_id": "1:408287814689:android:d75703c889f5b091052f60",
         "android_client_info": {
-          "package_name": "com.storelogflog.uk"
+          "package_name": "com.storelogflog"
         }
       },
       "oauth_client": [
         {
-          "client_id": "178506954680-agqnm2euttmpp49urkiq8li63uec7der.apps.googleusercontent.com",
+          "client_id": "408287814689-j636bcfveoneukov1h66s7s7mce7jtre.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.storelogflog.uk",
-            "certificate_hash": "55108903c76649e0e0f314507d44325c084fae7e"
+            "package_name": "com.storelogflog",
+            "certificate_hash": "d407e7f12453066639722cdd96199e22b4210ed7"
           }
         },
         {
-          "client_id": "178506954680-eaqj20fmlp04107nio03p2j286qeeacu.apps.googleusercontent.com",
+          "client_id": "408287814689-uujacdn1g2s76tvpk951jar38i7ce6jb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.storelogflog",
+            "certificate_hash": "393649aed77e10c6fe9cf0e38606855a64a55eb3"
+          }
+        },
+        {
+          "client_id": "408287814689-h9c76h7fsf2a9govk702gt2f3n0totnh.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAk_9WtO81XROk9cXGg5Lrc-BjLITNCMGw"
+          "current_key": "AIzaSyD-qmaNq5x6Zaseu1yw-fwqocBm5OZcRUs"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "178506954680-eaqj20fmlp04107nio03p2j286qeeacu.apps.googleusercontent.com",
+              "client_id": "408287814689-h9c76h7fsf2a9govk702gt2f3n0totnh.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "408287814689-4236rjpgm9408iqv8gccn16t3q7v3fsp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.storelogflog.uk"
+              }
             }
           ]
         }

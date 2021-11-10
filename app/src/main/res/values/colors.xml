@@ -13,6 +13,7 @@
     <color name="dot_active">@color/colorWhite</color>
     <color name="dot_inactive">#E0DBDB</color>
     <color name="transparent">#00000000</color>
+    <color name="yellow_color">#FFD401</color>
   <!--  Gradient Color -  #1eb378, #04aa98-->
 
     <color name="black_overlay2">#1eb378</color>

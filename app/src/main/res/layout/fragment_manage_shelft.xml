@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".StorageSelection.fragment.ManageShelvesFragment">
+    android:orientation="vertical">
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.core.widget.NestedScrollView
@@ -36,14 +35,14 @@
                     android:layout_marginEnd="@dimen/_25sdp">
 
 
-                    <com.storelogflog.uk.apputil.ExpandableHeightGridView
+                    <com.storelogflog.apputil.ExpandableHeightGridView
                         android:id="@+id/Grid_View5"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
                         android:layout_marginStart="@dimen/_15sdp"
                         android:layout_marginTop="@dimen/_15sdp"
                         android:layout_marginEnd="@dimen/_15sdp"
+                        android:gravity="center"
                         android:horizontalSpacing="@dimen/_5sdp"
                         android:verticalSpacing="@dimen/_5sdp" />
 
@@ -219,7 +218,7 @@
                         android:layout_marginEnd="@dimen/_45sdp">
 
 
-                        <com.storelogflog.uk.apputil.ExpandableHeightGridView
+                        <com.storelogflog.apputil.ExpandableHeightGridView
                             android:id="@+id/Grid_View4"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -383,7 +382,7 @@
                         android:layout_marginEnd="@dimen/_70sdp">
 
 
-                        <com.storelogflog.uk.apputil.ExpandableHeightGridView
+                        <com.storelogflog.apputil.ExpandableHeightGridView
                             android:id="@+id/Grid_View3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
