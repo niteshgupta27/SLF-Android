@@ -5,10 +5,11 @@
       <map>
         <entry key="..\:/project's/officeproject/Storelogflog/Storelogflog/app/src/main/res/drawable/bg_circle.xml" value="0.3125" />
         <entry key="..\:/project's/officeproject/Storelogflog/Storelogflog/app/src/main/res/drawable/bg_circle2.xml" value="0.3125" />
+        <entry key="..\:/project's/officeproject/Storelogflog/Storelogflog/app/src/main/res/layout/activity_add_storage.xml" value="0.28828125" />
         <entry key="..\:/project's/officeproject/Storelogflog/Storelogflog/app/src/main/res/layout/activity_forgot_password.xml" value="0.1921875" />
         <entry key="..\:/project's/officeproject/Storelogflog/Storelogflog/app/src/main/res/layout/activity_home.xml" value="0.1921875" />
         <entry key="..\:/project's/officeproject/Storelogflog/Storelogflog/app/src/main/res/layout/activity_login.xml" value="0.18923076923076923" />
-        <entry key="..\:/project's/officeproject/Storelogflog/Storelogflog/app/src/main/res/layout/fragment_add_item.xml" value="0.1921875" />
+        <entry key="..\:/project's/officeproject/Storelogflog/Storelogflog/app/src/main/res/layout/fragment_add_item.xml" value="0.33" />
         <entry key="..\:/project's/officeproject/Storelogflog/Storelogflog/app/src/main/res/layout/fragment_edit_item.xml" value="0.1921875" />
         <entry key="..\:/project's/officeproject/Storelogflog/Storelogflog/app/src/main/res/layout/fragment_manage_shelft.xml" value="0.1921875" />
         <entry key="..\:/project's/officeproject/Storelogflog/Storelogflog/app/src/main/res/layout/fragment_storage_claim.xml" value="0.1921875" />

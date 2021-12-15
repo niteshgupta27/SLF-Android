@@ -41,10 +41,12 @@
 
         <activity
             android:name=".activity.LoginActivity"
+            android:exported="true"
             android:label="@string/title_activity_navigation_drawer"
             android:theme="@style/AppTheme.NoActionBar"
             />
-        <activity android:name=".activity.SplashActivity">
+        <activity android:name=".activity.SplashActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -70,6 +72,8 @@
         <activity
             android:name=".activity.NotificationDetailsActivity"
             android:screenOrientation="portrait"
+            android:exported="true"
+
             />
         <activity
             android:name=".activity.ContactUsActivity"
@@ -140,7 +144,8 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".FireBaseMessaging.CustomFireBaseMessasing">
+        <service android:name=".FireBaseMessaging.CustomFireBaseMessasing"
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

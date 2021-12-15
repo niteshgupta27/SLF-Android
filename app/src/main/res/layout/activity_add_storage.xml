@@ -87,6 +87,7 @@
                         android:padding="7dp"
                         android:textColorHint="#A1A2A6"
                         android:textSize="12sp"
+                        android:maxLength="26"
                         android:fontFamily="@font/roboto"
                         android:textColor="@color/colorWhite"
                         android:inputType="textPersonName"
@@ -106,6 +107,7 @@
                         android:fontFamily="@font/roboto"
                         android:textColor="@color/colorWhite"
                         android:inputType="textPersonName"
+                        android:maxLength="32"
                         android:background="@drawable/background_edit_square"/>
 
 
