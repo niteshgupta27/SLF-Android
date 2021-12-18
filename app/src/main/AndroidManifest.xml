@@ -21,6 +21,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
+        android:hardwareAccelerated="true"
+
         >
         <activity
             android:name=".StorageSelection.activity.ShanpeInfoActivity"
@@ -41,7 +43,7 @@
 
         <activity
             android:name=".activity.LoginActivity"
-            android:exported="true"
+
             android:label="@string/title_activity_navigation_drawer"
             android:theme="@style/AppTheme.NoActionBar"
             />
@@ -72,48 +74,58 @@
         <activity
             android:name=".activity.NotificationDetailsActivity"
             android:screenOrientation="portrait"
-            android:exported="false"
+
 
             />
         <activity
             android:name=".activity.ContactUsActivity"
             android:screenOrientation="portrait"
+
             />
         <activity
             android:name=".activity.ForgotActivity"
             android:screenOrientation="portrait"
+
             />
         <activity
             android:name=".activity.CommonMsgActivity"
             android:screenOrientation="portrait"
+
             />
         <activity
             android:name=".activity.PaymentActivity"
             android:screenOrientation="portrait"
+
             />
         <activity
             android:name=".activity.SubscriptionActivity"
             android:screenOrientation="portrait"
+
             />
         <activity
             android:name=".StorageSelection.activity.ConfirmationActivity"
             android:screenOrientation="portrait"
+
             />
         <activity
             android:name=".StorageSelection.activity.DoorSelectionActivity"
             android:screenOrientation="portrait"
+
             />
         <activity
             android:name=".StorageSelection.activity.GridCellActivity"
             android:screenOrientation="portrait"
+
             />
         <activity
             android:name=".StorageSelection.activity.TermsAndConditionActivity"
             android:screenOrientation="portrait"
+
             />
         <activity
             android:name=".StorageSelection.activity.AddStorageActivity"
             android:screenOrientation="portrait"
+
             />
 
         <meta-data

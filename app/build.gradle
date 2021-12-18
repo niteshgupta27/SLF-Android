@@ -7,7 +7,7 @@ android {
     defaultConfig {
         applicationId "com.storelogflog"
         minSdkVersion 21
-        targetSdkVersion 31
+        targetSdkVersion 30
         versionCode 9
         versionName "1.5.3"
         multiDexEnabled true
@@ -21,11 +21,11 @@ android {
         }
     }
 
-    configurations.matching { it.name == '_internal_aapt2_binary' }.all { config ->
-        config.resolutionStrategy.eachDependency { details ->
-            details.useVersion("3.3.2-5309881")
-        }
-    }
+//    configurations.matching { it.name == '_internal_aapt2_binary' }.all { config ->
+//        config.resolutionStrategy.eachDependency { details ->
+//            details.useVersion("25.3.0")
+//        }
+//    }
 
     lintOptions {
         checkReleaseBuilds false
@@ -63,33 +63,31 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.7'
     implementation 'com.facebook.android:facebook-login:5.15.3'
     implementation 'com.android.volley:volley:1.2.1'
-    implementation 'com.google.android.gms:play-services-auth:19.2.0'
+    implementation 'com.google.android.gms:play-services-auth:20.0.0'
     implementation 'com.karumi:dexter:4.2.0'
 
     implementation 'com.squareup.picasso:picasso:2.71828'
-//Emogi encode
     implementation 'org.apache.commons:commons-text:1.3'
 
-    implementation 'com.google.firebase:firebase-messaging:22.0.0'
+    implementation 'com.google.firebase:firebase-messaging:23.0.0'
    // implementation 'com.google.firebase:firebase-analytics:17.2.3'
-
-    implementation 'com.android.support:multidex:1.0.3'
+    implementation "androidx.multidex:multidex:2.0.1"
     implementation 'com.stripe:stripe-android:16.10.0'
     implementation 'com.stripe:stripe-java:20.62.0'
 
 
     // Recommended: Add the Firebase SDK for Google Analytics.
-    implementation 'com.google.firebase:firebase-analytics:19.0.0'
+    implementation 'com.google.firebase:firebase-analytics:20.0.1'
 
     // Add the Firebase SDK for Crashlytics.
-    implementation 'com.google.firebase:firebase-crashlytics:18.1.0'
+    implementation 'com.google.firebase:firebase-crashlytics:18.2.6'
 
 
     // Add the Firebase Crashlytics dependency.
    // implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
 
     //implementation 'com.google.firebase:firebase-crash:16.2.1'
-     implementation 'com.google.firebase:firebase-core:19.0.0'
+     implementation 'com.google.firebase:firebase-core:20.0.1'
 
     //App Update
     implementation 'com.google.android.play:core:1.10.2'
