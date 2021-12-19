@@ -282,11 +282,7 @@ public class RelocateFragment extends BaseFragment implements VolleyApiResponseS
                                     Shap_list3 = new ArrayList<>();
                                     Shape_value_list3 = new ArrayList<>();
                                     GridCell_list = new ArrayList<>();
-        
-        
-                                    for (int i = 0; i < grid_cell.length; i++) {
-                                        GridCell_list.add(grid_cell[i]);
-                                    }
+                                    GridCell_list.addAll(Arrays.asList(grid_cell));
         
                                     Shap_list5 = storageShapeModel.getStorage().getShapsList();
         
@@ -319,7 +315,7 @@ public class RelocateFragment extends BaseFragment implements VolleyApiResponseS
                                                 if (String.valueOf(Shape_value_list5.get(10)).equals(
                                                         "1")) {
                                                     numberofColumn = "5";
-                                                } else if (i == 9) {
+                                                }  } else if (i == 9) {
                         
                                                     if (String.valueOf(Shape_value_list5.get(9)).equals("1")) {
                                                         numberofColumn = "4";
@@ -329,7 +325,7 @@ public class RelocateFragment extends BaseFragment implements VolleyApiResponseS
                                                     if (String.valueOf(Shape_value_list5.get(8)).equals("1")) {
                                                         numberofColumn = "3";
                                                     }
-                                                }
+                                                
                                             }
                                         }
                                         else if (i <= 15) {
@@ -355,7 +351,7 @@ public class RelocateFragment extends BaseFragment implements VolleyApiResponseS
                                             if (i == 20) {
                                                 if (String.valueOf(Shape_value_list5.get(20)).equals("1")) {
                                                     numberofColumn = "5";
-                                                } else if (i == 19) {
+                                                }    } else if (i == 19) {
                                                     if (String.valueOf(Shape_value_list5.get(19)).equals("1")) {
                                                         numberofColumn = "4";
                                                     }
@@ -363,7 +359,7 @@ public class RelocateFragment extends BaseFragment implements VolleyApiResponseS
                                                     if (String.valueOf(Shape_value_list5.get(18)).equals("1")) {
                                                         numberofColumn = "3";
                                                     }
-                                                }
+                                                
                                             }
                                         }
                                         else if (i <= 25) {
@@ -371,7 +367,7 @@ public class RelocateFragment extends BaseFragment implements VolleyApiResponseS
                                             if (i == 25) {
                                                 if (String.valueOf(Shape_value_list5.get(25)).equals("1")) {
                                                     numberofColumn = "5";
-                                                } else if (i == 24) {
+                                                }} else if (i == 24) {
                                                     if (String.valueOf(Shape_value_list5.get(24)).equals("1")) {
                                                         numberofColumn = "4";
                                                     }
@@ -380,14 +376,14 @@ public class RelocateFragment extends BaseFragment implements VolleyApiResponseS
                                                         numberofColumn = "3";
                                                     }
                                                 }
-                                            }
+                                            
                 
                                         }
                                         else if (i <= 30) {
                                             if (i == 30) {
                                                 if (String.valueOf(Shape_value_list5.get(30)).equals("1")) {
                                                     numberofColumn = "5";
-                                                } else if (i == 29) {
+                                                }} else if (i == 29) {
                                                     if (String.valueOf(Shape_value_list5.get(29)).equals("1")) {
                                                         numberofColumn = "4";
                                                     }
@@ -396,7 +392,7 @@ public class RelocateFragment extends BaseFragment implements VolleyApiResponseS
                                                         numberofColumn = "3";
                                                     }
                                                 }
-                                            }
+                                            
                                         }
                                         else if (i <= 35) {
                                             if (i == 35) {
