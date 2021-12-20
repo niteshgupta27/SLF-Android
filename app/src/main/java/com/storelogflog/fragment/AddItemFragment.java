@@ -33,6 +33,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.storelogflog.R;
+import com.storelogflog.StorageSelection.fragment.ManageShelftFragment;
 import com.storelogflog.StorageSelection.model.StorageShapeModel;
 import com.storelogflog.activity.HomeActivity;
 import com.storelogflog.activity.PaymentActivity;
@@ -679,1750 +680,385 @@ public class AddItemFragment extends BaseFragment implements View.OnClickListene
                             int result = getIntFromJsonObj(jsonObject, "result");
                             if (result == 1) {
 
-                                StorageShapeModel storageShapeModel = new Gson().fromJson(response.toString(), StorageShapeModel.class);
+                                StorageShapeModel storageShapeModel = new Gson().fromJson(response, StorageShapeModel.class);
 
                                 if (storageShapeModel.getStorage().getShapsList().size() > 0) {
-                                    Shape_name = new ArrayList<StorageShapeModel.Storage.ShapsList>();
-    
-    
-                                    if (storageShapeModel.getStorage().getShapsList().size() > 0) {
-                                        Shape_name = new ArrayList<>();
-                                        Shap_list5 = new ArrayList<>();
-                                        Shape_value_list5 = new ArrayList<>();
-                                        Shap_list4 = new ArrayList<>();
-                                        Shape_value_list4 = new ArrayList<>();
-                                        Shap_list3 = new ArrayList<>();
-                                        Shape_value_list3 = new ArrayList<>();
-                                        GridCell_list = new ArrayList<>();
-                                        GridCell_list.addAll(Arrays.asList(grid_cell));
-        
-                                        Shap_list5 = storageShapeModel.getStorage().getShapsList();
-        
-        
-                                        for (int i = 0; i < Shap_list5.size(); i++) {
-                                            Shape_value_list5.add(Shap_list5.get(i).getShapValue());
-                                        }
-        
-        
-                                        Log.e(TAG, "Shape_value_list5 =====> " + Shape_value_list5.size());
-                                        for (int i = 0; i < Shape_value_list5.size(); i++) {
-            
-                                            if (i <= 5) {
-                                                if (i == 5) {
-                                                    if (String.valueOf(Shape_value_list5.get(5)).equals("1")) {
-                                                        numberofColumn = "5";
-                                                    }
-                                                } else if (i == 4) {
-                                                    if (String.valueOf(Shape_value_list5.get(4)).equals("1")) {
-                                                        numberofColumn = "4";
-                                                    }
-                                                } else if (i == 3) {
-                                                    if (String.valueOf(Shape_value_list5.get(3)).equals("1")) {
-                                                        numberofColumn = "3";
-                                                    }
+                                    Shape_name = new ArrayList<>();
+                                    Shap_list5 = new ArrayList<>();
+                                    Shape_value_list5 = new ArrayList<>();
+                                    Shap_list4 = new ArrayList<>();
+                                    Shape_value_list4 = new ArrayList<>();
+                                    Shap_list3 = new ArrayList<>();
+                                    Shape_value_list3 = new ArrayList<>();
+                                    GridCell_list = new ArrayList<>();
+
+
+                                    for (int i = 0; i < grid_cell.length; i++) {
+                                        GridCell_list.add(grid_cell[i]);
+                                    }
+
+                                    Shap_list5 = storageShapeModel.getStorage().getShapsList();
+
+
+                                    for (int i = 0; i < Shap_list5.size(); i++) {
+                                        Shape_value_list5.add(Shap_list5.get(i).getShapValue());
+                                    }
+
+
+                                    Log.e(TAG, "Shape_value_list5 =====> " + Shape_value_list5.size());
+                                    for (int i = 0; i < Shape_value_list5.size(); i++) {
+
+                                        if (i <= 5) {
+                                            if (i == 5) {
+                                                if (String.valueOf(Shape_value_list5.get(5)).equals("1")) {
+                                                    numberofColumn = "5";
+                                                }
+                                            } else if (i == 4) {
+                                                if (String.valueOf(Shape_value_list5.get(4)).equals("1")) {
+                                                    numberofColumn = "4";
+                                                }
+                                            } else if (i == 3) {
+                                                if (String.valueOf(Shape_value_list5.get(3)).equals("1")) {
+                                                    numberofColumn = "3";
                                                 }
                                             }
-                                            else if (i <= 10) {
-                                                if (i == 10) {
-                                                    if (String.valueOf(Shape_value_list5.get(10)).equals(
-                                                            "1")) {
-                                                        numberofColumn = "5";
-                                                    }
+                                        }
+                                        else if (i <= 10) {
+                                            if (i == 10) {
+                                                if (String.valueOf(Shape_value_list5.get(10)).equals(
+                                                        "1")) {
+                                                    numberofColumn = "5";
                                                 } else if (i == 9) {
-                        
-                                                        if (String.valueOf(Shape_value_list5.get(9)).equals("1")) {
-                                                            numberofColumn = "4";
-                                                        }
-                                                    } else if (i == 8) {
-                        
-                                                        if (String.valueOf(Shape_value_list5.get(8)).equals("1")) {
-                                                            numberofColumn = "3";
-                                                        }
-                                                    }
-                                                
-                                            }
-                                            else if (i <= 15) {
-                
-                                                if (i == 15) {
-                                                    if (String.valueOf(Shape_value_list5.get(15)).equals("1")) {
-                                                        numberofColumn = "5";
-                                                    }
-                                                } else if (i == 14) {
-                    
-                                                    if (String.valueOf(Shape_value_list5.get(14)).equals("1")) {
+
+                                                    if (String.valueOf(Shape_value_list5.get(9)).equals("1")) {
                                                         numberofColumn = "4";
                                                     }
-                                                } else if (i == 13) {
-                    
-                                                    if (String.valueOf(Shape_value_list5.get(13)).equals("1")) {
+                                                } else if (i == 8) {
+
+                                                    if (String.valueOf(Shape_value_list5.get(8)).equals("1")) {
                                                         numberofColumn = "3";
                                                     }
                                                 }
                                             }
-                                            else if (i <= 20) {
-                
-                                                if (i == 20) {
-                                                    if (String.valueOf(Shape_value_list5.get(20)).equals("1")) {
-                                                        numberofColumn = "5";
-                                                    }
+                                        }
+                                        else if (i <= 15) {
+
+                                            if (i == 15) {
+                                                if (String.valueOf(Shape_value_list5.get(15)).equals("1")) {
+                                                    numberofColumn = "5";
+                                                }
+                                            } else if (i == 14) {
+
+                                                if (String.valueOf(Shape_value_list5.get(14)).equals("1")) {
+                                                    numberofColumn = "4";
+                                                }
+                                            } else if (i == 13) {
+
+                                                if (String.valueOf(Shape_value_list5.get(13)).equals("1")) {
+                                                    numberofColumn = "3";
+                                                }
+                                            }
+                                        }
+                                        else if (i <= 20) {
+
+                                            if (i == 20) {
+                                                if (String.valueOf(Shape_value_list5.get(20)).equals("1")) {
+                                                    numberofColumn = "5";
                                                 } else if (i == 19) {
-                                                        if (String.valueOf(Shape_value_list5.get(19)).equals("1")) {
-                                                            numberofColumn = "4";
-                                                        }
-                                                    } else if (i == 18) {
-                                                        if (String.valueOf(Shape_value_list5.get(18)).equals("1")) {
-                                                            numberofColumn = "3";
-                                                        }
-                                                    }
-                                            }
-                                            else if (i <= 25) {
-                
-                                                if (i == 25) {
-                                                    if (String.valueOf(Shape_value_list5.get(25)).equals("1")) {
-                                                        numberofColumn = "5";
-                                                    }
-                                                } else if (i == 24) {
-                                                        if (String.valueOf(Shape_value_list5.get(24)).equals("1")) {
-                                                         
-                                                            numberofColumn = "4";
-                                                        }
-                                                    } else if (i == 23) {
-                                                        if (String.valueOf(Shape_value_list5.get(23)).equals("1")) {
-                                                            numberofColumn = "3";
-                                                        }
-                                                    }
-                                                
-                
-                                            }
-                                            else if (i <= 30) {
-                                                if (i == 30) {
-                                                    if (String.valueOf(Shape_value_list5.get(30)).equals("1")) {
-                                                        numberofColumn = "5";
-                                                    }
-                                                } else if (i == 29) {
-                                                        if (String.valueOf(Shape_value_list5.get(29)).equals("1")) {
-                                                            numberofColumn = "4";
-                                                        }
-                                                    } else if (i == 28) {
-                                                        if (String.valueOf(Shape_value_list5.get(28)).equals("1")) {
-                                                            numberofColumn = "3";
-                                                        }
-                                        
-                                                }
-                                            }
-                                            else if (i <= 35) {
-                                                if (i == 35) {
-                                                    if (String.valueOf(Shape_value_list5.get(35)).equals("1")) {
-                                                        numberofColumn = "5";
-                                                    }
-                                                } else if (i == 34) {
-                                                    if (String.valueOf(Shape_value_list5.get(34)).equals("1")) {
+                                                    if (String.valueOf(Shape_value_list5.get(19)).equals("1")) {
                                                         numberofColumn = "4";
                                                     }
-                                                } else if (i == 33) {
-                                                    if (String.valueOf(Shape_value_list5.get(33)).equals("1")) {
+                                                } else if (i == 18) {
+                                                    if (String.valueOf(Shape_value_list5.get(18)).equals("1")) {
                                                         numberofColumn = "3";
                                                     }
                                                 }
-                
-                
                                             }
                                         }
-        
-        
-                                        Log.e(TAG, "numberofColumn==========>" + numberofColumn);
-        
-        
-                                        if (numberofColumn.equals("4")) {
-                                            for (int l = 0; l < Shap_list5.size(); l++) {
-                
-                                                if (l == 5 || l == 10 || l == 15 || l == 20 || l == 25 || l == 30 || l == 35) {
-                    
-                                                } else {
-                                                    StorageShapeModel.Storage.ShapsList shapsList = new StorageShapeModel.Storage.ShapsList();
-                                                    shapsList.setShapID(Shap_list5.get(l).getShapID());
-                                                    shapsList.setShapValue(Shap_list5.get(l).getShapValue());
-                                                    shapsList.setRackStatus(Shap_list5.get(l).getRackStatus());
-                                                    shapsList.setRackList(Shap_list5.get(l).getRackList());
-                                                    Shap_list4.add(shapsList);
+                                        else if (i <= 25) {
+
+                                            if (i == 25) {
+                                                if (String.valueOf(Shape_value_list5.get(25)).equals("1")) {
+                                                    numberofColumn = "5";
+                                                } else if (i == 24) {
+                                                    if (String.valueOf(Shape_value_list5.get(24)).equals("1")) {
+                                                        numberofColumn = "4";
+                                                    }
+                                                } else if (i == 23) {
+                                                    if (String.valueOf(Shape_value_list5.get(23)).equals("1")) {
+                                                        numberofColumn = "3";
+                                                    }
                                                 }
                                             }
-                                            for (int i = 0; i < Shap_list4.size(); i++) {
-                                                Shape_value_list4.add(Shap_list4.get(i).getShapValue());
+
+                                        }
+                                        else if (i <= 30) {
+                                            if (i == 30) {
+                                                if (String.valueOf(Shape_value_list5.get(30)).equals("1")) {
+                                                    numberofColumn = "5";
+                                                } else if (i == 29) {
+                                                    if (String.valueOf(Shape_value_list5.get(29)).equals("1")) {
+                                                        numberofColumn = "4";
+                                                    }
+                                                } else if (i == 28) {
+                                                    if (String.valueOf(Shape_value_list5.get(28)).equals("1")) {
+                                                        numberofColumn = "3";
+                                                    }
+                                                }
                                             }
                                         }
-        
-                                        if (numberofColumn.equals("3")) {
-                                            for (int l = 0; l < Shap_list5.size(); l++) {
-                
-                                                if (l == 5 || l == 10 || l == 15 || l == 20 || l == 25 || l == 30 || l == 35 ||
-                                                        l == 4 || l == 9 || l == 14 || l == 19 || l == 24 || l == 29 || l == 34) {
-                    
-                                                } else {
-                                                    StorageShapeModel.Storage.ShapsList shapsList = new StorageShapeModel.Storage.ShapsList();
-                                                    shapsList.setShapID(Shap_list5.get(l).getShapID());
-                                                    shapsList.setShapValue(Shap_list5.get(l).getShapValue());
-                                                    shapsList.setRackStatus(Shap_list5.get(l).getRackStatus());
-                                                    shapsList.setRackList(Shap_list5.get(l).getRackList());
-                                                    Shap_list3.add(shapsList);
+                                        else if (i <= 35) {
+                                            if (i == 35) {
+                                                if (String.valueOf(Shape_value_list5.get(35)).equals("1")) {
+                                                    numberofColumn = "5";
+                                                }
+                                            } else if (i == 34) {
+                                                if (String.valueOf(Shape_value_list5.get(34)).equals("1")) {
+                                                    numberofColumn = "4";
+                                                }
+                                            } else if (i == 33) {
+                                                if (String.valueOf(Shape_value_list5.get(33)).equals("1")) {
+                                                    numberofColumn = "3";
                                                 }
                                             }
-                                            for (int i = 0; i < Shap_list3.size(); i++) {
-                                                Shape_value_list3.add(Shap_list3.get(i).getShapValue());
-                                            }
+
+
                                         }
-        
-        
-        
-                                        if (storageShapeModel.getStorage().getDoorType().equals("5")) {
-                                            String door = String.valueOf(storageShapeModel.getStorage().getDoors());
-                                            List<String> myList = new ArrayList<String>(Arrays.asList(door.split(",")));
-            
-            
-                                            if (numberofColumn.equals("5")) {
-                                                int j = 0;
-                                                for (int i = 0; i < GridCell_list.size(); i++) {
-                    
-                                                    if (i < Shape_value_list5.size()) {
-                        
-                                                        int value = Shape_value_list5.get(i);
-                                                        if (value == 0) {
-                                                            Log.e(TAG, "value =====> " + value);
-                                                            StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
-                                                            selectedGridModel.setShape_name("");
-                                                            selectedGridModel.setDoorPosition("");
-                                                            Shape_name.add(selectedGridModel);
-                                                            Log.e("door_array", myList.get(j));
-                                                        } else {
-                                                            Log.e(TAG, "value =====> " + value);
-                                                            Log.e(TAG, "GridCell_list =====> " + GridCell_list.get(j));
-                            
-                            
-                                                            StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
-                                                            selectedGridModel.setShape_name(GridCell_list.get(j));
-                                                            selectedGridModel.setDoorPosition(myList.get(j));
-                            
-                                                            Shape_name.add(selectedGridModel);
-                            
-                                                            Log.e("door_array", myList.get(j));
-                            
-                                                            j++;
-                            
-                                                        }
-                                                    }
-                                                }
-                                            } else if (numberofColumn.equals("4")) {
-                                                int j = 0;
-                                                for (int i = 0; i < GridCell_list.size(); i++) {
-                    
-                                                    if (i < Shape_value_list4.size()) {
-                        
-                                                        int value = Shape_value_list4.get(i);
-                        
-                                                        if (value == 0) {
-                                                            Log.e(TAG, "value =====> " + value);
-                                                            StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
-                                                            selectedGridModel.setShape_name("");
-                                                            selectedGridModel.setDoorPosition("");
-                                                            Shape_name.add(selectedGridModel);
-                                                        } else {
-                                                            Log.e(TAG, "value =====> " + value);
-                                                            Log.e(TAG, "GridCell_list =====> " + GridCell_list.get(j));
-                            
-                            
-                                                            StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
-                                                            selectedGridModel.setShape_name(GridCell_list.get(j));
-                                                            selectedGridModel.setDoorPosition(myList.get(j));
-                                                            Shape_name.add(selectedGridModel);
-                            
-                                                            j++;
-                            
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                            else if (numberofColumn.equals("3")) {
-                                                int j = 0;
-                                                for (int i = 0; i < GridCell_list.size(); i++) {
-                    
-                                                    if (i < Shape_value_list3.size()) {
-                        
-                                                        int value = Shape_value_list3.get(i);
-                        
-                                                        if (value == 0) {
-                                                            Log.e(TAG, "value =====> " + value);
-                                                            StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
-                                                            selectedGridModel.setShape_name("");
-                                                            selectedGridModel.setDoorPosition("");
-                                                            Shape_name.add(selectedGridModel);
-                                                            Log.e("door_array", myList.get(j));
-                                                        } else {
-                                                            Log.e(TAG, "value =====> " + value);
-                                                            Log.e(TAG, "GridCell_list =====> " + GridCell_list.get(j));
-                            
-                            
-                                                            StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
-                                                            selectedGridModel.setShape_name(GridCell_list.get(j));
-                                                            selectedGridModel.setDoorPosition(myList.get(j));
-                                                            Shape_name.add(selectedGridModel);
-                            
-                                                            j++;
-                            
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }else {
-                                            if (numberofColumn.equals("5")) {
-                                                int j = 0;
-                                                for (int i = 0; i < GridCell_list.size(); i++) {
-                    
-                                                    if (i < Shape_value_list5.size()) {
-                        
-                                                        int value = Shape_value_list5.get(i);
-                                                        if (value == 0) {
-                                                            Log.e(TAG, "value =====> " + value);
-                                                            StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
-                                                            selectedGridModel.setShape_name("");
-                                                            selectedGridModel.setDoorPosition("");
-                                                            Shape_name.add(selectedGridModel);
-                            
-                                                        } else {
-                                                            Log.e(TAG, "value =====> " + value);
-                                                            Log.e(TAG, "GridCell_list =====> " + GridCell_list.get(j));
-                            
-                            
-                                                            StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
-                                                            selectedGridModel.setShape_name(GridCell_list.get(j));
-                                                            selectedGridModel.setDoorPosition("");
-                            
-                                                            Shape_name.add(selectedGridModel);
-                            
-                            
-                                                            j++;
-                            
-                                                        }
-                                                    }
-                                                }
-                                            } else if (numberofColumn.equals("4")) {
-                                                int j = 0;
-                                                for (int i = 0; i < GridCell_list.size(); i++) {
-                    
-                                                    if (i < Shape_value_list4.size()) {
-                        
-                                                        int value = Shape_value_list4.get(i);
-                        
-                                                        if (value == 0) {
-                                                            Log.e(TAG, "value =====> " + value);
-                                                            StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
-                                                            selectedGridModel.setShape_name("");
-                                                            selectedGridModel.setDoorPosition("");
-                                                            Shape_name.add(selectedGridModel);
-                            
-                                                        } else {
-                                                            Log.e(TAG, "value =====> " + value);
-                                                            Log.e(TAG, "GridCell_list =====> " + GridCell_list.get(j));
-                            
-                            
-                                                            StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
-                                                            selectedGridModel.setShape_name(GridCell_list.get(j));
-                                                            selectedGridModel.setDoorPosition("");
-                            
-                                                            Shape_name.add(selectedGridModel);
-                            
-                                                            j++;
-                            
-                                                        }
-                                                    }
-                                                }
-                                            } else if (numberofColumn.equals("3")) {
-                                                int j = 0;
-                                                for (int i = 0; i < GridCell_list.size(); i++) {
-                    
-                                                    if (i < Shape_value_list3.size()) {
-                        
-                                                        int value = Shape_value_list3.get(i);
-                        
-                                                        if (value == 0) {
-                                                            Log.e(TAG, "value =====> " + value);
-                                                            StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
-                                                            selectedGridModel.setShape_name("");
-                                                            selectedGridModel.setDoorPosition("");
-                                                            Shape_name.add(selectedGridModel);
-                            
-                                                        } else {
-                                                            Log.e(TAG, "value =====> " + value);
-                                                            Log.e(TAG, "GridCell_list =====> " + GridCell_list.get(j));
-                            
-                            
-                                                            StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
-                                                            selectedGridModel.setShape_name(GridCell_list.get(j));
-                                                            selectedGridModel.setDoorPosition("");
-                            
-                                                            Shape_name.add(selectedGridModel);
-                            
-                                                            j++;
-                            
-                                                        }
-                                                    }
-                                                }
-                                            }
-            
-                                        }
-        
-        
                                     }
-    
-                                    if (numberofColumn.equals("5")) {
-                                        Grid5_linear.setVisibility(View.VISIBLE);
-                                        Grid4_linear.setVisibility(View.GONE);
-                                        Grid3_linear.setVisibility(View.GONE);
 
 
-                                        gridCellAdapter = new GridCellAdapter(mContext, Shap_list5, Shape_name);
-                                        Grid_View5.setExpanded(true);
-                                        Grid_View5.setNumColumns(5);
-                                        Grid_View5.setAdapter(gridCellAdapter);
-                                        gridCellAdapter.notifyDataSetChanged();
+                                    Log.e(TAG, "numberofColumn==========>" + numberofColumn);
 
-                                    } else if (numberofColumn.equals("4")) {
-                                        Grid4_linear.setVisibility(View.VISIBLE);
-                                        Grid3_linear.setVisibility(View.GONE);
-                                        Grid5_linear.setVisibility(View.GONE);
 
-                                        gridCellAdapter = new GridCellAdapter(mContext, Shap_list4, Shape_name);
-                                        Grid_View4.setExpanded(true);
-                                        Grid_View4.setNumColumns(4);
-                                        Grid_View4.setAdapter(gridCellAdapter);
-                                        gridCellAdapter.notifyDataSetChanged();
+                                    if (numberofColumn.equals("4")) {
+                                        for (int l = 0; l < Shap_list5.size(); l++) {
 
-                                    } else if (numberofColumn.equals("3")) {
-                                        Grid3_linear.setVisibility(View.VISIBLE);
-                                        Grid4_linear.setVisibility(View.GONE);
-                                        Grid5_linear.setVisibility(View.GONE);
+                                            if (l == 5 || l == 10 || l == 15 || l == 20 || l == 25 || l == 30 || l == 35) {
 
-                                        gridCellAdapter = new GridCellAdapter(mContext, Shap_list3, Shape_name);
-                                        Grid_View3.setExpanded(true);
-                                        Grid_View3.setNumColumns(3);
-                                        Grid_View3.setAdapter(gridCellAdapter);
-                                        gridCellAdapter.notifyDataSetChanged();
+                                            } else {
+                                                StorageShapeModel.Storage.ShapsList shapsList = new StorageShapeModel.Storage.ShapsList();
+                                                shapsList.setShapID(Shap_list5.get(l).getShapID());
+                                                shapsList.setShapValue(Shap_list5.get(l).getShapValue());
+                                                shapsList.setRackStatus(Shap_list5.get(l).getRackStatus());
+                                                shapsList.setRackList(Shap_list5.get(l).getRackList());
+                                                Shap_list4.add(shapsList);
+                                            }
+                                        }
+                                        for (int i = 0; i < Shap_list4.size(); i++) {
+                                            Shape_value_list4.add(Shap_list4.get(i).getShapValue());
+                                        }
+                                    }
 
+                                    if (numberofColumn.equals("3")) {
+                                        for (int l = 0; l < Shap_list5.size(); l++) {
+
+                                            if (l == 5 || l == 10 || l == 15 || l == 20 || l == 25 || l == 30 || l == 35 ||
+                                                    l == 4 || l == 9 || l == 14 || l == 19 || l == 24 || l == 29 || l == 34) {
+
+                                            } else {
+                                                StorageShapeModel.Storage.ShapsList shapsList = new StorageShapeModel.Storage.ShapsList();
+                                                shapsList.setShapID(Shap_list5.get(l).getShapID());
+                                                shapsList.setShapValue(Shap_list5.get(l).getShapValue());
+                                                shapsList.setRackStatus(Shap_list5.get(l).getRackStatus());
+                                                shapsList.setRackList(Shap_list5.get(l).getRackList());
+                                                Shap_list3.add(shapsList);
+                                            }
+                                        }
+                                        for (int i = 0; i < Shap_list3.size(); i++) {
+                                            Shape_value_list3.add(Shap_list3.get(i).getShapValue());
+                                        }
                                     }
 
 
 
-                                    if (numberofColumn.equals("5")) {
-                                        if (storageShapeModel.getStorage().getDoorType().equals("1")) {
-                                            if (storageShapeModel.getStorage().getDoorColor() != null)
-                                            {
-                                                if (storageShapeModel.getStorage().getDoorColor().equals("1"))
-                                                {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
-                                                        door_img1.setImageResource(R.drawable.doorleft);
-                                                        door_img1.setVisibility(View.VISIBLE);
-                                                        door_img2.setVisibility(View.GONE);
-                                                        door_img3.setVisibility(View.GONE);
-                                                        door_img4.setVisibility(View.GONE);
-                                                        door_img5.setVisibility(View.GONE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
-                                                        door_img2.setImageResource(R.drawable.doorleft);
-                                                        door_img1.setVisibility(View.GONE);
-                                                        door_img2.setVisibility(View.VISIBLE);
-                                                        door_img3.setVisibility(View.GONE);
-                                                        door_img4.setVisibility(View.GONE);
-                                                        door_img5.setVisibility(View.GONE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
-                                                        door_img3.setImageResource(R.drawable.doorleft);
-                                                        door_img1.setVisibility(View.GONE);
-                                                        door_img2.setVisibility(View.GONE);
-                                                        door_img3.setVisibility(View.VISIBLE);
-                                                        door_img4.setVisibility(View.GONE);
-                                                        door_img5.setVisibility(View.GONE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,0")) {
-                                                        door_img4.setImageResource(R.drawable.doorleft);
-                                                        door_img1.setVisibility(View.GONE);
-                                                        door_img2.setVisibility(View.GONE);
-                                                        door_img3.setVisibility(View.GONE);
-                                                        door_img4.setVisibility(View.VISIBLE);
-                                                        door_img5.setVisibility(View.GONE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,0,1")) {
-                                                        door_img5.setImageResource(R.drawable.doorleft);
-                                                        door_img1.setVisibility(View.GONE);
-                                                        door_img2.setVisibility(View.GONE);
-                                                        door_img3.setVisibility(View.GONE);
-                                                        door_img4.setVisibility(View.GONE);
-                                                        door_img5.setVisibility(View.VISIBLE);
+                                    if (storageShapeModel.getStorage().getDoorType().equals("5")) {
+                                        String door = String.valueOf(storageShapeModel.getStorage().getDoors());
+                                        List<String> myList = new ArrayList<String>(Arrays.asList(door.split(",")));
+
+
+                                        if (numberofColumn.equals("5")) {
+                                            int j = 0;
+                                            for (int i = 0; i < GridCell_list.size(); i++) {
+
+                                                if (i < Shape_value_list5.size()) {
+
+                                                    int value = Shape_value_list5.get(i);
+                                                    if (value == 0) {
+                                                        Log.e(TAG, "value =====> " + value);
+                                                        StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
+                                                        selectedGridModel.setShape_name("");
+                                                        selectedGridModel.setDoorPosition("");
+                                                        Shape_name.add(selectedGridModel);
+                                                        Log.e("door_array", myList.get(j));
+                                                    } else {
+                                                        Log.e(TAG, "value =====> " + value);
+                                                        Log.e(TAG, "GridCell_list =====> " + GridCell_list.get(j));
+
+
+                                                        StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
+                                                        selectedGridModel.setShape_name(GridCell_list.get(j));
+                                                        selectedGridModel.setDoorPosition(myList.get(j));
+
+                                                        Shape_name.add(selectedGridModel);
+
+                                                        Log.e("door_array", myList.get(j));
+
+                                                        j++;
+
                                                     }
-                                                } else if (storageShapeModel.getStorage().getDoorColor().equals("2")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0"))
-                                                    {
-                                                        door_img1.setImageResource(R.drawable.door_blue_left);
-                                                        door_img1.setVisibility(View.VISIBLE);
-                                                        door_img2.setVisibility(View.GONE);
-                                                        door_img3.setVisibility(View.GONE);
-                                                        door_img4.setVisibility(View.GONE);
-                                                        door_img5.setVisibility(View.GONE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
-                                                        door_img2.setImageResource(R.drawable.door_blue_left);
-                                                        door_img1.setVisibility(View.GONE);
-                                                        door_img2.setVisibility(View.VISIBLE);
-                                                        door_img3.setVisibility(View.GONE);
-                                                        door_img4.setVisibility(View.GONE);
-                                                        door_img5.setVisibility(View.GONE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
-                                                        door_img3.setImageResource(R.drawable.door_blue_left);
-                                                        door_img1.setVisibility(View.GONE);
-                                                        door_img2.setVisibility(View.GONE);
-                                                        door_img3.setVisibility(View.VISIBLE);
-                                                        door_img4.setVisibility(View.GONE);
-                                                        door_img5.setVisibility(View.GONE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,0")) {
-                                                        door_img4.setImageResource(R.drawable.door_blue_left);
-                                                        door_img1.setVisibility(View.GONE);
-                                                        door_img2.setVisibility(View.GONE);
-                                                        door_img3.setVisibility(View.GONE);
-                                                        door_img4.setVisibility(View.VISIBLE);
-                                                        door_img5.setVisibility(View.GONE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,0,1")) {
-                                                        door_img5.setImageResource(R.drawable.door_blue_left);
-                                                        door_img1.setVisibility(View.GONE);
-                                                        door_img2.setVisibility(View.GONE);
-                                                        door_img3.setVisibility(View.GONE);
-                                                        door_img4.setVisibility(View.GONE);
-                                                        door_img5.setVisibility(View.VISIBLE);
-                                                    }
-                                                } else if (storageShapeModel.getStorage().getDoorColor().equals("3")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
-                                                        door_img1.setImageResource(R.drawable.door_left_red);
-                                                        door_img1.setVisibility(View.VISIBLE);
-                                                        door_img2.setVisibility(View.GONE);
-                                                        door_img3.setVisibility(View.GONE);
-                                                        door_img4.setVisibility(View.GONE);
-                                                        door_img5.setVisibility(View.GONE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
-                                                        door_img2.setImageResource(R.drawable.door_left_red);
-                                                        door_img1.setVisibility(View.GONE);
-                                                        door_img2.setVisibility(View.VISIBLE);
-                                                        door_img3.setVisibility(View.GONE);
-                                                        door_img4.setVisibility(View.GONE);
-                                                        door_img5.setVisibility(View.GONE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
-                                                        door_img3.setImageResource(R.drawable.door_left_red);
-                                                        door_img1.setVisibility(View.GONE);
-                                                        door_img2.setVisibility(View.GONE);
-                                                        door_img3.setVisibility(View.VISIBLE);
-                                                        door_img4.setVisibility(View.GONE);
-                                                        door_img5.setVisibility(View.GONE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,0")) {
-                                                        door_img4.setImageResource(R.drawable.door_left_red);
-                                                        door_img1.setVisibility(View.GONE);
-                                                        door_img2.setVisibility(View.GONE);
-                                                        door_img3.setVisibility(View.GONE);
-                                                        door_img4.setVisibility(View.VISIBLE);
-                                                        door_img5.setVisibility(View.GONE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,0,1")) {
-                                                        door_img5.setImageResource(R.drawable.door_left_red);
-                                                        door_img1.setVisibility(View.GONE);
-                                                        door_img2.setVisibility(View.GONE);
-                                                        door_img3.setVisibility(View.GONE);
-                                                        door_img4.setVisibility(View.GONE);
-                                                        door_img5.setVisibility(View.VISIBLE);
-                                                    }
-                                                } else if (storageShapeModel.getStorage().getDoorColor().equals("4")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
-                                                        door_img1.setImageResource(R.drawable.door_green_left);
-                                                        door_img1.setVisibility(View.VISIBLE);
-                                                        door_img2.setVisibility(View.GONE);
-                                                        door_img3.setVisibility(View.GONE);
-                                                        door_img4.setVisibility(View.GONE);
-                                                        door_img5.setVisibility(View.GONE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
-                                                        door_img2.setImageResource(R.drawable.door_green_left);
-                                                        door_img1.setVisibility(View.GONE);
-                                                        door_img2.setVisibility(View.VISIBLE);
-                                                        door_img3.setVisibility(View.GONE);
-                                                        door_img4.setVisibility(View.GONE);
-                                                        door_img5.setVisibility(View.GONE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
-                                                        door_img3.setImageResource(R.drawable.door_green_left);
-                                                        door_img1.setVisibility(View.GONE);
-                                                        door_img2.setVisibility(View.GONE);
-                                                        door_img3.setVisibility(View.VISIBLE);
-                                                        door_img4.setVisibility(View.GONE);
-                                                        door_img5.setVisibility(View.GONE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,0")) {
-                                                        door_img4.setImageResource(R.drawable.door_green_left);
-                                                        door_img1.setVisibility(View.GONE);
-                                                        door_img2.setVisibility(View.GONE);
-                                                        door_img3.setVisibility(View.GONE);
-                                                        door_img4.setVisibility(View.VISIBLE);
-                                                        door_img5.setVisibility(View.GONE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,0,1")) {
-                                                        door_img5.setImageResource(R.drawable.door_green_left);
-                                                        door_img1.setVisibility(View.GONE);
-                                                        door_img2.setVisibility(View.GONE);
-                                                        door_img3.setVisibility(View.GONE);
-                                                        door_img4.setVisibility(View.GONE);
-                                                        door_img5.setVisibility(View.VISIBLE);
-                                                    }
-                                                } else if (storageShapeModel.getStorage().getDoorColor().equals("5")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
-                                                        door_img1.setImageResource(R.drawable.door_yellow_left);
-                                                        door_img1.setVisibility(View.VISIBLE);
-                                                        door_img2.setVisibility(View.GONE);
-                                                        door_img3.setVisibility(View.GONE);
-                                                        door_img4.setVisibility(View.GONE);
-                                                        door_img5.setVisibility(View.GONE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
-                                                        door_img2.setImageResource(R.drawable.door_yellow_left);
-                                                        door_img1.setVisibility(View.GONE);
-                                                        door_img2.setVisibility(View.VISIBLE);
-                                                        door_img3.setVisibility(View.GONE);
-                                                        door_img4.setVisibility(View.GONE);
-                                                        door_img5.setVisibility(View.GONE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
-                                                        door_img3.setImageResource(R.drawable.door_yellow_left);
-                                                        door_img1.setVisibility(View.GONE);
-                                                        door_img2.setVisibility(View.GONE);
-                                                        door_img3.setVisibility(View.VISIBLE);
-                                                        door_img4.setVisibility(View.GONE);
-                                                        door_img5.setVisibility(View.GONE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,0")) {
-                                                        door_img4.setImageResource(R.drawable.door_yellow_left);
-                                                        door_img1.setVisibility(View.GONE);
-                                                        door_img2.setVisibility(View.GONE);
-                                                        door_img3.setVisibility(View.GONE);
-                                                        door_img4.setVisibility(View.VISIBLE);
-                                                        door_img5.setVisibility(View.GONE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,0,1")) {
-                                                        door_img5.setImageResource(R.drawable.door_yellow_left);
-                                                        door_img1.setVisibility(View.GONE);
-                                                        door_img2.setVisibility(View.GONE);
-                                                        door_img3.setVisibility(View.GONE);
-                                                        door_img4.setVisibility(View.GONE);
-                                                        door_img5.setVisibility(View.VISIBLE);
+                                                }
+                                            }
+                                        } else if (numberofColumn.equals("4")) {
+                                            int j = 0;
+                                            for (int i = 0; i < GridCell_list.size(); i++) {
+
+                                                if (i < Shape_value_list4.size()) {
+
+                                                    int value = Shape_value_list4.get(i);
+
+                                                    if (value == 0) {
+                                                        Log.e(TAG, "value =====> " + value);
+                                                        StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
+                                                        selectedGridModel.setShape_name("");
+                                                        selectedGridModel.setDoorPosition("");
+                                                        Shape_name.add(selectedGridModel);
+                                                    } else {
+                                                        Log.e(TAG, "value =====> " + value);
+                                                        Log.e(TAG, "GridCell_list =====> " + GridCell_list.get(j));
+
+
+                                                        StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
+                                                        selectedGridModel.setShape_name(GridCell_list.get(j));
+                                                        selectedGridModel.setDoorPosition(myList.get(j));
+                                                        Shape_name.add(selectedGridModel);
+
+                                                        j++;
+
                                                     }
                                                 }
                                             }
                                         }
-                                        else if (storageShapeModel.getStorage().getDoorType().equals("2")) {
-                                            if (storageShapeModel.getStorage().getDoorColor() != null) {
-                                                if (storageShapeModel.getStorage().getDoorColor().equals("1")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
-                                                        door_img1.setImageResource(R.drawable.doorleft);
-                                                        door_img2.setImageResource(R.drawable.doorright);
-                                                        door_img1.setVisibility(View.VISIBLE);
-                                                        door_img2.setVisibility(View.VISIBLE);
-                                                        door_img3.setVisibility(View.GONE);
-                                                        door_img4.setVisibility(View.GONE);
-                                                        door_img5.setVisibility(View.GONE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
-                                                        door_img2.setImageResource(R.drawable.doorleft);
-                                                        door_img3.setImageResource(R.drawable.doorright);
-                                                        door_img1.setVisibility(View.GONE);
-                                                        door_img2.setVisibility(View.VISIBLE);
-                                                        door_img3.setVisibility(View.VISIBLE);
-                                                        door_img4.setVisibility(View.GONE);
-                                                        door_img5.setVisibility(View.GONE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,1,0")) {
-                                                        door_img3.setImageResource(R.drawable.doorleft);
-                                                        door_img4.setImageResource(R.drawable.doorright);
-                                                        door_img1.setVisibility(View.GONE);
-                                                        door_img2.setVisibility(View.GONE);
-                                                        door_img3.setVisibility(View.VISIBLE);
-                                                        door_img4.setVisibility(View.VISIBLE);
-                                                        door_img5.setVisibility(View.GONE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,1")) {
-                                                        door_img4.setImageResource(R.drawable.doorleft);
-                                                        door_img5.setImageResource(R.drawable.doorright);
-                                                        door_img1.setVisibility(View.GONE);
-                                                        door_img2.setVisibility(View.GONE);
-                                                        door_img3.setVisibility(View.GONE);
-                                                        door_img4.setVisibility(View.VISIBLE);
-                                                        door_img5.setVisibility(View.VISIBLE);
-                                                    }
-                                                } else if (storageShapeModel.getStorage().getDoorColor().equals("2")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
-                                                        door_img1.setImageResource(R.drawable.door_blue_left);
-                                                        door_img2.setImageResource(R.drawable.door_blue_right);
-                                                        door_img1.setVisibility(View.VISIBLE);
-                                                        door_img2.setVisibility(View.VISIBLE);
-                                                        door_img3.setVisibility(View.GONE);
-                                                        door_img4.setVisibility(View.GONE);
-                                                        door_img5.setVisibility(View.GONE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
-                                                        door_img2.setImageResource(R.drawable.door_blue_left);
-                                                        door_img3.setImageResource(R.drawable.door_blue_right);
-                                                        door_img1.setVisibility(View.GONE);
-                                                        door_img2.setVisibility(View.VISIBLE);
-                                                        door_img3.setVisibility(View.VISIBLE);
-                                                        door_img4.setVisibility(View.GONE);
-                                                        door_img5.setVisibility(View.GONE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,1,0")) {
-                                                        door_img3.setImageResource(R.drawable.door_blue_left);
-                                                        door_img4.setImageResource(R.drawable.door_blue_right);
-                                                        door_img1.setVisibility(View.GONE);
-                                                        door_img2.setVisibility(View.GONE);
-                                                        door_img3.setVisibility(View.VISIBLE);
-                                                        door_img4.setVisibility(View.VISIBLE);
-                                                        door_img5.setVisibility(View.GONE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,1")) {
-                                                        door_img4.setImageResource(R.drawable.door_blue_left);
-                                                        door_img5.setImageResource(R.drawable.door_blue_right);
-                                                        door_img1.setVisibility(View.GONE);
-                                                        door_img2.setVisibility(View.GONE);
-                                                        door_img3.setVisibility(View.GONE);
-                                                        door_img4.setVisibility(View.VISIBLE);
-                                                        door_img5.setVisibility(View.VISIBLE);
-                                                    }
-                                                } else if (storageShapeModel.getStorage().getDoorColor().equals("3")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
-                                                        door_img1.setImageResource(R.drawable.door_left_red);
-                                                        door_img2.setImageResource(R.drawable.door_red_right);
-                                                        door_img1.setVisibility(View.VISIBLE);
-                                                        door_img2.setVisibility(View.VISIBLE);
-                                                        door_img3.setVisibility(View.GONE);
-                                                        door_img4.setVisibility(View.GONE);
-                                                        door_img5.setVisibility(View.GONE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
-                                                        door_img2.setImageResource(R.drawable.door_left_red);
-                                                        door_img3.setImageResource(R.drawable.door_red_right);
-                                                        door_img1.setVisibility(View.GONE);
-                                                        door_img2.setVisibility(View.VISIBLE);
-                                                        door_img3.setVisibility(View.VISIBLE);
-                                                        door_img4.setVisibility(View.GONE);
-                                                        door_img5.setVisibility(View.GONE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,1,0")) {
-                                                        door_img3.setImageResource(R.drawable.door_left_red);
-                                                        door_img4.setImageResource(R.drawable.door_red_right);
-                                                        door_img1.setVisibility(View.GONE);
-                                                        door_img2.setVisibility(View.GONE);
-                                                        door_img3.setVisibility(View.VISIBLE);
-                                                        door_img4.setVisibility(View.VISIBLE);
-                                                        door_img5.setVisibility(View.GONE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,1")) {
-                                                        door_img4.setImageResource(R.drawable.door_left_red);
-                                                        door_img5.setImageResource(R.drawable.door_red_right);
-                                                        door_img1.setVisibility(View.GONE);
-                                                        door_img2.setVisibility(View.GONE);
-                                                        door_img3.setVisibility(View.GONE);
-                                                        door_img4.setVisibility(View.VISIBLE);
-                                                        door_img5.setVisibility(View.VISIBLE);
-                                                    }
+                                        else if (numberofColumn.equals("3")) {
+                                            int j = 0;
+                                            for (int i = 0; i < GridCell_list.size(); i++) {
 
-                                                } else if (storageShapeModel.getStorage().getDoorColor().equals("4")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
-                                                        door_img1.setImageResource(R.drawable.door_green_left);
-                                                        door_img2.setImageResource(R.drawable.door_green_right);
-                                                        door_img1.setVisibility(View.VISIBLE);
-                                                        door_img2.setVisibility(View.VISIBLE);
-                                                        door_img3.setVisibility(View.GONE);
-                                                        door_img4.setVisibility(View.GONE);
-                                                        door_img5.setVisibility(View.GONE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
-                                                        door_img2.setImageResource(R.drawable.door_green_left);
-                                                        door_img3.setImageResource(R.drawable.door_green_right);
-                                                        door_img1.setVisibility(View.GONE);
-                                                        door_img2.setVisibility(View.VISIBLE);
-                                                        door_img3.setVisibility(View.VISIBLE);
-                                                        door_img4.setVisibility(View.GONE);
-                                                        door_img5.setVisibility(View.GONE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,1,0")) {
-                                                        door_img3.setImageResource(R.drawable.door_green_left);
-                                                        door_img4.setImageResource(R.drawable.door_green_right);
-                                                        door_img1.setVisibility(View.GONE);
-                                                        door_img2.setVisibility(View.GONE);
-                                                        door_img3.setVisibility(View.VISIBLE);
-                                                        door_img4.setVisibility(View.VISIBLE);
-                                                        door_img5.setVisibility(View.GONE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,1")) {
-                                                        door_img4.setImageResource(R.drawable.door_green_left);
-                                                        door_img5.setImageResource(R.drawable.door_green_right);
-                                                        door_img1.setVisibility(View.GONE);
-                                                        door_img2.setVisibility(View.GONE);
-                                                        door_img3.setVisibility(View.GONE);
-                                                        door_img4.setVisibility(View.VISIBLE);
-                                                        door_img5.setVisibility(View.VISIBLE);
-                                                    }
+                                                if (i < Shape_value_list3.size()) {
 
-                                                } else if (storageShapeModel.getStorage().getDoorColor().equals("5")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
-                                                        door_img1.setImageResource(R.drawable.door_yellow_left);
-                                                        door_img2.setImageResource(R.drawable.door_yellow_right);
-                                                        door_img1.setVisibility(View.VISIBLE);
-                                                        door_img2.setVisibility(View.VISIBLE);
-                                                        door_img3.setVisibility(View.GONE);
-                                                        door_img4.setVisibility(View.GONE);
-                                                        door_img5.setVisibility(View.GONE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
-                                                        door_img2.setImageResource(R.drawable.door_yellow_left);
-                                                        door_img3.setImageResource(R.drawable.door_yellow_right);
-                                                        door_img1.setVisibility(View.GONE);
-                                                        door_img2.setVisibility(View.VISIBLE);
-                                                        door_img3.setVisibility(View.VISIBLE);
-                                                        door_img4.setVisibility(View.GONE);
-                                                        door_img5.setVisibility(View.GONE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,1,0")) {
-                                                        door_img3.setImageResource(R.drawable.door_yellow_left);
-                                                        door_img4.setImageResource(R.drawable.door_yellow_right);
-                                                        door_img1.setVisibility(View.GONE);
-                                                        door_img2.setVisibility(View.GONE);
-                                                        door_img3.setVisibility(View.VISIBLE);
-                                                        door_img4.setVisibility(View.VISIBLE);
-                                                        door_img5.setVisibility(View.GONE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,1")) {
-                                                        door_img4.setImageResource(R.drawable.door_yellow_left);
-                                                        door_img5.setImageResource(R.drawable.door_yellow_right);
-                                                        door_img1.setVisibility(View.GONE);
-                                                        door_img2.setVisibility(View.GONE);
-                                                        door_img3.setVisibility(View.GONE);
-                                                        door_img4.setVisibility(View.VISIBLE);
-                                                        door_img5.setVisibility(View.VISIBLE);
-                                                    }
+                                                    int value = Shape_value_list3.get(i);
 
-                                                }
-                                            }
+                                                    if (value == 0) {
+                                                        Log.e(TAG, "value =====> " + value);
+                                                        StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
+                                                        selectedGridModel.setShape_name("");
+                                                        selectedGridModel.setDoorPosition("");
+                                                        Shape_name.add(selectedGridModel);
+                                                        Log.e("door_array", myList.get(j));
+                                                    } else {
+                                                        Log.e(TAG, "value =====> " + value);
+                                                        Log.e(TAG, "GridCell_list =====> " + GridCell_list.get(j));
 
-                                        }
-                                        else if (storageShapeModel.getStorage().getDoorType().equals("3")) {
-                                            if (storageShapeModel.getStorage().getDoorColor() != null) {
-                                                if (storageShapeModel.getStorage().getDoorColor().equals("1")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
-                                                        linear_door_1.setBackgroundResource(R.drawable.white_door);
-                                                        linear_door_2.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_3.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_4.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_5.setBackgroundResource(R.drawable.dash_img);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
-                                                        linear_door_1.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_2.setBackgroundResource(R.drawable.white_door);
-                                                        linear_door_3.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_4.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_5.setBackgroundResource(R.drawable.dash_img);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
-                                                        linear_door_1.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_2.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_3.setBackgroundResource(R.drawable.white_door);
-                                                        linear_door_4.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_5.setBackgroundResource(R.drawable.dash_img);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,0")) {
-                                                        linear_door_1.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_2.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_3.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_4.setBackgroundResource(R.drawable.white_door);
-                                                        linear_door_5.setBackgroundResource(R.drawable.dash_img);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,0,1")) {
-                                                        linear_door_1.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_2.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_3.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_4.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_5.setBackgroundResource(R.drawable.white_door);
-                                                    }
-                                                } else if (storageShapeModel.getStorage().getDoorColor().equals("2")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
-                                                        linear_door_1.setBackgroundResource(R.drawable.blue_door);
-                                                        linear_door_2.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_3.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_4.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_5.setBackgroundResource(R.drawable.dash_img);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
-                                                        linear_door_1.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_2.setBackgroundResource(R.drawable.blue_door);
-                                                        linear_door_3.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_4.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_5.setBackgroundResource(R.drawable.dash_img);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
-                                                        linear_door_1.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_2.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_3.setBackgroundResource(R.drawable.blue_door);
-                                                        linear_door_4.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_5.setBackgroundResource(R.drawable.dash_img);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,0")) {
-                                                        linear_door_1.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_2.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_3.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_4.setBackgroundResource(R.drawable.blue_door);
-                                                        linear_door_5.setBackgroundResource(R.drawable.dash_img);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,0,1")) {
-                                                        linear_door_1.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_2.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_3.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_4.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_5.setBackgroundResource(R.drawable.blue_door);
-                                                    }
 
-                                                } else if (storageShapeModel.getStorage().getDoorColor().equals("3")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
-                                                        linear_door_1.setBackgroundResource(R.drawable.red_door);
-                                                        linear_door_2.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_3.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_4.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_5.setBackgroundResource(R.drawable.dash_img);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
-                                                        linear_door_1.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_2.setBackgroundResource(R.drawable.red_door);
-                                                        linear_door_3.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_4.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_5.setBackgroundResource(R.drawable.dash_img);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
-                                                        linear_door_1.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_2.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_3.setBackgroundResource(R.drawable.red_door);
-                                                        linear_door_4.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_5.setBackgroundResource(R.drawable.dash_img);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,0")) {
-                                                        linear_door_1.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_2.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_3.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_4.setBackgroundResource(R.drawable.red_door);
-                                                        linear_door_5.setBackgroundResource(R.drawable.dash_img);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,0,1")) {
-                                                        linear_door_1.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_2.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_3.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_4.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_5.setBackgroundResource(R.drawable.red_door);
-                                                    }
+                                                        StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
+                                                        selectedGridModel.setShape_name(GridCell_list.get(j));
+                                                        selectedGridModel.setDoorPosition(myList.get(j));
+                                                        Shape_name.add(selectedGridModel);
 
-                                                } else if (storageShapeModel.getStorage().getDoorColor().equals("4")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
-                                                        linear_door_1.setBackgroundResource(R.drawable.green_door);
-                                                        linear_door_2.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_3.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_4.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_5.setBackgroundResource(R.drawable.dash_img);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
-                                                        linear_door_1.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_2.setBackgroundResource(R.drawable.green_door);
-                                                        linear_door_3.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_4.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_5.setBackgroundResource(R.drawable.dash_img);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
-                                                        linear_door_1.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_2.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_3.setBackgroundResource(R.drawable.green_door);
-                                                        linear_door_4.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_5.setBackgroundResource(R.drawable.dash_img);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,0")) {
-                                                        linear_door_1.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_2.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_3.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_4.setBackgroundResource(R.drawable.green_door);
-                                                        linear_door_5.setBackgroundResource(R.drawable.dash_img);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,0,1")) {
-                                                        linear_door_1.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_2.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_3.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_4.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_5.setBackgroundResource(R.drawable.green_door);
-                                                    }
+                                                        j++;
 
-                                                } else if (storageShapeModel.getStorage().getDoorColor().equals("5")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
-                                                        linear_door_1.setBackgroundResource(R.drawable.yellow_door);
-                                                        linear_door_2.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_3.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_4.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_5.setBackgroundResource(R.drawable.dash_img);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
-                                                        linear_door_1.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_2.setBackgroundResource(R.drawable.yellow_door);
-                                                        linear_door_3.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_4.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_5.setBackgroundResource(R.drawable.dash_img);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
-                                                        linear_door_1.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_2.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_3.setBackgroundResource(R.drawable.yellow_door);
-                                                        linear_door_4.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_5.setBackgroundResource(R.drawable.dash_img);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,0")) {
-                                                        linear_door_1.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_2.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_3.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_4.setBackgroundResource(R.drawable.yellow_door);
-                                                        linear_door_5.setBackgroundResource(R.drawable.dash_img);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,0,1")) {
-                                                        linear_door_1.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_2.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_3.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_4.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_5.setBackgroundResource(R.drawable.yellow_door);
-                                                    }
-
-                                                }
-                                            }
-                                        }
-                                        else if (storageShapeModel.getStorage().getDoorType().equals("4")) {
-                                            if (storageShapeModel.getStorage().getDoorColor() != null) {
-                                                if (storageShapeModel.getStorage().getDoorColor().equals("1")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
-                                                        linear_door_1.setBackgroundResource(R.drawable.white_door);
-                                                        linear_door_2.setBackgroundResource(R.drawable.white_door);
-                                                        linear_door_3.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_4.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_5.setBackgroundResource(R.drawable.dash_img);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
-                                                        linear_door_1.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_2.setBackgroundResource(R.drawable.white_door);
-                                                        linear_door_3.setBackgroundResource(R.drawable.white_door);
-                                                        linear_door_4.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_5.setBackgroundResource(R.drawable.dash_img);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,1,0")) {
-                                                        linear_door_1.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_2.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_3.setBackgroundResource(R.drawable.white_door);
-                                                        linear_door_4.setBackgroundResource(R.drawable.white_door);
-                                                        linear_door_5.setBackgroundResource(R.drawable.dash_img);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,1")) {
-                                                        linear_door_1.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_2.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_3.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_4.setBackgroundResource(R.drawable.white_door);
-                                                        linear_door_5.setBackgroundResource(R.drawable.white_door);
-                                                    }
-                                                } else if (storageShapeModel.getStorage().getDoorColor().equals("2")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
-                                                        linear_door_1.setBackgroundResource(R.drawable.blue_door);
-                                                        linear_door_2.setBackgroundResource(R.drawable.blue_door);
-                                                        linear_door_3.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_4.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_5.setBackgroundResource(R.drawable.dash_img);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
-                                                        linear_door_1.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_2.setBackgroundResource(R.drawable.blue_door);
-                                                        linear_door_3.setBackgroundResource(R.drawable.blue_door);
-                                                        linear_door_4.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_5.setBackgroundResource(R.drawable.dash_img);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,1,0")) {
-                                                        linear_door_1.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_2.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_3.setBackgroundResource(R.drawable.blue_door);
-                                                        linear_door_4.setBackgroundResource(R.drawable.blue_door);
-                                                        linear_door_5.setBackgroundResource(R.drawable.dash_img);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,1")) {
-                                                        linear_door_1.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_2.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_3.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_4.setBackgroundResource(R.drawable.blue_door);
-                                                        linear_door_5.setBackgroundResource(R.drawable.blue_door);
-                                                    }
-                                                } else if (storageShapeModel.getStorage().getDoorColor().equals("3")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
-                                                        linear_door_1.setBackgroundResource(R.drawable.red_door);
-                                                        linear_door_2.setBackgroundResource(R.drawable.red_door);
-                                                        linear_door_3.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_4.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_5.setBackgroundResource(R.drawable.dash_img);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
-                                                        linear_door_1.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_2.setBackgroundResource(R.drawable.red_door);
-                                                        linear_door_3.setBackgroundResource(R.drawable.red_door);
-                                                        linear_door_4.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_5.setBackgroundResource(R.drawable.dash_img);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,1,0")) {
-                                                        linear_door_1.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_2.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_3.setBackgroundResource(R.drawable.red_door);
-                                                        linear_door_4.setBackgroundResource(R.drawable.red_door);
-                                                        linear_door_5.setBackgroundResource(R.drawable.dash_img);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,1")) {
-                                                        linear_door_1.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_2.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_3.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_4.setBackgroundResource(R.drawable.red_door);
-                                                        linear_door_5.setBackgroundResource(R.drawable.red_door);
-                                                    }
-                                                } else if (storageShapeModel.getStorage().getDoorColor().equals("4")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
-                                                        linear_door_1.setBackgroundResource(R.drawable.green_door);
-                                                        linear_door_2.setBackgroundResource(R.drawable.green_door);
-                                                        linear_door_3.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_4.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_5.setBackgroundResource(R.drawable.dash_img);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
-                                                        linear_door_1.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_2.setBackgroundResource(R.drawable.green_door);
-                                                        linear_door_3.setBackgroundResource(R.drawable.green_door);
-                                                        linear_door_4.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_5.setBackgroundResource(R.drawable.dash_img);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,1,0")) {
-                                                        linear_door_1.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_2.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_3.setBackgroundResource(R.drawable.green_door);
-                                                        linear_door_4.setBackgroundResource(R.drawable.green_door);
-                                                        linear_door_5.setBackgroundResource(R.drawable.dash_img);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,1")) {
-                                                        linear_door_1.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_2.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_3.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_4.setBackgroundResource(R.drawable.green_door);
-                                                        linear_door_5.setBackgroundResource(R.drawable.green_door);
-                                                    }
-                                                } else if (storageShapeModel.getStorage().getDoorColor().equals("5")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
-                                                        linear_door_1.setBackgroundResource(R.drawable.yellow_door);
-                                                        linear_door_2.setBackgroundResource(R.drawable.yellow_door);
-                                                        linear_door_3.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_4.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_5.setBackgroundResource(R.drawable.dash_img);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
-                                                        linear_door_1.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_2.setBackgroundResource(R.drawable.yellow_door);
-                                                        linear_door_3.setBackgroundResource(R.drawable.yellow_door);
-                                                        linear_door_4.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_5.setBackgroundResource(R.drawable.dash_img);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,1,0")) {
-                                                        linear_door_1.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_2.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_3.setBackgroundResource(R.drawable.yellow_door);
-                                                        linear_door_4.setBackgroundResource(R.drawable.yellow_door);
-                                                        linear_door_5.setBackgroundResource(R.drawable.dash_img);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,1")) {
-                                                        linear_door_1.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_2.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_3.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_4.setBackgroundResource(R.drawable.yellow_door);
-                                                        linear_door_5.setBackgroundResource(R.drawable.yellow_door);
                                                     }
                                                 }
                                             }
                                         }
+                                    }else {
+                                        if (numberofColumn.equals("5")) {
+                                            int j = 0;
+                                            for (int i = 0; i < GridCell_list.size(); i++) {
 
-                                    }
-                                    else if (numberofColumn.equals("4")) {
-                                        if (storageShapeModel.getStorage().getDoorType().equals("1")) {
-                                            if (storageShapeModel.getStorage().getDoorColor() != null) {
-                                                if (storageShapeModel.getStorage().getDoorColor().equals("1")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
-                                                        door_img11.setImageResource(R.drawable.doorleft);
-                                                        door_img11.setVisibility(View.VISIBLE);
-                                                        door_img12.setVisibility(View.GONE);
-                                                        door_img13.setVisibility(View.GONE);
-                                                        door_img14.setVisibility(View.GONE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
-                                                        door_img12.setImageResource(R.drawable.doorleft);
-                                                        door_img11.setVisibility(View.GONE);
-                                                        door_img12.setVisibility(View.VISIBLE);
-                                                        door_img13.setVisibility(View.GONE);
-                                                        door_img14.setVisibility(View.GONE);
+                                                if (i < Shape_value_list5.size()) {
 
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
-                                                        door_img13.setImageResource(R.drawable.doorleft);
-                                                        door_img11.setVisibility(View.GONE);
-                                                        door_img12.setVisibility(View.GONE);
-                                                        door_img13.setVisibility(View.VISIBLE);
-                                                        door_img14.setVisibility(View.GONE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,0")) {
-                                                        door_img14.setImageResource(R.drawable.doorleft);
-                                                        door_img11.setVisibility(View.GONE);
-                                                        door_img12.setVisibility(View.GONE);
-                                                        door_img13.setVisibility(View.GONE);
-                                                        door_img14.setVisibility(View.VISIBLE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,0,1")) {
-                                                        door_img14.setImageResource(R.drawable.doorleft);
-                                                        door_img11.setVisibility(View.GONE);
-                                                        door_img12.setVisibility(View.GONE);
-                                                        door_img13.setVisibility(View.GONE);
-                                                        door_img14.setVisibility(View.VISIBLE);
-                                                    }
-                                                } else if (storageShapeModel.getStorage().getDoorColor().equals("2")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
-                                                        door_img11.setImageResource(R.drawable.door_blue_left);
-                                                        door_img11.setVisibility(View.VISIBLE);
-                                                        door_img12.setVisibility(View.GONE);
-                                                        door_img13.setVisibility(View.GONE);
-                                                        door_img14.setVisibility(View.GONE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
-                                                        door_img12.setImageResource(R.drawable.door_blue_left);
-                                                        door_img11.setVisibility(View.GONE);
-                                                        door_img12.setVisibility(View.VISIBLE);
-                                                        door_img13.setVisibility(View.GONE);
-                                                        door_img14.setVisibility(View.GONE);
+                                                    int value = Shape_value_list5.get(i);
+                                                    if (value == 0) {
+                                                        Log.e(TAG, "value =====> " + value);
+                                                        StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
+                                                        selectedGridModel.setShape_name("");
+                                                        selectedGridModel.setDoorPosition("");
+                                                        Shape_name.add(selectedGridModel);
 
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
-                                                        door_img13.setImageResource(R.drawable.door_blue_left);
-                                                        door_img11.setVisibility(View.GONE);
-                                                        door_img12.setVisibility(View.GONE);
-                                                        door_img13.setVisibility(View.VISIBLE);
-                                                        door_img14.setVisibility(View.GONE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,0")) {
-                                                        door_img14.setImageResource(R.drawable.door_blue_left);
-                                                        door_img11.setVisibility(View.GONE);
-                                                        door_img12.setVisibility(View.GONE);
-                                                        door_img13.setVisibility(View.GONE);
-                                                        door_img14.setVisibility(View.VISIBLE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,0,1")) {
-                                                        door_img14.setImageResource(R.drawable.door_blue_left);
-                                                        door_img11.setVisibility(View.GONE);
-                                                        door_img12.setVisibility(View.GONE);
-                                                        door_img13.setVisibility(View.GONE);
-                                                        door_img14.setVisibility(View.VISIBLE);
-                                                    }
-                                                } else if (storageShapeModel.getStorage().getDoorColor().equals("3")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
-                                                        door_img11.setImageResource(R.drawable.door_left_red);
-                                                        door_img11.setVisibility(View.VISIBLE);
-                                                        door_img12.setVisibility(View.GONE);
-                                                        door_img13.setVisibility(View.GONE);
-                                                        door_img14.setVisibility(View.GONE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
-                                                        door_img12.setImageResource(R.drawable.door_left_red);
-                                                        door_img11.setVisibility(View.GONE);
-                                                        door_img12.setVisibility(View.VISIBLE);
-                                                        door_img13.setVisibility(View.GONE);
-                                                        door_img14.setVisibility(View.GONE);
+                                                    } else {
+                                                        Log.e(TAG, "value =====> " + value);
+                                                        Log.e(TAG, "GridCell_list =====> " + GridCell_list.get(j));
 
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
-                                                        door_img13.setImageResource(R.drawable.door_left_red);
-                                                        door_img11.setVisibility(View.GONE);
-                                                        door_img12.setVisibility(View.GONE);
-                                                        door_img13.setVisibility(View.VISIBLE);
-                                                        door_img14.setVisibility(View.GONE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,0")) {
-                                                        door_img14.setImageResource(R.drawable.door_left_red);
-                                                        door_img11.setVisibility(View.GONE);
-                                                        door_img12.setVisibility(View.GONE);
-                                                        door_img13.setVisibility(View.GONE);
-                                                        door_img14.setVisibility(View.VISIBLE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,0,1")) {
-                                                        door_img14.setImageResource(R.drawable.door_left_red);
-                                                        door_img11.setVisibility(View.GONE);
-                                                        door_img12.setVisibility(View.GONE);
-                                                        door_img13.setVisibility(View.GONE);
-                                                        door_img14.setVisibility(View.VISIBLE);
-                                                    }
-                                                } else if (storageShapeModel.getStorage().getDoorColor().equals("4")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
-                                                        door_img11.setImageResource(R.drawable.door_green_left);
-                                                        door_img11.setVisibility(View.VISIBLE);
-                                                        door_img12.setVisibility(View.GONE);
-                                                        door_img13.setVisibility(View.GONE);
-                                                        door_img14.setVisibility(View.GONE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
-                                                        door_img12.setImageResource(R.drawable.door_green_left);
-                                                        door_img11.setVisibility(View.GONE);
-                                                        door_img12.setVisibility(View.VISIBLE);
-                                                        door_img13.setVisibility(View.GONE);
-                                                        door_img14.setVisibility(View.GONE);
 
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
-                                                        door_img13.setImageResource(R.drawable.door_green_left);
-                                                        door_img11.setVisibility(View.GONE);
-                                                        door_img12.setVisibility(View.GONE);
-                                                        door_img13.setVisibility(View.VISIBLE);
-                                                        door_img14.setVisibility(View.GONE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,0")) {
-                                                        door_img14.setImageResource(R.drawable.door_green_left);
-                                                        door_img11.setVisibility(View.GONE);
-                                                        door_img12.setVisibility(View.GONE);
-                                                        door_img13.setVisibility(View.GONE);
-                                                        door_img14.setVisibility(View.VISIBLE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,0,1")) {
-                                                        door_img14.setImageResource(R.drawable.door_green_left);
-                                                        door_img11.setVisibility(View.GONE);
-                                                        door_img12.setVisibility(View.GONE);
-                                                        door_img13.setVisibility(View.GONE);
-                                                        door_img14.setVisibility(View.VISIBLE);
-                                                    }
-                                                } else if (storageShapeModel.getStorage().getDoorColor().equals("5")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
-                                                        door_img11.setImageResource(R.drawable.door_yellow_left);
-                                                        door_img11.setVisibility(View.VISIBLE);
-                                                        door_img12.setVisibility(View.GONE);
-                                                        door_img13.setVisibility(View.GONE);
-                                                        door_img14.setVisibility(View.GONE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
-                                                        door_img12.setImageResource(R.drawable.door_yellow_left);
-                                                        door_img11.setVisibility(View.GONE);
-                                                        door_img12.setVisibility(View.VISIBLE);
-                                                        door_img13.setVisibility(View.GONE);
-                                                        door_img14.setVisibility(View.GONE);
+                                                        StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
+                                                        selectedGridModel.setShape_name(GridCell_list.get(j));
+                                                        selectedGridModel.setDoorPosition("");
 
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
-                                                        door_img13.setImageResource(R.drawable.door_yellow_left);
-                                                        door_img11.setVisibility(View.GONE);
-                                                        door_img12.setVisibility(View.GONE);
-                                                        door_img13.setVisibility(View.VISIBLE);
-                                                        door_img14.setVisibility(View.GONE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,0")) {
-                                                        door_img14.setImageResource(R.drawable.door_yellow_left);
-                                                        door_img11.setVisibility(View.GONE);
-                                                        door_img12.setVisibility(View.GONE);
-                                                        door_img13.setVisibility(View.GONE);
-                                                        door_img14.setVisibility(View.VISIBLE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,0,1")) {
-                                                        door_img14.setImageResource(R.drawable.door_yellow_left);
-                                                        door_img11.setVisibility(View.GONE);
-                                                        door_img12.setVisibility(View.GONE);
-                                                        door_img13.setVisibility(View.GONE);
-                                                        door_img14.setVisibility(View.VISIBLE);
+                                                        Shape_name.add(selectedGridModel);
+
+
+                                                        j++;
+
                                                     }
                                                 }
                                             }
-                                        }
-                                        else if (storageShapeModel.getStorage().getDoorType().equals("2")) {
-                                            if (storageShapeModel.getStorage().getDoorColor() != null) {
-                                                if (storageShapeModel.getStorage().getDoorColor().equals("1")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
-                                                        door_img11.setImageResource(R.drawable.doorleft);
-                                                        door_img12.setImageResource(R.drawable.doorright);
-                                                        door_img11.setVisibility(View.VISIBLE);
-                                                        door_img12.setVisibility(View.VISIBLE);
-                                                        door_img13.setVisibility(View.GONE);
-                                                        door_img14.setVisibility(View.GONE);
+                                        } else if (numberofColumn.equals("4")) {
+                                            int j = 0;
+                                            for (int i = 0; i < GridCell_list.size(); i++) {
 
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
-                                                        door_img12.setImageResource(R.drawable.doorleft);
-                                                        door_img13.setImageResource(R.drawable.doorright);
-                                                        door_img11.setVisibility(View.GONE);
-                                                        door_img12.setVisibility(View.VISIBLE);
-                                                        door_img13.setVisibility(View.VISIBLE);
-                                                        door_img14.setVisibility(View.GONE);
+                                                if (i < Shape_value_list4.size()) {
 
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,1,0")) {
-                                                        door_img13.setImageResource(R.drawable.doorleft);
-                                                        door_img14.setImageResource(R.drawable.doorright);
-                                                        door_img11.setVisibility(View.GONE);
-                                                        door_img12.setVisibility(View.GONE);
-                                                        door_img13.setVisibility(View.VISIBLE);
-                                                        door_img14.setVisibility(View.VISIBLE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,1")) {
-                                                        door_img13.setImageResource(R.drawable.doorleft);
-                                                        door_img14.setImageResource(R.drawable.doorright);
-                                                        door_img11.setVisibility(View.GONE);
-                                                        door_img12.setVisibility(View.GONE);
-                                                        door_img13.setVisibility(View.VISIBLE);
-                                                        door_img14.setVisibility(View.VISIBLE);
-                                                    }
-                                                } else if (storageShapeModel.getStorage().getDoorColor().equals("2")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
-                                                        door_img11.setImageResource(R.drawable.door_blue_left);
-                                                        door_img12.setImageResource(R.drawable.door_blue_right);
-                                                        door_img11.setVisibility(View.VISIBLE);
-                                                        door_img12.setVisibility(View.VISIBLE);
-                                                        door_img13.setVisibility(View.GONE);
-                                                        door_img14.setVisibility(View.GONE);
+                                                    int value = Shape_value_list4.get(i);
 
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
-                                                        door_img12.setImageResource(R.drawable.door_blue_left);
-                                                        door_img13.setImageResource(R.drawable.door_blue_right);
-                                                        door_img11.setVisibility(View.GONE);
-                                                        door_img12.setVisibility(View.VISIBLE);
-                                                        door_img13.setVisibility(View.VISIBLE);
-                                                        door_img14.setVisibility(View.GONE);
+                                                    if (value == 0) {
+                                                        Log.e(TAG, "value =====> " + value);
+                                                        StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
+                                                        selectedGridModel.setShape_name("");
+                                                        selectedGridModel.setDoorPosition("");
+                                                        Shape_name.add(selectedGridModel);
 
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,1,0")) {
-                                                        door_img13.setImageResource(R.drawable.door_blue_left);
-                                                        door_img14.setImageResource(R.drawable.door_blue_right);
-                                                        door_img11.setVisibility(View.GONE);
-                                                        door_img12.setVisibility(View.GONE);
-                                                        door_img13.setVisibility(View.VISIBLE);
-                                                        door_img14.setVisibility(View.VISIBLE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,1")) {
-                                                        door_img13.setImageResource(R.drawable.door_blue_left);
-                                                        door_img14.setImageResource(R.drawable.door_blue_right);
-                                                        door_img11.setVisibility(View.GONE);
-                                                        door_img12.setVisibility(View.GONE);
-                                                        door_img13.setVisibility(View.VISIBLE);
-                                                        door_img14.setVisibility(View.VISIBLE);
-                                                    }
-                                                } else if (storageShapeModel.getStorage().getDoorColor().equals("3")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
-                                                        door_img11.setImageResource(R.drawable.door_left_red);
-                                                        door_img12.setImageResource(R.drawable.door_red_right);
-                                                        door_img11.setVisibility(View.VISIBLE);
-                                                        door_img12.setVisibility(View.VISIBLE);
-                                                        door_img13.setVisibility(View.GONE);
-                                                        door_img14.setVisibility(View.GONE);
+                                                    } else {
+                                                        Log.e(TAG, "value =====> " + value);
+                                                        Log.e(TAG, "GridCell_list =====> " + GridCell_list.get(j));
 
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
-                                                        door_img12.setImageResource(R.drawable.door_left_red);
-                                                        door_img13.setImageResource(R.drawable.door_red_right);
-                                                        door_img11.setVisibility(View.GONE);
-                                                        door_img12.setVisibility(View.VISIBLE);
-                                                        door_img13.setVisibility(View.VISIBLE);
-                                                        door_img14.setVisibility(View.GONE);
 
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,1,0")) {
-                                                        door_img13.setImageResource(R.drawable.door_left_red);
-                                                        door_img14.setImageResource(R.drawable.door_red_right);
-                                                        door_img11.setVisibility(View.GONE);
-                                                        door_img12.setVisibility(View.GONE);
-                                                        door_img13.setVisibility(View.VISIBLE);
-                                                        door_img14.setVisibility(View.VISIBLE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,1")) {
-                                                        door_img13.setImageResource(R.drawable.door_left_red);
-                                                        door_img14.setImageResource(R.drawable.door_red_right);
-                                                        door_img11.setVisibility(View.GONE);
-                                                        door_img12.setVisibility(View.GONE);
-                                                        door_img13.setVisibility(View.VISIBLE);
-                                                        door_img14.setVisibility(View.VISIBLE);
-                                                    }
-                                                } else if (storageShapeModel.getStorage().getDoorColor().equals("4")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
-                                                        door_img11.setImageResource(R.drawable.door_green_left);
-                                                        door_img12.setImageResource(R.drawable.door_green_right);
-                                                        door_img11.setVisibility(View.VISIBLE);
-                                                        door_img12.setVisibility(View.VISIBLE);
-                                                        door_img13.setVisibility(View.GONE);
-                                                        door_img14.setVisibility(View.GONE);
+                                                        StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
+                                                        selectedGridModel.setShape_name(GridCell_list.get(j));
+                                                        selectedGridModel.setDoorPosition("");
 
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
-                                                        door_img12.setImageResource(R.drawable.door_green_left);
-                                                        door_img13.setImageResource(R.drawable.door_green_right);
-                                                        door_img11.setVisibility(View.GONE);
-                                                        door_img12.setVisibility(View.VISIBLE);
-                                                        door_img13.setVisibility(View.VISIBLE);
-                                                        door_img14.setVisibility(View.GONE);
+                                                        Shape_name.add(selectedGridModel);
 
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,1,0")) {
-                                                        door_img13.setImageResource(R.drawable.door_green_left);
-                                                        door_img14.setImageResource(R.drawable.door_green_right);
-                                                        door_img11.setVisibility(View.GONE);
-                                                        door_img12.setVisibility(View.GONE);
-                                                        door_img13.setVisibility(View.VISIBLE);
-                                                        door_img14.setVisibility(View.VISIBLE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,1")) {
-                                                        door_img13.setImageResource(R.drawable.door_green_left);
-                                                        door_img14.setImageResource(R.drawable.door_green_right);
-                                                        door_img11.setVisibility(View.GONE);
-                                                        door_img12.setVisibility(View.GONE);
-                                                        door_img13.setVisibility(View.VISIBLE);
-                                                        door_img14.setVisibility(View.VISIBLE);
-                                                    }
-                                                } else if (storageShapeModel.getStorage().getDoorColor().equals("5")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
-                                                        door_img11.setImageResource(R.drawable.door_yellow_left);
-                                                        door_img12.setImageResource(R.drawable.door_yellow_right);
-                                                        door_img11.setVisibility(View.VISIBLE);
-                                                        door_img12.setVisibility(View.VISIBLE);
-                                                        door_img13.setVisibility(View.GONE);
-                                                        door_img14.setVisibility(View.GONE);
+                                                        j++;
 
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
-                                                        door_img12.setImageResource(R.drawable.door_yellow_left);
-                                                        door_img13.setImageResource(R.drawable.door_yellow_right);
-                                                        door_img11.setVisibility(View.GONE);
-                                                        door_img12.setVisibility(View.VISIBLE);
-                                                        door_img13.setVisibility(View.VISIBLE);
-                                                        door_img14.setVisibility(View.GONE);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,1,0")) {
-                                                        door_img13.setImageResource(R.drawable.door_yellow_left);
-                                                        door_img14.setImageResource(R.drawable.door_yellow_right);
-                                                        door_img11.setVisibility(View.GONE);
-                                                        door_img12.setVisibility(View.GONE);
-                                                        door_img13.setVisibility(View.VISIBLE);
-                                                        door_img14.setVisibility(View.VISIBLE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,1")) {
-                                                        door_img13.setImageResource(R.drawable.door_yellow_left);
-                                                        door_img14.setImageResource(R.drawable.door_yellow_right);
-                                                        door_img11.setVisibility(View.GONE);
-                                                        door_img12.setVisibility(View.GONE);
-                                                        door_img13.setVisibility(View.VISIBLE);
-                                                        door_img14.setVisibility(View.VISIBLE);
                                                     }
                                                 }
                                             }
+                                        } else if (numberofColumn.equals("3")) {
+                                            int j = 0;
+                                            for (int i = 0; i < GridCell_list.size(); i++) {
 
-                                        }
-                                        else if (storageShapeModel.getStorage().getDoorType().equals("3")) {
-                                            if (storageShapeModel.getStorage().getDoorColor() != null) {
-                                                if (storageShapeModel.getStorage().getDoorColor().equals("1")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
-                                                        linear_door_11.setBackgroundResource(R.drawable.white_door);
-                                                        linear_door_12.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_13.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_14.setBackgroundResource(R.drawable.dash_img);
+                                                if (i < Shape_value_list3.size()) {
 
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
-                                                        linear_door_11.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_12.setBackgroundResource(R.drawable.white_door);
-                                                        linear_door_13.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_14.setBackgroundResource(R.drawable.dash_img);
+                                                    int value = Shape_value_list3.get(i);
 
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
-                                                        linear_door_11.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_12.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_13.setBackgroundResource(R.drawable.white_door);
-                                                        linear_door_14.setBackgroundResource(R.drawable.dash_img);
+                                                    if (value == 0) {
+                                                        Log.e(TAG, "value =====> " + value);
+                                                        StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
+                                                        selectedGridModel.setShape_name("");
+                                                        selectedGridModel.setDoorPosition("");
+                                                        Shape_name.add(selectedGridModel);
 
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,0")) {
-                                                        linear_door_11.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_12.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_13.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_14.setBackgroundResource(R.drawable.white_door);
+                                                    } else {
+                                                        Log.e(TAG, "value =====> " + value);
+                                                        Log.e(TAG, "GridCell_list =====> " + GridCell_list.get(j));
 
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,0,1")) {
-                                                        linear_door_11.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_12.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_13.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_14.setBackgroundResource(R.drawable.white_door);
 
-                                                    }
-                                                } else if (storageShapeModel.getStorage().getDoorColor().equals("2")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
-                                                        linear_door_11.setBackgroundResource(R.drawable.blue_door);
-                                                        linear_door_12.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_13.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_14.setBackgroundResource(R.drawable.dash_img);
+                                                        StorageShapeModel.Storage.ShapsList selectedGridModel = new StorageShapeModel.Storage.ShapsList();
+                                                        selectedGridModel.setShape_name(GridCell_list.get(j));
+                                                        selectedGridModel.setDoorPosition("");
 
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
-                                                        linear_door_11.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_12.setBackgroundResource(R.drawable.blue_door);
-                                                        linear_door_13.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_14.setBackgroundResource(R.drawable.dash_img);
+                                                        Shape_name.add(selectedGridModel);
 
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
-                                                        linear_door_11.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_12.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_13.setBackgroundResource(R.drawable.blue_door);
-                                                        linear_door_14.setBackgroundResource(R.drawable.dash_img);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,0")) {
-                                                        linear_door_11.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_12.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_13.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_14.setBackgroundResource(R.drawable.blue_door);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,0,1")) {
-                                                        linear_door_11.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_12.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_13.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_14.setBackgroundResource(R.drawable.blue_door);
-
-                                                    }
-                                                } else if (storageShapeModel.getStorage().getDoorColor().equals("3")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
-                                                        linear_door_11.setBackgroundResource(R.drawable.red_door);
-                                                        linear_door_12.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_13.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_14.setBackgroundResource(R.drawable.dash_img);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
-                                                        linear_door_11.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_12.setBackgroundResource(R.drawable.red_door);
-                                                        linear_door_13.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_14.setBackgroundResource(R.drawable.dash_img);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
-                                                        linear_door_11.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_12.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_13.setBackgroundResource(R.drawable.red_door);
-                                                        linear_door_14.setBackgroundResource(R.drawable.dash_img);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,0")) {
-                                                        linear_door_11.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_12.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_13.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_14.setBackgroundResource(R.drawable.red_door);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,0,1")) {
-                                                        linear_door_11.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_12.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_13.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_14.setBackgroundResource(R.drawable.red_door);
-
-                                                    }
-                                                } else if (storageShapeModel.getStorage().getDoorColor().equals("4")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
-                                                        linear_door_11.setBackgroundResource(R.drawable.green_door);
-                                                        linear_door_12.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_13.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_14.setBackgroundResource(R.drawable.dash_img);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
-                                                        linear_door_11.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_12.setBackgroundResource(R.drawable.green_door);
-                                                        linear_door_13.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_14.setBackgroundResource(R.drawable.dash_img);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
-                                                        linear_door_11.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_12.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_13.setBackgroundResource(R.drawable.green_door);
-                                                        linear_door_14.setBackgroundResource(R.drawable.dash_img);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,0")) {
-                                                        linear_door_11.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_12.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_13.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_14.setBackgroundResource(R.drawable.green_door);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,0,1")) {
-                                                        linear_door_11.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_12.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_13.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_14.setBackgroundResource(R.drawable.green_door);
-
-                                                    }
-                                                } else if (storageShapeModel.getStorage().getDoorColor().equals("5")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
-                                                        linear_door_11.setBackgroundResource(R.drawable.yellow_door);
-                                                        linear_door_12.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_13.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_14.setBackgroundResource(R.drawable.dash_img);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
-                                                        linear_door_11.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_12.setBackgroundResource(R.drawable.yellow_door);
-                                                        linear_door_13.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_14.setBackgroundResource(R.drawable.dash_img);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
-                                                        linear_door_11.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_12.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_13.setBackgroundResource(R.drawable.yellow_door);
-                                                        linear_door_14.setBackgroundResource(R.drawable.dash_img);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,0")) {
-                                                        linear_door_11.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_12.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_13.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_14.setBackgroundResource(R.drawable.yellow_door);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,0,1")) {
-                                                        linear_door_11.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_12.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_13.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_14.setBackgroundResource(R.drawable.yellow_door);
-
-                                                    }
-
-                                                }
-                                            }
-                                        }
-                                        else if (storageShapeModel.getStorage().getDoorType().equals("4")) {
-                                            if (storageShapeModel.getStorage().getDoorColor() != null) {
-                                                if (storageShapeModel.getStorage().getDoorColor().equals("1")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
-                                                        linear_door_11.setBackgroundResource(R.drawable.white_door);
-                                                        linear_door_12.setBackgroundResource(R.drawable.white_door);
-                                                        linear_door_13.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_14.setBackgroundResource(R.drawable.dash_img);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
-                                                        linear_door_11.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_12.setBackgroundResource(R.drawable.white_door);
-                                                        linear_door_13.setBackgroundResource(R.drawable.white_door);
-                                                        linear_door_14.setBackgroundResource(R.drawable.dash_img);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,1,0")) {
-                                                        linear_door_11.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_12.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_13.setBackgroundResource(R.drawable.white_door);
-                                                        linear_door_14.setBackgroundResource(R.drawable.white_door);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,1")) {
-                                                        linear_door_11.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_12.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_13.setBackgroundResource(R.drawable.white_door);
-                                                        linear_door_14.setBackgroundResource(R.drawable.white_door);
-
-                                                    }
-                                                } else if (storageShapeModel.getStorage().getDoorColor().equals("2")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
-                                                        linear_door_11.setBackgroundResource(R.drawable.blue_door);
-                                                        linear_door_12.setBackgroundResource(R.drawable.blue_door);
-                                                        linear_door_13.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_14.setBackgroundResource(R.drawable.dash_img);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
-                                                        linear_door_11.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_12.setBackgroundResource(R.drawable.blue_door);
-                                                        linear_door_13.setBackgroundResource(R.drawable.blue_door);
-                                                        linear_door_14.setBackgroundResource(R.drawable.dash_img);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,1,0")) {
-                                                        linear_door_11.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_12.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_13.setBackgroundResource(R.drawable.blue_door);
-                                                        linear_door_14.setBackgroundResource(R.drawable.blue_door);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,1")) {
-                                                        linear_door_11.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_12.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_13.setBackgroundResource(R.drawable.blue_door);
-                                                        linear_door_14.setBackgroundResource(R.drawable.blue_door);
-
-                                                    }
-                                                } else if (storageShapeModel.getStorage().getDoorColor().equals("3")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
-                                                        linear_door_11.setBackgroundResource(R.drawable.red_door);
-                                                        linear_door_12.setBackgroundResource(R.drawable.red_door);
-                                                        linear_door_13.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_14.setBackgroundResource(R.drawable.dash_img);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
-                                                        linear_door_11.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_12.setBackgroundResource(R.drawable.red_door);
-                                                        linear_door_13.setBackgroundResource(R.drawable.red_door);
-                                                        linear_door_14.setBackgroundResource(R.drawable.dash_img);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,1,0")) {
-                                                        linear_door_11.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_12.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_13.setBackgroundResource(R.drawable.red_door);
-                                                        linear_door_14.setBackgroundResource(R.drawable.red_door);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,1")) {
-                                                        linear_door_11.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_12.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_13.setBackgroundResource(R.drawable.red_door);
-                                                        linear_door_14.setBackgroundResource(R.drawable.red_door);
-
-                                                    }
-                                                } else if (storageShapeModel.getStorage().getDoorColor().equals("4")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
-                                                        linear_door_11.setBackgroundResource(R.drawable.green_door);
-                                                        linear_door_12.setBackgroundResource(R.drawable.green_door);
-                                                        linear_door_13.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_14.setBackgroundResource(R.drawable.dash_img);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
-                                                        linear_door_11.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_12.setBackgroundResource(R.drawable.green_door);
-                                                        linear_door_13.setBackgroundResource(R.drawable.green_door);
-                                                        linear_door_14.setBackgroundResource(R.drawable.dash_img);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,1,0")) {
-                                                        linear_door_11.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_12.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_13.setBackgroundResource(R.drawable.green_door);
-                                                        linear_door_14.setBackgroundResource(R.drawable.green_door);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,1")) {
-                                                        linear_door_11.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_12.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_13.setBackgroundResource(R.drawable.green_door);
-                                                        linear_door_14.setBackgroundResource(R.drawable.green_door);
-
-                                                    }
-                                                } else if (storageShapeModel.getStorage().getDoorColor().equals("5")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
-                                                        linear_door_11.setBackgroundResource(R.drawable.yellow_door);
-                                                        linear_door_12.setBackgroundResource(R.drawable.yellow_door);
-                                                        linear_door_13.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_14.setBackgroundResource(R.drawable.dash_img);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
-                                                        linear_door_11.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_12.setBackgroundResource(R.drawable.yellow_door);
-                                                        linear_door_13.setBackgroundResource(R.drawable.yellow_door);
-                                                        linear_door_14.setBackgroundResource(R.drawable.dash_img);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,1,0")) {
-                                                        linear_door_11.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_12.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_13.setBackgroundResource(R.drawable.yellow_door);
-                                                        linear_door_14.setBackgroundResource(R.drawable.yellow_door);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,1")) {
-                                                        linear_door_11.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_12.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_13.setBackgroundResource(R.drawable.yellow_door);
-                                                        linear_door_14.setBackgroundResource(R.drawable.yellow_door);
+                                                        j++;
 
                                                     }
                                                 }
@@ -2430,357 +1066,1711 @@ public class AddItemFragment extends BaseFragment implements View.OnClickListene
                                         }
 
                                     }
-                                    else if (numberofColumn.equals("3")) {
-                                        if (storageShapeModel.getStorage().getDoorType().equals("1")) {
-                                            if (storageShapeModel.getStorage().getDoorColor() != null) {
-                                                if (storageShapeModel.getStorage().getDoorColor().equals("1")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
-                                                        door_img21.setImageResource(R.drawable.doorleft);
-                                                        door_img21.setVisibility(View.VISIBLE);
-                                                        door_img22.setVisibility(View.GONE);
-                                                        door_img23.setVisibility(View.GONE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
-                                                        door_img22.setImageResource(R.drawable.doorleft);
-                                                        door_img21.setVisibility(View.GONE);
-                                                        door_img22.setVisibility(View.VISIBLE);
-                                                        door_img23.setVisibility(View.GONE);
 
 
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
-                                                        door_img23.setImageResource(R.drawable.doorleft);
-                                                        door_img21.setVisibility(View.GONE);
-                                                        door_img22.setVisibility(View.GONE);
-                                                        door_img23.setVisibility(View.VISIBLE);
-                                                    }
-                                                } else if (storageShapeModel.getStorage().getDoorColor().equals("2")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
-                                                        door_img21.setImageResource(R.drawable.door_blue_left);
-                                                        door_img21.setVisibility(View.VISIBLE);
-                                                        door_img22.setVisibility(View.GONE);
-                                                        door_img23.setVisibility(View.GONE);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
-                                                        door_img22.setImageResource(R.drawable.door_blue_left);
-                                                        door_img21.setVisibility(View.GONE);
-                                                        door_img22.setVisibility(View.VISIBLE);
-                                                        door_img23.setVisibility(View.GONE);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
-                                                        door_img23.setImageResource(R.drawable.door_blue_left);
-                                                        door_img21.setVisibility(View.GONE);
-                                                        door_img22.setVisibility(View.GONE);
-                                                        door_img23.setVisibility(View.VISIBLE);
-
-                                                    }
-                                                } else if (storageShapeModel.getStorage().getDoorColor().equals("3")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
-                                                        door_img21.setImageResource(R.drawable.door_left_red);
-                                                        door_img21.setVisibility(View.VISIBLE);
-                                                        door_img22.setVisibility(View.GONE);
-                                                        door_img23.setVisibility(View.GONE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
-                                                        door_img22.setImageResource(R.drawable.door_left_red);
-                                                        door_img21.setVisibility(View.GONE);
-                                                        door_img22.setVisibility(View.VISIBLE);
-                                                        door_img23.setVisibility(View.GONE);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
-                                                        door_img23.setImageResource(R.drawable.door_left_red);
-                                                        door_img21.setVisibility(View.GONE);
-                                                        door_img22.setVisibility(View.GONE);
-                                                        door_img23.setVisibility(View.VISIBLE);
-                                                    }
-                                                } else if (storageShapeModel.getStorage().getDoorColor().equals("4")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
-                                                        door_img21.setImageResource(R.drawable.door_green_left);
-                                                        door_img21.setVisibility(View.VISIBLE);
-                                                        door_img22.setVisibility(View.GONE);
-                                                        door_img23.setVisibility(View.GONE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
-                                                        door_img22.setImageResource(R.drawable.door_green_left);
-                                                        door_img21.setVisibility(View.GONE);
-                                                        door_img22.setVisibility(View.VISIBLE);
-                                                        door_img23.setVisibility(View.GONE);
+                                }
 
 
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
-                                                        door_img23.setImageResource(R.drawable.door_green_left);
-                                                        door_img21.setVisibility(View.GONE);
-                                                        door_img22.setVisibility(View.GONE);
-                                                        door_img23.setVisibility(View.VISIBLE);
 
-                                                    }
-                                                } else if (storageShapeModel.getStorage().getDoorColor().equals("5")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
-                                                        door_img21.setImageResource(R.drawable.door_yellow_left);
-                                                        door_img21.setVisibility(View.VISIBLE);
-                                                        door_img22.setVisibility(View.GONE);
-                                                        door_img23.setVisibility(View.GONE);
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
-                                                        door_img22.setImageResource(R.drawable.door_yellow_left);
-                                                        door_img21.setVisibility(View.GONE);
-                                                        door_img22.setVisibility(View.VISIBLE);
-                                                        door_img23.setVisibility(View.GONE);
+                                if (numberofColumn.equals("5")) {
+                                    Grid3_linear.setVisibility(View.GONE);
+                                    Grid4_linear.setVisibility(View.GONE);
+                                    Grid5_linear.setVisibility(View.VISIBLE);
+                                    gridCellAdapter = new GridCellAdapter(mContext, storageShapeModel.getStorage().getShapsList(), Shape_name);
+                                    Grid_View5.setExpanded(true);
+                                    Grid_View5.setNumColumns(5);
+                                    Grid_View5.setAdapter(gridCellAdapter);
+                                    gridCellAdapter.notifyDataSetChanged();
 
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
-                                                        door_img23.setImageResource(R.drawable.door_yellow_left);
-                                                        door_img21.setVisibility(View.GONE);
-                                                        door_img22.setVisibility(View.GONE);
-                                                        door_img23.setVisibility(View.VISIBLE);
+                                } else if (numberofColumn.equals("4")) {
+                                    Grid3_linear.setVisibility(View.GONE);
+                                    Grid4_linear.setVisibility(View.VISIBLE);
+                                    Grid5_linear.setVisibility(View.GONE);
 
-                                                    }
+                                    gridCellAdapter = new GridCellAdapter(mContext, Shap_list4, Shape_name);
+                                    Grid_View4.setExpanded(true);
+                                    Grid_View4.setNumColumns(4);
+                                    Grid_View4.setAdapter(gridCellAdapter);
+                                    gridCellAdapter.notifyDataSetChanged();
+
+                                } else if (numberofColumn.equals("3")) {
+                                    Grid3_linear.setVisibility(View.VISIBLE);
+                                    Grid4_linear.setVisibility(View.GONE);
+                                    Grid5_linear.setVisibility(View.GONE);
+
+                                    gridCellAdapter = new GridCellAdapter(mContext, Shap_list3, Shape_name);
+                                    Grid_View3.setExpanded(true);
+                                    Grid_View3.setNumColumns(3);
+                                    Grid_View3.setAdapter(gridCellAdapter);
+                                    gridCellAdapter.notifyDataSetChanged();
+
+                                }
+
+                                if (numberofColumn.equals("5")) {
+                                    if (storageShapeModel.getStorage().getDoorType().equals("1")) {
+                                        if (storageShapeModel.getStorage().getDoorColor() != null) {
+                                            if (storageShapeModel.getStorage().getDoorColor().equals("1")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
+                                                    door_img1.setImageResource(R.drawable.doorleft);
+                                                    door_img1.setVisibility(View.VISIBLE);
+                                                    door_img2.setVisibility(View.GONE);
+                                                    door_img3.setVisibility(View.GONE);
+                                                    door_img4.setVisibility(View.GONE);
+                                                    door_img5.setVisibility(View.GONE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
+                                                    door_img2.setImageResource(R.drawable.doorleft);
+                                                    door_img1.setVisibility(View.GONE);
+                                                    door_img2.setVisibility(View.VISIBLE);
+                                                    door_img3.setVisibility(View.GONE);
+                                                    door_img4.setVisibility(View.GONE);
+                                                    door_img5.setVisibility(View.GONE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
+                                                    door_img3.setImageResource(R.drawable.doorleft);
+                                                    door_img1.setVisibility(View.GONE);
+                                                    door_img2.setVisibility(View.GONE);
+                                                    door_img3.setVisibility(View.VISIBLE);
+                                                    door_img4.setVisibility(View.GONE);
+                                                    door_img5.setVisibility(View.GONE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,0")) {
+                                                    door_img4.setImageResource(R.drawable.doorleft);
+                                                    door_img1.setVisibility(View.GONE);
+                                                    door_img2.setVisibility(View.GONE);
+                                                    door_img3.setVisibility(View.GONE);
+                                                    door_img4.setVisibility(View.VISIBLE);
+                                                    door_img5.setVisibility(View.GONE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,0,1")) {
+                                                    door_img5.setImageResource(R.drawable.doorleft);
+                                                    door_img1.setVisibility(View.GONE);
+                                                    door_img2.setVisibility(View.GONE);
+                                                    door_img3.setVisibility(View.GONE);
+                                                    door_img4.setVisibility(View.GONE);
+                                                    door_img5.setVisibility(View.VISIBLE);
+                                                }
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("2")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
+                                                    door_img1.setImageResource(R.drawable.door_blue_left);
+                                                    door_img1.setVisibility(View.VISIBLE);
+                                                    door_img2.setVisibility(View.GONE);
+                                                    door_img3.setVisibility(View.GONE);
+                                                    door_img4.setVisibility(View.GONE);
+                                                    door_img5.setVisibility(View.GONE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
+                                                    door_img2.setImageResource(R.drawable.door_blue_left);
+                                                    door_img1.setVisibility(View.GONE);
+                                                    door_img2.setVisibility(View.VISIBLE);
+                                                    door_img3.setVisibility(View.GONE);
+                                                    door_img4.setVisibility(View.GONE);
+                                                    door_img5.setVisibility(View.GONE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
+                                                    door_img3.setImageResource(R.drawable.door_blue_left);
+                                                    door_img1.setVisibility(View.GONE);
+                                                    door_img2.setVisibility(View.GONE);
+                                                    door_img3.setVisibility(View.VISIBLE);
+                                                    door_img4.setVisibility(View.GONE);
+                                                    door_img5.setVisibility(View.GONE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,0")) {
+                                                    door_img4.setImageResource(R.drawable.door_blue_left);
+                                                    door_img1.setVisibility(View.GONE);
+                                                    door_img2.setVisibility(View.GONE);
+                                                    door_img3.setVisibility(View.GONE);
+                                                    door_img4.setVisibility(View.VISIBLE);
+                                                    door_img5.setVisibility(View.GONE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,0,1")) {
+                                                    door_img5.setImageResource(R.drawable.door_blue_left);
+                                                    door_img1.setVisibility(View.GONE);
+                                                    door_img2.setVisibility(View.GONE);
+                                                    door_img3.setVisibility(View.GONE);
+                                                    door_img4.setVisibility(View.GONE);
+                                                    door_img5.setVisibility(View.VISIBLE);
+                                                }
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("3")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
+                                                    door_img1.setImageResource(R.drawable.door_left_red);
+                                                    door_img1.setVisibility(View.VISIBLE);
+                                                    door_img2.setVisibility(View.GONE);
+                                                    door_img3.setVisibility(View.GONE);
+                                                    door_img4.setVisibility(View.GONE);
+                                                    door_img5.setVisibility(View.GONE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
+                                                    door_img2.setImageResource(R.drawable.door_left_red);
+                                                    door_img1.setVisibility(View.GONE);
+                                                    door_img2.setVisibility(View.VISIBLE);
+                                                    door_img3.setVisibility(View.GONE);
+                                                    door_img4.setVisibility(View.GONE);
+                                                    door_img5.setVisibility(View.GONE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
+                                                    door_img3.setImageResource(R.drawable.door_left_red);
+                                                    door_img1.setVisibility(View.GONE);
+                                                    door_img2.setVisibility(View.GONE);
+                                                    door_img3.setVisibility(View.VISIBLE);
+                                                    door_img4.setVisibility(View.GONE);
+                                                    door_img5.setVisibility(View.GONE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,0")) {
+                                                    door_img4.setImageResource(R.drawable.door_left_red);
+                                                    door_img1.setVisibility(View.GONE);
+                                                    door_img2.setVisibility(View.GONE);
+                                                    door_img3.setVisibility(View.GONE);
+                                                    door_img4.setVisibility(View.VISIBLE);
+                                                    door_img5.setVisibility(View.GONE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,0,1")) {
+                                                    door_img5.setImageResource(R.drawable.door_left_red);
+                                                    door_img1.setVisibility(View.GONE);
+                                                    door_img2.setVisibility(View.GONE);
+                                                    door_img3.setVisibility(View.GONE);
+                                                    door_img4.setVisibility(View.GONE);
+                                                    door_img5.setVisibility(View.VISIBLE);
+                                                }
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("4")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
+                                                    door_img1.setImageResource(R.drawable.door_green_left);
+                                                    door_img1.setVisibility(View.VISIBLE);
+                                                    door_img2.setVisibility(View.GONE);
+                                                    door_img3.setVisibility(View.GONE);
+                                                    door_img4.setVisibility(View.GONE);
+                                                    door_img5.setVisibility(View.GONE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
+                                                    door_img2.setImageResource(R.drawable.door_green_left);
+                                                    door_img1.setVisibility(View.GONE);
+                                                    door_img2.setVisibility(View.VISIBLE);
+                                                    door_img3.setVisibility(View.GONE);
+                                                    door_img4.setVisibility(View.GONE);
+                                                    door_img5.setVisibility(View.GONE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
+                                                    door_img3.setImageResource(R.drawable.door_green_left);
+                                                    door_img1.setVisibility(View.GONE);
+                                                    door_img2.setVisibility(View.GONE);
+                                                    door_img3.setVisibility(View.VISIBLE);
+                                                    door_img4.setVisibility(View.GONE);
+                                                    door_img5.setVisibility(View.GONE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,0")) {
+                                                    door_img4.setImageResource(R.drawable.door_green_left);
+                                                    door_img1.setVisibility(View.GONE);
+                                                    door_img2.setVisibility(View.GONE);
+                                                    door_img3.setVisibility(View.GONE);
+                                                    door_img4.setVisibility(View.VISIBLE);
+                                                    door_img5.setVisibility(View.GONE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,0,1")) {
+                                                    door_img5.setImageResource(R.drawable.door_green_left);
+                                                    door_img1.setVisibility(View.GONE);
+                                                    door_img2.setVisibility(View.GONE);
+                                                    door_img3.setVisibility(View.GONE);
+                                                    door_img4.setVisibility(View.GONE);
+                                                    door_img5.setVisibility(View.VISIBLE);
+                                                }
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("5")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
+                                                    door_img1.setImageResource(R.drawable.door_yellow_left);
+                                                    door_img1.setVisibility(View.VISIBLE);
+                                                    door_img2.setVisibility(View.GONE);
+                                                    door_img3.setVisibility(View.GONE);
+                                                    door_img4.setVisibility(View.GONE);
+                                                    door_img5.setVisibility(View.GONE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
+                                                    door_img2.setImageResource(R.drawable.door_yellow_left);
+                                                    door_img1.setVisibility(View.GONE);
+                                                    door_img2.setVisibility(View.VISIBLE);
+                                                    door_img3.setVisibility(View.GONE);
+                                                    door_img4.setVisibility(View.GONE);
+                                                    door_img5.setVisibility(View.GONE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
+                                                    door_img3.setImageResource(R.drawable.door_yellow_left);
+                                                    door_img1.setVisibility(View.GONE);
+                                                    door_img2.setVisibility(View.GONE);
+                                                    door_img3.setVisibility(View.VISIBLE);
+                                                    door_img4.setVisibility(View.GONE);
+                                                    door_img5.setVisibility(View.GONE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,0")) {
+                                                    door_img4.setImageResource(R.drawable.door_yellow_left);
+                                                    door_img1.setVisibility(View.GONE);
+                                                    door_img2.setVisibility(View.GONE);
+                                                    door_img3.setVisibility(View.GONE);
+                                                    door_img4.setVisibility(View.VISIBLE);
+                                                    door_img5.setVisibility(View.GONE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,0,1")) {
+                                                    door_img5.setImageResource(R.drawable.door_yellow_left);
+                                                    door_img1.setVisibility(View.GONE);
+                                                    door_img2.setVisibility(View.GONE);
+                                                    door_img3.setVisibility(View.GONE);
+                                                    door_img4.setVisibility(View.GONE);
+                                                    door_img5.setVisibility(View.VISIBLE);
                                                 }
                                             }
                                         }
-                                        else if (storageShapeModel.getStorage().getDoorType().equals("2")) {
-                                            if (storageShapeModel.getStorage().getDoorColor() != null) {
-                                                if (storageShapeModel.getStorage().getDoorColor().equals("1")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
-                                                        door_img21.setImageResource(R.drawable.doorleft);
-                                                        door_img22.setImageResource(R.drawable.doorright);
-                                                        door_img21.setVisibility(View.VISIBLE);
-                                                        door_img22.setVisibility(View.VISIBLE);
-                                                        door_img23.setVisibility(View.GONE);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
-                                                        door_img22.setImageResource(R.drawable.doorleft);
-                                                        door_img23.setImageResource(R.drawable.doorright);
-                                                        door_img21.setVisibility(View.GONE);
-                                                        door_img22.setVisibility(View.VISIBLE);
-                                                        door_img23.setVisibility(View.VISIBLE);
-
-
-                                                    }
-                                                } else if (storageShapeModel.getStorage().getDoorColor().equals("2")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
-                                                        door_img21.setImageResource(R.drawable.door_blue_left);
-                                                        door_img22.setImageResource(R.drawable.door_blue_right);
-                                                        door_img21.setVisibility(View.VISIBLE);
-                                                        door_img22.setVisibility(View.VISIBLE);
-                                                        door_img23.setVisibility(View.GONE);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
-                                                        door_img22.setImageResource(R.drawable.door_blue_left);
-                                                        door_img23.setImageResource(R.drawable.door_blue_right);
-                                                        door_img21.setVisibility(View.GONE);
-                                                        door_img22.setVisibility(View.VISIBLE);
-                                                        door_img23.setVisibility(View.VISIBLE);
-
-                                                    }
-                                                } else if (storageShapeModel.getStorage().getDoorColor().equals("3")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
-                                                        door_img21.setImageResource(R.drawable.door_left_red);
-                                                        door_img22.setImageResource(R.drawable.door_red_right);
-                                                        door_img21.setVisibility(View.VISIBLE);
-                                                        door_img22.setVisibility(View.VISIBLE);
-                                                        door_img23.setVisibility(View.GONE);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
-                                                        door_img22.setImageResource(R.drawable.door_left_red);
-                                                        door_img23.setImageResource(R.drawable.door_red_right);
-                                                        door_img21.setVisibility(View.GONE);
-                                                        door_img22.setVisibility(View.VISIBLE);
-                                                        door_img23.setVisibility(View.VISIBLE);
-
-                                                    }
-                                                } else if (storageShapeModel.getStorage().getDoorColor().equals("4")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
-                                                        door_img21.setImageResource(R.drawable.door_green_left);
-                                                        door_img22.setImageResource(R.drawable.door_green_right);
-                                                        door_img21.setVisibility(View.VISIBLE);
-                                                        door_img22.setVisibility(View.VISIBLE);
-                                                        door_img23.setVisibility(View.GONE);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
-                                                        door_img22.setImageResource(R.drawable.door_green_left);
-                                                        door_img23.setImageResource(R.drawable.door_green_right);
-                                                        door_img21.setVisibility(View.GONE);
-                                                        door_img22.setVisibility(View.VISIBLE);
-                                                        door_img23.setVisibility(View.VISIBLE);
-
-                                                    }
-                                                } else if (storageShapeModel.getStorage().getDoorColor().equals("5")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
-                                                        door_img21.setImageResource(R.drawable.door_yellow_left);
-                                                        door_img22.setImageResource(R.drawable.door_yellow_right);
-                                                        door_img21.setVisibility(View.VISIBLE);
-                                                        door_img22.setVisibility(View.VISIBLE);
-                                                        door_img23.setVisibility(View.GONE);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
-                                                        door_img22.setImageResource(R.drawable.door_yellow_left);
-                                                        door_img23.setImageResource(R.drawable.door_yellow_right);
-                                                        door_img21.setVisibility(View.GONE);
-                                                        door_img22.setVisibility(View.VISIBLE);
-                                                        door_img23.setVisibility(View.VISIBLE);
-
-                                                    }
+                                    }
+                                    else if (storageShapeModel.getStorage().getDoorType().equals("2")) {
+                                        if (storageShapeModel.getStorage().getDoorColor() != null) {
+                                            if (storageShapeModel.getStorage().getDoorColor().equals("1")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
+                                                    door_img1.setImageResource(R.drawable.doorleft);
+                                                    door_img2.setImageResource(R.drawable.doorright);
+                                                    door_img1.setVisibility(View.VISIBLE);
+                                                    door_img2.setVisibility(View.VISIBLE);
+                                                    door_img3.setVisibility(View.GONE);
+                                                    door_img4.setVisibility(View.GONE);
+                                                    door_img5.setVisibility(View.GONE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
+                                                    door_img2.setImageResource(R.drawable.doorleft);
+                                                    door_img3.setImageResource(R.drawable.doorright);
+                                                    door_img1.setVisibility(View.GONE);
+                                                    door_img2.setVisibility(View.VISIBLE);
+                                                    door_img3.setVisibility(View.VISIBLE);
+                                                    door_img4.setVisibility(View.GONE);
+                                                    door_img5.setVisibility(View.GONE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,1,0")) {
+                                                    door_img3.setImageResource(R.drawable.doorleft);
+                                                    door_img4.setImageResource(R.drawable.doorright);
+                                                    door_img1.setVisibility(View.GONE);
+                                                    door_img2.setVisibility(View.GONE);
+                                                    door_img3.setVisibility(View.VISIBLE);
+                                                    door_img4.setVisibility(View.VISIBLE);
+                                                    door_img5.setVisibility(View.GONE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,1")) {
+                                                    door_img4.setImageResource(R.drawable.doorleft);
+                                                    door_img5.setImageResource(R.drawable.doorright);
+                                                    door_img1.setVisibility(View.GONE);
+                                                    door_img2.setVisibility(View.GONE);
+                                                    door_img3.setVisibility(View.GONE);
+                                                    door_img4.setVisibility(View.VISIBLE);
+                                                    door_img5.setVisibility(View.VISIBLE);
                                                 }
-                                            }
-
-                                        }
-                                        else if (storageShapeModel.getStorage().getDoorType().equals("3")) {
-                                            if (storageShapeModel.getStorage().getDoorColor() != null) {
-                                                if (storageShapeModel.getStorage().getDoorColor().equals("1")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
-                                                        linear_door_21.setBackgroundResource(R.drawable.white_door);
-                                                        linear_door_22.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_23.setBackgroundResource(R.drawable.dash_img);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
-                                                        linear_door_21.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_22.setBackgroundResource(R.drawable.white_door);
-                                                        linear_door_23.setBackgroundResource(R.drawable.dash_img);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
-                                                        linear_door_21.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_22.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_23.setBackgroundResource(R.drawable.white_door);
-
-                                                    }
-                                                } else if (storageShapeModel.getStorage().getDoorColor().equals("2")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
-                                                        linear_door_21.setBackgroundResource(R.drawable.blue_door);
-                                                        linear_door_22.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_23.setBackgroundResource(R.drawable.dash_img);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
-                                                        linear_door_21.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_22.setBackgroundResource(R.drawable.blue_door);
-                                                        linear_door_23.setBackgroundResource(R.drawable.dash_img);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
-                                                        linear_door_21.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_22.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_23.setBackgroundResource(R.drawable.blue_door);
-
-
-                                                    }
-                                                } else if (storageShapeModel.getStorage().getDoorColor().equals("3")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
-                                                        linear_door_21.setBackgroundResource(R.drawable.red_door);
-                                                        linear_door_22.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_23.setBackgroundResource(R.drawable.dash_img);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
-                                                        linear_door_21.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_22.setBackgroundResource(R.drawable.red_door);
-                                                        linear_door_23.setBackgroundResource(R.drawable.dash_img);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
-                                                        linear_door_21.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_22.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_23.setBackgroundResource(R.drawable.red_door);
-
-                                                    }
-                                                } else if (storageShapeModel.getStorage().getDoorColor().equals("4")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
-                                                        linear_door_21.setBackgroundResource(R.drawable.green_door);
-                                                        linear_door_22.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_23.setBackgroundResource(R.drawable.dash_img);
-
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
-                                                        linear_door_21.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_22.setBackgroundResource(R.drawable.green_door);
-                                                        linear_door_23.setBackgroundResource(R.drawable.dash_img);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
-                                                        linear_door_21.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_22.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_23.setBackgroundResource(R.drawable.green_door);
-
-
-                                                    }
-                                                } else if (storageShapeModel.getStorage().getDoorColor().equals("5")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
-                                                        linear_door_21.setBackgroundResource(R.drawable.yellow_door);
-                                                        linear_door_22.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_23.setBackgroundResource(R.drawable.dash_img);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
-                                                        linear_door_21.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_22.setBackgroundResource(R.drawable.yellow_door);
-                                                        linear_door_23.setBackgroundResource(R.drawable.dash_img);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
-                                                        linear_door_21.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_22.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_23.setBackgroundResource(R.drawable.yellow_door);
-
-                                                    }
-
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("2")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
+                                                    door_img1.setImageResource(R.drawable.door_blue_left);
+                                                    door_img2.setImageResource(R.drawable.door_blue_right);
+                                                    door_img1.setVisibility(View.VISIBLE);
+                                                    door_img2.setVisibility(View.VISIBLE);
+                                                    door_img3.setVisibility(View.GONE);
+                                                    door_img4.setVisibility(View.GONE);
+                                                    door_img5.setVisibility(View.GONE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
+                                                    door_img2.setImageResource(R.drawable.door_blue_left);
+                                                    door_img3.setImageResource(R.drawable.door_blue_right);
+                                                    door_img1.setVisibility(View.GONE);
+                                                    door_img2.setVisibility(View.VISIBLE);
+                                                    door_img3.setVisibility(View.VISIBLE);
+                                                    door_img4.setVisibility(View.GONE);
+                                                    door_img5.setVisibility(View.GONE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,1,0")) {
+                                                    door_img3.setImageResource(R.drawable.door_blue_left);
+                                                    door_img4.setImageResource(R.drawable.door_blue_right);
+                                                    door_img1.setVisibility(View.GONE);
+                                                    door_img2.setVisibility(View.GONE);
+                                                    door_img3.setVisibility(View.VISIBLE);
+                                                    door_img4.setVisibility(View.VISIBLE);
+                                                    door_img5.setVisibility(View.GONE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,1")) {
+                                                    door_img4.setImageResource(R.drawable.door_blue_left);
+                                                    door_img5.setImageResource(R.drawable.door_blue_right);
+                                                    door_img1.setVisibility(View.GONE);
+                                                    door_img2.setVisibility(View.GONE);
+                                                    door_img3.setVisibility(View.GONE);
+                                                    door_img4.setVisibility(View.VISIBLE);
+                                                    door_img5.setVisibility(View.VISIBLE);
                                                 }
-                                            }
-                                        }
-                                        else if (storageShapeModel.getStorage().getDoorType().equals("4")) {
-                                            if (storageShapeModel.getStorage().getDoorColor() != null) {
-                                                if (storageShapeModel.getStorage().getDoorColor().equals("1")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
-                                                        linear_door_21.setBackgroundResource(R.drawable.white_door);
-                                                        linear_door_22.setBackgroundResource(R.drawable.white_door);
-                                                        linear_door_23.setBackgroundResource(R.drawable.dash_img);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
-                                                        linear_door_21.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_22.setBackgroundResource(R.drawable.white_door);
-                                                        linear_door_23.setBackgroundResource(R.drawable.white_door);
-
-                                                    }
-                                                } else if (storageShapeModel.getStorage().getDoorColor().equals("2")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
-                                                        linear_door_21.setBackgroundResource(R.drawable.blue_door);
-                                                        linear_door_22.setBackgroundResource(R.drawable.blue_door);
-                                                        linear_door_23.setBackgroundResource(R.drawable.dash_img);
-
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
-                                                        linear_door_21.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_22.setBackgroundResource(R.drawable.blue_door);
-                                                        linear_door_23.setBackgroundResource(R.drawable.blue_door);
-
-                                                    }
-                                                } else if (storageShapeModel.getStorage().getDoorColor().equals("3")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
-                                                        linear_door_21.setBackgroundResource(R.drawable.red_door);
-                                                        linear_door_22.setBackgroundResource(R.drawable.red_door);
-                                                        linear_door_23.setBackgroundResource(R.drawable.dash_img);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
-                                                        linear_door_21.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_22.setBackgroundResource(R.drawable.red_door);
-                                                        linear_door_23.setBackgroundResource(R.drawable.red_door);
-
-
-                                                    }
-                                                } else if (storageShapeModel.getStorage().getDoorColor().equals("4")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
-                                                        linear_door_21.setBackgroundResource(R.drawable.green_door);
-                                                        linear_door_22.setBackgroundResource(R.drawable.green_door);
-                                                        linear_door_23.setBackgroundResource(R.drawable.dash_img);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
-                                                        linear_door_21.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_22.setBackgroundResource(R.drawable.green_door);
-                                                        linear_door_23.setBackgroundResource(R.drawable.green_door);
-
-                                                    }
-                                                } else if (storageShapeModel.getStorage().getDoorColor().equals("5")) {
-                                                    if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
-                                                        linear_door_21.setBackgroundResource(R.drawable.yellow_door);
-                                                        linear_door_22.setBackgroundResource(R.drawable.yellow_door);
-                                                        linear_door_23.setBackgroundResource(R.drawable.dash_img);
-
-                                                    } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
-                                                        linear_door_21.setBackgroundResource(R.drawable.dash_img);
-                                                        linear_door_22.setBackgroundResource(R.drawable.yellow_door);
-                                                        linear_door_23.setBackgroundResource(R.drawable.yellow_door);
-
-                                                    }
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("3")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
+                                                    door_img1.setImageResource(R.drawable.door_left_red);
+                                                    door_img2.setImageResource(R.drawable.door_red_right);
+                                                    door_img1.setVisibility(View.VISIBLE);
+                                                    door_img2.setVisibility(View.VISIBLE);
+                                                    door_img3.setVisibility(View.GONE);
+                                                    door_img4.setVisibility(View.GONE);
+                                                    door_img5.setVisibility(View.GONE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
+                                                    door_img2.setImageResource(R.drawable.door_left_red);
+                                                    door_img3.setImageResource(R.drawable.door_red_right);
+                                                    door_img1.setVisibility(View.GONE);
+                                                    door_img2.setVisibility(View.VISIBLE);
+                                                    door_img3.setVisibility(View.VISIBLE);
+                                                    door_img4.setVisibility(View.GONE);
+                                                    door_img5.setVisibility(View.GONE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,1,0")) {
+                                                    door_img3.setImageResource(R.drawable.door_left_red);
+                                                    door_img4.setImageResource(R.drawable.door_red_right);
+                                                    door_img1.setVisibility(View.GONE);
+                                                    door_img2.setVisibility(View.GONE);
+                                                    door_img3.setVisibility(View.VISIBLE);
+                                                    door_img4.setVisibility(View.VISIBLE);
+                                                    door_img5.setVisibility(View.GONE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,1")) {
+                                                    door_img4.setImageResource(R.drawable.door_left_red);
+                                                    door_img5.setImageResource(R.drawable.door_red_right);
+                                                    door_img1.setVisibility(View.GONE);
+                                                    door_img2.setVisibility(View.GONE);
+                                                    door_img3.setVisibility(View.GONE);
+                                                    door_img4.setVisibility(View.VISIBLE);
+                                                    door_img5.setVisibility(View.VISIBLE);
                                                 }
+
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("4")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
+                                                    door_img1.setImageResource(R.drawable.door_green_left);
+                                                    door_img2.setImageResource(R.drawable.door_green_right);
+                                                    door_img1.setVisibility(View.VISIBLE);
+                                                    door_img2.setVisibility(View.VISIBLE);
+                                                    door_img3.setVisibility(View.GONE);
+                                                    door_img4.setVisibility(View.GONE);
+                                                    door_img5.setVisibility(View.GONE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
+                                                    door_img2.setImageResource(R.drawable.door_green_left);
+                                                    door_img3.setImageResource(R.drawable.door_green_right);
+                                                    door_img1.setVisibility(View.GONE);
+                                                    door_img2.setVisibility(View.VISIBLE);
+                                                    door_img3.setVisibility(View.VISIBLE);
+                                                    door_img4.setVisibility(View.GONE);
+                                                    door_img5.setVisibility(View.GONE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,1,0")) {
+                                                    door_img3.setImageResource(R.drawable.door_green_left);
+                                                    door_img4.setImageResource(R.drawable.door_green_right);
+                                                    door_img1.setVisibility(View.GONE);
+                                                    door_img2.setVisibility(View.GONE);
+                                                    door_img3.setVisibility(View.VISIBLE);
+                                                    door_img4.setVisibility(View.VISIBLE);
+                                                    door_img5.setVisibility(View.GONE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,1")) {
+                                                    door_img4.setImageResource(R.drawable.door_green_left);
+                                                    door_img5.setImageResource(R.drawable.door_green_right);
+                                                    door_img1.setVisibility(View.GONE);
+                                                    door_img2.setVisibility(View.GONE);
+                                                    door_img3.setVisibility(View.GONE);
+                                                    door_img4.setVisibility(View.VISIBLE);
+                                                    door_img5.setVisibility(View.VISIBLE);
+                                                }
+
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("5")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
+                                                    door_img1.setImageResource(R.drawable.door_yellow_left);
+                                                    door_img2.setImageResource(R.drawable.door_yellow_right);
+                                                    door_img1.setVisibility(View.VISIBLE);
+                                                    door_img2.setVisibility(View.VISIBLE);
+                                                    door_img3.setVisibility(View.GONE);
+                                                    door_img4.setVisibility(View.GONE);
+                                                    door_img5.setVisibility(View.GONE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
+                                                    door_img2.setImageResource(R.drawable.door_yellow_left);
+                                                    door_img3.setImageResource(R.drawable.door_yellow_right);
+                                                    door_img1.setVisibility(View.GONE);
+                                                    door_img2.setVisibility(View.VISIBLE);
+                                                    door_img3.setVisibility(View.VISIBLE);
+                                                    door_img4.setVisibility(View.GONE);
+                                                    door_img5.setVisibility(View.GONE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,1,0")) {
+                                                    door_img3.setImageResource(R.drawable.door_yellow_left);
+                                                    door_img4.setImageResource(R.drawable.door_yellow_right);
+                                                    door_img1.setVisibility(View.GONE);
+                                                    door_img2.setVisibility(View.GONE);
+                                                    door_img3.setVisibility(View.VISIBLE);
+                                                    door_img4.setVisibility(View.VISIBLE);
+                                                    door_img5.setVisibility(View.GONE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,1")) {
+                                                    door_img4.setImageResource(R.drawable.door_yellow_left);
+                                                    door_img5.setImageResource(R.drawable.door_yellow_right);
+                                                    door_img1.setVisibility(View.GONE);
+                                                    door_img2.setVisibility(View.GONE);
+                                                    door_img3.setVisibility(View.GONE);
+                                                    door_img4.setVisibility(View.VISIBLE);
+                                                    door_img5.setVisibility(View.VISIBLE);
+                                                }
+
                                             }
                                         }
 
+                                    }
+                                    else if (storageShapeModel.getStorage().getDoorType().equals("3")) {
+                                        if (storageShapeModel.getStorage().getDoorColor() != null) {
+                                            if (storageShapeModel.getStorage().getDoorColor().equals("1")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.white_door);
+                                                    linear_door_2.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_3.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_4.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_2.setBackgroundResource(R.drawable.white_door);
+                                                    linear_door_3.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_4.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_2.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_3.setBackgroundResource(R.drawable.white_door);
+                                                    linear_door_4.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,0")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_2.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_3.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_4.setBackgroundResource(R.drawable.white_door);
+                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,0,1")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_2.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_3.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_4.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_5.setBackgroundResource(R.drawable.white_door);
+                                                }
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("2")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.blue_door);
+                                                    linear_door_2.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_3.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_4.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_2.setBackgroundResource(R.drawable.blue_door);
+                                                    linear_door_3.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_4.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_2.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_3.setBackgroundResource(R.drawable.blue_door);
+                                                    linear_door_4.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,0")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_2.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_3.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_4.setBackgroundResource(R.drawable.blue_door);
+                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,0,1")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_2.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_3.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_4.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_5.setBackgroundResource(R.drawable.blue_door);
+                                                }
+
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("3")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.red_door);
+                                                    linear_door_2.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_3.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_4.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_2.setBackgroundResource(R.drawable.red_door);
+                                                    linear_door_3.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_4.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_2.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_3.setBackgroundResource(R.drawable.red_door);
+                                                    linear_door_4.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,0")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_2.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_3.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_4.setBackgroundResource(R.drawable.red_door);
+                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,0,1")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_2.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_3.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_4.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_5.setBackgroundResource(R.drawable.red_door);
+                                                }
+
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("4")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.green_door);
+                                                    linear_door_2.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_3.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_4.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_2.setBackgroundResource(R.drawable.green_door);
+                                                    linear_door_3.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_4.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_2.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_3.setBackgroundResource(R.drawable.green_door);
+                                                    linear_door_4.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,0")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_2.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_3.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_4.setBackgroundResource(R.drawable.green_door);
+                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,0,1")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_2.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_3.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_4.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_5.setBackgroundResource(R.drawable.green_door);
+                                                }
+
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("5")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.yellow_door);
+                                                    linear_door_2.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_3.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_4.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_2.setBackgroundResource(R.drawable.yellow_door);
+                                                    linear_door_3.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_4.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_2.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_3.setBackgroundResource(R.drawable.yellow_door);
+                                                    linear_door_4.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,0")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_2.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_3.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_4.setBackgroundResource(R.drawable.yellow_door);
+                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,0,1")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_2.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_3.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_4.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_5.setBackgroundResource(R.drawable.yellow_door);
+                                                }
+
+                                            }
+                                        }
+                                    }
+                                    else if (storageShapeModel.getStorage().getDoorType().equals("4")) {
+                                        if (storageShapeModel.getStorage().getDoorColor() != null) {
+                                            if (storageShapeModel.getStorage().getDoorColor().equals("1")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.white_door);
+                                                    linear_door_2.setBackgroundResource(R.drawable.white_door);
+                                                    linear_door_3.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_4.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_2.setBackgroundResource(R.drawable.white_door);
+                                                    linear_door_3.setBackgroundResource(R.drawable.white_door);
+                                                    linear_door_4.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,1,0")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_2.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_3.setBackgroundResource(R.drawable.white_door);
+                                                    linear_door_4.setBackgroundResource(R.drawable.white_door);
+                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,1")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_2.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_3.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_4.setBackgroundResource(R.drawable.white_door);
+                                                    linear_door_5.setBackgroundResource(R.drawable.white_door);
+                                                }
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("2")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.blue_door);
+                                                    linear_door_2.setBackgroundResource(R.drawable.blue_door);
+                                                    linear_door_3.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_4.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_2.setBackgroundResource(R.drawable.blue_door);
+                                                    linear_door_3.setBackgroundResource(R.drawable.blue_door);
+                                                    linear_door_4.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,1,0")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_2.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_3.setBackgroundResource(R.drawable.blue_door);
+                                                    linear_door_4.setBackgroundResource(R.drawable.blue_door);
+                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,1")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_2.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_3.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_4.setBackgroundResource(R.drawable.blue_door);
+                                                    linear_door_5.setBackgroundResource(R.drawable.blue_door);
+                                                }
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("3")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.red_door);
+                                                    linear_door_2.setBackgroundResource(R.drawable.red_door);
+                                                    linear_door_3.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_4.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_2.setBackgroundResource(R.drawable.red_door);
+                                                    linear_door_3.setBackgroundResource(R.drawable.red_door);
+                                                    linear_door_4.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,1,0")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_2.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_3.setBackgroundResource(R.drawable.red_door);
+                                                    linear_door_4.setBackgroundResource(R.drawable.red_door);
+                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,1")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_2.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_3.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_4.setBackgroundResource(R.drawable.red_door);
+                                                    linear_door_5.setBackgroundResource(R.drawable.red_door);
+                                                }
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("4")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.green_door);
+                                                    linear_door_2.setBackgroundResource(R.drawable.green_door);
+                                                    linear_door_3.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_4.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_2.setBackgroundResource(R.drawable.green_door);
+                                                    linear_door_3.setBackgroundResource(R.drawable.green_door);
+                                                    linear_door_4.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,1,0")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_2.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_3.setBackgroundResource(R.drawable.green_door);
+                                                    linear_door_4.setBackgroundResource(R.drawable.green_door);
+                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,1")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_2.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_3.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_4.setBackgroundResource(R.drawable.green_door);
+                                                    linear_door_5.setBackgroundResource(R.drawable.green_door);
+                                                }
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("5")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.yellow_door);
+                                                    linear_door_2.setBackgroundResource(R.drawable.yellow_door);
+                                                    linear_door_3.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_4.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_2.setBackgroundResource(R.drawable.yellow_door);
+                                                    linear_door_3.setBackgroundResource(R.drawable.yellow_door);
+                                                    linear_door_4.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,1,0")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_2.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_3.setBackgroundResource(R.drawable.yellow_door);
+                                                    linear_door_4.setBackgroundResource(R.drawable.yellow_door);
+                                                    linear_door_5.setBackgroundResource(R.drawable.dash_img);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,1")) {
+                                                    linear_door_1.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_2.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_3.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_4.setBackgroundResource(R.drawable.yellow_door);
+                                                    linear_door_5.setBackgroundResource(R.drawable.yellow_door);
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                }
+                                else if (numberofColumn.equals("4")) {
+                                    if (storageShapeModel.getStorage().getDoorType().equals("1")) {
+                                        if (storageShapeModel.getStorage().getDoorColor() != null) {
+                                            if (storageShapeModel.getStorage().getDoorColor().equals("1")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
+                                                    door_img11.setImageResource(R.drawable.doorleft);
+                                                    door_img11.setVisibility(View.VISIBLE);
+                                                    door_img12.setVisibility(View.GONE);
+                                                    door_img13.setVisibility(View.GONE);
+                                                    door_img14.setVisibility(View.GONE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
+                                                    door_img12.setImageResource(R.drawable.doorleft);
+                                                    door_img11.setVisibility(View.GONE);
+                                                    door_img12.setVisibility(View.VISIBLE);
+                                                    door_img13.setVisibility(View.GONE);
+                                                    door_img14.setVisibility(View.GONE);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
+                                                    door_img13.setImageResource(R.drawable.doorleft);
+                                                    door_img11.setVisibility(View.GONE);
+                                                    door_img12.setVisibility(View.GONE);
+                                                    door_img13.setVisibility(View.VISIBLE);
+                                                    door_img14.setVisibility(View.GONE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,0")) {
+                                                    door_img14.setImageResource(R.drawable.doorleft);
+                                                    door_img11.setVisibility(View.GONE);
+                                                    door_img12.setVisibility(View.GONE);
+                                                    door_img13.setVisibility(View.GONE);
+                                                    door_img14.setVisibility(View.VISIBLE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,0,1")) {
+                                                    door_img14.setImageResource(R.drawable.doorleft);
+                                                    door_img11.setVisibility(View.GONE);
+                                                    door_img12.setVisibility(View.GONE);
+                                                    door_img13.setVisibility(View.GONE);
+                                                    door_img14.setVisibility(View.VISIBLE);
+                                                }
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("2")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
+                                                    door_img11.setImageResource(R.drawable.door_blue_left);
+                                                    door_img11.setVisibility(View.VISIBLE);
+                                                    door_img12.setVisibility(View.GONE);
+                                                    door_img13.setVisibility(View.GONE);
+                                                    door_img14.setVisibility(View.GONE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
+                                                    door_img12.setImageResource(R.drawable.door_blue_left);
+                                                    door_img11.setVisibility(View.GONE);
+                                                    door_img12.setVisibility(View.VISIBLE);
+                                                    door_img13.setVisibility(View.GONE);
+                                                    door_img14.setVisibility(View.GONE);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
+                                                    door_img13.setImageResource(R.drawable.door_blue_left);
+                                                    door_img11.setVisibility(View.GONE);
+                                                    door_img12.setVisibility(View.GONE);
+                                                    door_img13.setVisibility(View.VISIBLE);
+                                                    door_img14.setVisibility(View.GONE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,0")) {
+                                                    door_img14.setImageResource(R.drawable.door_blue_left);
+                                                    door_img11.setVisibility(View.GONE);
+                                                    door_img12.setVisibility(View.GONE);
+                                                    door_img13.setVisibility(View.GONE);
+                                                    door_img14.setVisibility(View.VISIBLE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,0,1")) {
+                                                    door_img14.setImageResource(R.drawable.door_blue_left);
+                                                    door_img11.setVisibility(View.GONE);
+                                                    door_img12.setVisibility(View.GONE);
+                                                    door_img13.setVisibility(View.GONE);
+                                                    door_img14.setVisibility(View.VISIBLE);
+                                                }
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("3")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
+                                                    door_img11.setImageResource(R.drawable.door_left_red);
+                                                    door_img11.setVisibility(View.VISIBLE);
+                                                    door_img12.setVisibility(View.GONE);
+                                                    door_img13.setVisibility(View.GONE);
+                                                    door_img14.setVisibility(View.GONE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
+                                                    door_img12.setImageResource(R.drawable.door_left_red);
+                                                    door_img11.setVisibility(View.GONE);
+                                                    door_img12.setVisibility(View.VISIBLE);
+                                                    door_img13.setVisibility(View.GONE);
+                                                    door_img14.setVisibility(View.GONE);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
+                                                    door_img13.setImageResource(R.drawable.door_left_red);
+                                                    door_img11.setVisibility(View.GONE);
+                                                    door_img12.setVisibility(View.GONE);
+                                                    door_img13.setVisibility(View.VISIBLE);
+                                                    door_img14.setVisibility(View.GONE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,0")) {
+                                                    door_img14.setImageResource(R.drawable.door_left_red);
+                                                    door_img11.setVisibility(View.GONE);
+                                                    door_img12.setVisibility(View.GONE);
+                                                    door_img13.setVisibility(View.GONE);
+                                                    door_img14.setVisibility(View.VISIBLE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,0,1")) {
+                                                    door_img14.setImageResource(R.drawable.door_left_red);
+                                                    door_img11.setVisibility(View.GONE);
+                                                    door_img12.setVisibility(View.GONE);
+                                                    door_img13.setVisibility(View.GONE);
+                                                    door_img14.setVisibility(View.VISIBLE);
+                                                }
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("4")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
+                                                    door_img11.setImageResource(R.drawable.door_green_left);
+                                                    door_img11.setVisibility(View.VISIBLE);
+                                                    door_img12.setVisibility(View.GONE);
+                                                    door_img13.setVisibility(View.GONE);
+                                                    door_img14.setVisibility(View.GONE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
+                                                    door_img12.setImageResource(R.drawable.door_green_left);
+                                                    door_img11.setVisibility(View.GONE);
+                                                    door_img12.setVisibility(View.VISIBLE);
+                                                    door_img13.setVisibility(View.GONE);
+                                                    door_img14.setVisibility(View.GONE);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
+                                                    door_img13.setImageResource(R.drawable.door_green_left);
+                                                    door_img11.setVisibility(View.GONE);
+                                                    door_img12.setVisibility(View.GONE);
+                                                    door_img13.setVisibility(View.VISIBLE);
+                                                    door_img14.setVisibility(View.GONE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,0")) {
+                                                    door_img14.setImageResource(R.drawable.door_green_left);
+                                                    door_img11.setVisibility(View.GONE);
+                                                    door_img12.setVisibility(View.GONE);
+                                                    door_img13.setVisibility(View.GONE);
+                                                    door_img14.setVisibility(View.VISIBLE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,0,1")) {
+                                                    door_img14.setImageResource(R.drawable.door_green_left);
+                                                    door_img11.setVisibility(View.GONE);
+                                                    door_img12.setVisibility(View.GONE);
+                                                    door_img13.setVisibility(View.GONE);
+                                                    door_img14.setVisibility(View.VISIBLE);
+                                                }
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("5")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
+                                                    door_img11.setImageResource(R.drawable.door_yellow_left);
+                                                    door_img11.setVisibility(View.VISIBLE);
+                                                    door_img12.setVisibility(View.GONE);
+                                                    door_img13.setVisibility(View.GONE);
+                                                    door_img14.setVisibility(View.GONE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
+                                                    door_img12.setImageResource(R.drawable.door_yellow_left);
+                                                    door_img11.setVisibility(View.GONE);
+                                                    door_img12.setVisibility(View.VISIBLE);
+                                                    door_img13.setVisibility(View.GONE);
+                                                    door_img14.setVisibility(View.GONE);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
+                                                    door_img13.setImageResource(R.drawable.door_yellow_left);
+                                                    door_img11.setVisibility(View.GONE);
+                                                    door_img12.setVisibility(View.GONE);
+                                                    door_img13.setVisibility(View.VISIBLE);
+                                                    door_img14.setVisibility(View.GONE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,0")) {
+                                                    door_img14.setImageResource(R.drawable.door_yellow_left);
+                                                    door_img11.setVisibility(View.GONE);
+                                                    door_img12.setVisibility(View.GONE);
+                                                    door_img13.setVisibility(View.GONE);
+                                                    door_img14.setVisibility(View.VISIBLE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,0,1")) {
+                                                    door_img14.setImageResource(R.drawable.door_yellow_left);
+                                                    door_img11.setVisibility(View.GONE);
+                                                    door_img12.setVisibility(View.GONE);
+                                                    door_img13.setVisibility(View.GONE);
+                                                    door_img14.setVisibility(View.VISIBLE);
+                                                }
+                                            }
+                                        }
+                                    }
+                                    else if (storageShapeModel.getStorage().getDoorType().equals("2")) {
+                                        if (storageShapeModel.getStorage().getDoorColor() != null) {
+                                            if (storageShapeModel.getStorage().getDoorColor().equals("1")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
+                                                    door_img11.setImageResource(R.drawable.doorleft);
+                                                    door_img12.setImageResource(R.drawable.doorright);
+                                                    door_img11.setVisibility(View.VISIBLE);
+                                                    door_img12.setVisibility(View.VISIBLE);
+                                                    door_img13.setVisibility(View.GONE);
+                                                    door_img14.setVisibility(View.GONE);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
+                                                    door_img12.setImageResource(R.drawable.doorleft);
+                                                    door_img13.setImageResource(R.drawable.doorright);
+                                                    door_img11.setVisibility(View.GONE);
+                                                    door_img12.setVisibility(View.VISIBLE);
+                                                    door_img13.setVisibility(View.VISIBLE);
+                                                    door_img14.setVisibility(View.GONE);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,1,0")) {
+                                                    door_img13.setImageResource(R.drawable.doorleft);
+                                                    door_img14.setImageResource(R.drawable.doorright);
+                                                    door_img11.setVisibility(View.GONE);
+                                                    door_img12.setVisibility(View.GONE);
+                                                    door_img13.setVisibility(View.VISIBLE);
+                                                    door_img14.setVisibility(View.VISIBLE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,1")) {
+                                                    door_img13.setImageResource(R.drawable.doorleft);
+                                                    door_img14.setImageResource(R.drawable.doorright);
+                                                    door_img11.setVisibility(View.GONE);
+                                                    door_img12.setVisibility(View.GONE);
+                                                    door_img13.setVisibility(View.VISIBLE);
+                                                    door_img14.setVisibility(View.VISIBLE);
+                                                }
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("2")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
+                                                    door_img11.setImageResource(R.drawable.door_blue_left);
+                                                    door_img12.setImageResource(R.drawable.door_blue_right);
+                                                    door_img11.setVisibility(View.VISIBLE);
+                                                    door_img12.setVisibility(View.VISIBLE);
+                                                    door_img13.setVisibility(View.GONE);
+                                                    door_img14.setVisibility(View.GONE);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
+                                                    door_img12.setImageResource(R.drawable.door_blue_left);
+                                                    door_img13.setImageResource(R.drawable.door_blue_right);
+                                                    door_img11.setVisibility(View.GONE);
+                                                    door_img12.setVisibility(View.VISIBLE);
+                                                    door_img13.setVisibility(View.VISIBLE);
+                                                    door_img14.setVisibility(View.GONE);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,1,0")) {
+                                                    door_img13.setImageResource(R.drawable.door_blue_left);
+                                                    door_img14.setImageResource(R.drawable.door_blue_right);
+                                                    door_img11.setVisibility(View.GONE);
+                                                    door_img12.setVisibility(View.GONE);
+                                                    door_img13.setVisibility(View.VISIBLE);
+                                                    door_img14.setVisibility(View.VISIBLE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,1")) {
+                                                    door_img13.setImageResource(R.drawable.door_blue_left);
+                                                    door_img14.setImageResource(R.drawable.door_blue_right);
+                                                    door_img11.setVisibility(View.GONE);
+                                                    door_img12.setVisibility(View.GONE);
+                                                    door_img13.setVisibility(View.VISIBLE);
+                                                    door_img14.setVisibility(View.VISIBLE);
+                                                }
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("3")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
+                                                    door_img11.setImageResource(R.drawable.door_left_red);
+                                                    door_img12.setImageResource(R.drawable.door_red_right);
+                                                    door_img11.setVisibility(View.VISIBLE);
+                                                    door_img12.setVisibility(View.VISIBLE);
+                                                    door_img13.setVisibility(View.GONE);
+                                                    door_img14.setVisibility(View.GONE);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
+                                                    door_img12.setImageResource(R.drawable.door_left_red);
+                                                    door_img13.setImageResource(R.drawable.door_red_right);
+                                                    door_img11.setVisibility(View.GONE);
+                                                    door_img12.setVisibility(View.VISIBLE);
+                                                    door_img13.setVisibility(View.VISIBLE);
+                                                    door_img14.setVisibility(View.GONE);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,1,0")) {
+                                                    door_img13.setImageResource(R.drawable.door_left_red);
+                                                    door_img14.setImageResource(R.drawable.door_red_right);
+                                                    door_img11.setVisibility(View.GONE);
+                                                    door_img12.setVisibility(View.GONE);
+                                                    door_img13.setVisibility(View.VISIBLE);
+                                                    door_img14.setVisibility(View.VISIBLE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,1")) {
+                                                    door_img13.setImageResource(R.drawable.door_left_red);
+                                                    door_img14.setImageResource(R.drawable.door_red_right);
+                                                    door_img11.setVisibility(View.GONE);
+                                                    door_img12.setVisibility(View.GONE);
+                                                    door_img13.setVisibility(View.VISIBLE);
+                                                    door_img14.setVisibility(View.VISIBLE);
+                                                }
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("4")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
+                                                    door_img11.setImageResource(R.drawable.door_green_left);
+                                                    door_img12.setImageResource(R.drawable.door_green_right);
+                                                    door_img11.setVisibility(View.VISIBLE);
+                                                    door_img12.setVisibility(View.VISIBLE);
+                                                    door_img13.setVisibility(View.GONE);
+                                                    door_img14.setVisibility(View.GONE);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
+                                                    door_img12.setImageResource(R.drawable.door_green_left);
+                                                    door_img13.setImageResource(R.drawable.door_green_right);
+                                                    door_img11.setVisibility(View.GONE);
+                                                    door_img12.setVisibility(View.VISIBLE);
+                                                    door_img13.setVisibility(View.VISIBLE);
+                                                    door_img14.setVisibility(View.GONE);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,1,0")) {
+                                                    door_img13.setImageResource(R.drawable.door_green_left);
+                                                    door_img14.setImageResource(R.drawable.door_green_right);
+                                                    door_img11.setVisibility(View.GONE);
+                                                    door_img12.setVisibility(View.GONE);
+                                                    door_img13.setVisibility(View.VISIBLE);
+                                                    door_img14.setVisibility(View.VISIBLE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,1")) {
+                                                    door_img13.setImageResource(R.drawable.door_green_left);
+                                                    door_img14.setImageResource(R.drawable.door_green_right);
+                                                    door_img11.setVisibility(View.GONE);
+                                                    door_img12.setVisibility(View.GONE);
+                                                    door_img13.setVisibility(View.VISIBLE);
+                                                    door_img14.setVisibility(View.VISIBLE);
+                                                }
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("5")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
+                                                    door_img11.setImageResource(R.drawable.door_yellow_left);
+                                                    door_img12.setImageResource(R.drawable.door_yellow_right);
+                                                    door_img11.setVisibility(View.VISIBLE);
+                                                    door_img12.setVisibility(View.VISIBLE);
+                                                    door_img13.setVisibility(View.GONE);
+                                                    door_img14.setVisibility(View.GONE);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
+                                                    door_img12.setImageResource(R.drawable.door_yellow_left);
+                                                    door_img13.setImageResource(R.drawable.door_yellow_right);
+                                                    door_img11.setVisibility(View.GONE);
+                                                    door_img12.setVisibility(View.VISIBLE);
+                                                    door_img13.setVisibility(View.VISIBLE);
+                                                    door_img14.setVisibility(View.GONE);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,1,0")) {
+                                                    door_img13.setImageResource(R.drawable.door_yellow_left);
+                                                    door_img14.setImageResource(R.drawable.door_yellow_right);
+                                                    door_img11.setVisibility(View.GONE);
+                                                    door_img12.setVisibility(View.GONE);
+                                                    door_img13.setVisibility(View.VISIBLE);
+                                                    door_img14.setVisibility(View.VISIBLE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,1")) {
+                                                    door_img13.setImageResource(R.drawable.door_yellow_left);
+                                                    door_img14.setImageResource(R.drawable.door_yellow_right);
+                                                    door_img11.setVisibility(View.GONE);
+                                                    door_img12.setVisibility(View.GONE);
+                                                    door_img13.setVisibility(View.VISIBLE);
+                                                    door_img14.setVisibility(View.VISIBLE);
+                                                }
+                                            }
+                                        }
+
+                                    }
+                                    else if (storageShapeModel.getStorage().getDoorType().equals("3")) {
+                                        if (storageShapeModel.getStorage().getDoorColor() != null) {
+                                            if (storageShapeModel.getStorage().getDoorColor().equals("1")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
+                                                    linear_door_11.setBackgroundResource(R.drawable.white_door);
+                                                    linear_door_12.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_13.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_14.setBackgroundResource(R.drawable.dash_img);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
+                                                    linear_door_11.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_12.setBackgroundResource(R.drawable.white_door);
+                                                    linear_door_13.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_14.setBackgroundResource(R.drawable.dash_img);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
+                                                    linear_door_11.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_12.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_13.setBackgroundResource(R.drawable.white_door);
+                                                    linear_door_14.setBackgroundResource(R.drawable.dash_img);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,0")) {
+                                                    linear_door_11.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_12.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_13.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_14.setBackgroundResource(R.drawable.white_door);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,0,1")) {
+                                                    linear_door_11.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_12.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_13.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_14.setBackgroundResource(R.drawable.white_door);
+
+                                                }
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("2")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
+                                                    linear_door_11.setBackgroundResource(R.drawable.blue_door);
+                                                    linear_door_12.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_13.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_14.setBackgroundResource(R.drawable.dash_img);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
+                                                    linear_door_11.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_12.setBackgroundResource(R.drawable.blue_door);
+                                                    linear_door_13.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_14.setBackgroundResource(R.drawable.dash_img);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
+                                                    linear_door_11.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_12.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_13.setBackgroundResource(R.drawable.blue_door);
+                                                    linear_door_14.setBackgroundResource(R.drawable.dash_img);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,0")) {
+                                                    linear_door_11.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_12.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_13.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_14.setBackgroundResource(R.drawable.blue_door);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,0,1")) {
+                                                    linear_door_11.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_12.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_13.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_14.setBackgroundResource(R.drawable.blue_door);
+
+                                                }
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("3")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
+                                                    linear_door_11.setBackgroundResource(R.drawable.red_door);
+                                                    linear_door_12.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_13.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_14.setBackgroundResource(R.drawable.dash_img);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
+                                                    linear_door_11.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_12.setBackgroundResource(R.drawable.red_door);
+                                                    linear_door_13.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_14.setBackgroundResource(R.drawable.dash_img);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
+                                                    linear_door_11.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_12.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_13.setBackgroundResource(R.drawable.red_door);
+                                                    linear_door_14.setBackgroundResource(R.drawable.dash_img);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,0")) {
+                                                    linear_door_11.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_12.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_13.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_14.setBackgroundResource(R.drawable.red_door);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,0,1")) {
+                                                    linear_door_11.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_12.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_13.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_14.setBackgroundResource(R.drawable.red_door);
+
+                                                }
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("4")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
+                                                    linear_door_11.setBackgroundResource(R.drawable.green_door);
+                                                    linear_door_12.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_13.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_14.setBackgroundResource(R.drawable.dash_img);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
+                                                    linear_door_11.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_12.setBackgroundResource(R.drawable.green_door);
+                                                    linear_door_13.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_14.setBackgroundResource(R.drawable.dash_img);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
+                                                    linear_door_11.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_12.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_13.setBackgroundResource(R.drawable.green_door);
+                                                    linear_door_14.setBackgroundResource(R.drawable.dash_img);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,0")) {
+                                                    linear_door_11.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_12.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_13.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_14.setBackgroundResource(R.drawable.green_door);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,0,1")) {
+                                                    linear_door_11.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_12.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_13.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_14.setBackgroundResource(R.drawable.green_door);
+
+                                                }
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("5")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
+                                                    linear_door_11.setBackgroundResource(R.drawable.yellow_door);
+                                                    linear_door_12.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_13.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_14.setBackgroundResource(R.drawable.dash_img);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
+                                                    linear_door_11.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_12.setBackgroundResource(R.drawable.yellow_door);
+                                                    linear_door_13.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_14.setBackgroundResource(R.drawable.dash_img);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
+                                                    linear_door_11.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_12.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_13.setBackgroundResource(R.drawable.yellow_door);
+                                                    linear_door_14.setBackgroundResource(R.drawable.dash_img);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,0")) {
+                                                    linear_door_11.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_12.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_13.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_14.setBackgroundResource(R.drawable.yellow_door);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,0,1")) {
+                                                    linear_door_11.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_12.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_13.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_14.setBackgroundResource(R.drawable.yellow_door);
+
+                                                }
+
+                                            }
+                                        }
+                                    }
+                                    else if (storageShapeModel.getStorage().getDoorType().equals("4")) {
+                                        if (storageShapeModel.getStorage().getDoorColor() != null) {
+                                            if (storageShapeModel.getStorage().getDoorColor().equals("1")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
+                                                    linear_door_11.setBackgroundResource(R.drawable.white_door);
+                                                    linear_door_12.setBackgroundResource(R.drawable.white_door);
+                                                    linear_door_13.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_14.setBackgroundResource(R.drawable.dash_img);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
+                                                    linear_door_11.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_12.setBackgroundResource(R.drawable.white_door);
+                                                    linear_door_13.setBackgroundResource(R.drawable.white_door);
+                                                    linear_door_14.setBackgroundResource(R.drawable.dash_img);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,1,0")) {
+                                                    linear_door_11.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_12.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_13.setBackgroundResource(R.drawable.white_door);
+                                                    linear_door_14.setBackgroundResource(R.drawable.white_door);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,1")) {
+                                                    linear_door_11.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_12.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_13.setBackgroundResource(R.drawable.white_door);
+                                                    linear_door_14.setBackgroundResource(R.drawable.white_door);
+
+                                                }
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("2")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
+                                                    linear_door_11.setBackgroundResource(R.drawable.blue_door);
+                                                    linear_door_12.setBackgroundResource(R.drawable.blue_door);
+                                                    linear_door_13.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_14.setBackgroundResource(R.drawable.dash_img);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
+                                                    linear_door_11.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_12.setBackgroundResource(R.drawable.blue_door);
+                                                    linear_door_13.setBackgroundResource(R.drawable.blue_door);
+                                                    linear_door_14.setBackgroundResource(R.drawable.dash_img);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,1,0")) {
+                                                    linear_door_11.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_12.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_13.setBackgroundResource(R.drawable.blue_door);
+                                                    linear_door_14.setBackgroundResource(R.drawable.blue_door);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,1")) {
+                                                    linear_door_11.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_12.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_13.setBackgroundResource(R.drawable.blue_door);
+                                                    linear_door_14.setBackgroundResource(R.drawable.blue_door);
+
+                                                }
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("3")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
+                                                    linear_door_11.setBackgroundResource(R.drawable.red_door);
+                                                    linear_door_12.setBackgroundResource(R.drawable.red_door);
+                                                    linear_door_13.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_14.setBackgroundResource(R.drawable.dash_img);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
+                                                    linear_door_11.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_12.setBackgroundResource(R.drawable.red_door);
+                                                    linear_door_13.setBackgroundResource(R.drawable.red_door);
+                                                    linear_door_14.setBackgroundResource(R.drawable.dash_img);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,1,0")) {
+                                                    linear_door_11.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_12.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_13.setBackgroundResource(R.drawable.red_door);
+                                                    linear_door_14.setBackgroundResource(R.drawable.red_door);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,1")) {
+                                                    linear_door_11.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_12.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_13.setBackgroundResource(R.drawable.red_door);
+                                                    linear_door_14.setBackgroundResource(R.drawable.red_door);
+
+                                                }
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("4")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
+                                                    linear_door_11.setBackgroundResource(R.drawable.green_door);
+                                                    linear_door_12.setBackgroundResource(R.drawable.green_door);
+                                                    linear_door_13.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_14.setBackgroundResource(R.drawable.dash_img);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
+                                                    linear_door_11.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_12.setBackgroundResource(R.drawable.green_door);
+                                                    linear_door_13.setBackgroundResource(R.drawable.green_door);
+                                                    linear_door_14.setBackgroundResource(R.drawable.dash_img);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,1,0")) {
+                                                    linear_door_11.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_12.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_13.setBackgroundResource(R.drawable.green_door);
+                                                    linear_door_14.setBackgroundResource(R.drawable.green_door);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,1")) {
+                                                    linear_door_11.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_12.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_13.setBackgroundResource(R.drawable.green_door);
+                                                    linear_door_14.setBackgroundResource(R.drawable.green_door);
+
+                                                }
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("5")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
+                                                    linear_door_11.setBackgroundResource(R.drawable.yellow_door);
+                                                    linear_door_12.setBackgroundResource(R.drawable.yellow_door);
+                                                    linear_door_13.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_14.setBackgroundResource(R.drawable.dash_img);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
+                                                    linear_door_11.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_12.setBackgroundResource(R.drawable.yellow_door);
+                                                    linear_door_13.setBackgroundResource(R.drawable.yellow_door);
+                                                    linear_door_14.setBackgroundResource(R.drawable.dash_img);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,1,0")) {
+                                                    linear_door_11.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_12.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_13.setBackgroundResource(R.drawable.yellow_door);
+                                                    linear_door_14.setBackgroundResource(R.drawable.yellow_door);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,0,1,1")) {
+                                                    linear_door_11.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_12.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_13.setBackgroundResource(R.drawable.yellow_door);
+                                                    linear_door_14.setBackgroundResource(R.drawable.yellow_door);
+
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                }
+                                else if (numberofColumn.equals("3")) {
+                                    if (storageShapeModel.getStorage().getDoorType().equals("1")) {
+                                        if (storageShapeModel.getStorage().getDoorColor() != null) {
+                                            if (storageShapeModel.getStorage().getDoorColor().equals("1")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
+                                                    door_img21.setImageResource(R.drawable.doorleft);
+                                                    door_img21.setVisibility(View.VISIBLE);
+                                                    door_img22.setVisibility(View.GONE);
+                                                    door_img23.setVisibility(View.GONE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
+                                                    door_img22.setImageResource(R.drawable.doorleft);
+                                                    door_img21.setVisibility(View.GONE);
+                                                    door_img22.setVisibility(View.VISIBLE);
+                                                    door_img23.setVisibility(View.GONE);
+
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
+                                                    door_img23.setImageResource(R.drawable.doorleft);
+                                                    door_img21.setVisibility(View.GONE);
+                                                    door_img22.setVisibility(View.GONE);
+                                                    door_img23.setVisibility(View.VISIBLE);
+                                                }
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("2")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
+                                                    door_img21.setImageResource(R.drawable.door_blue_left);
+                                                    door_img21.setVisibility(View.VISIBLE);
+                                                    door_img22.setVisibility(View.GONE);
+                                                    door_img23.setVisibility(View.GONE);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
+                                                    door_img22.setImageResource(R.drawable.door_blue_left);
+                                                    door_img21.setVisibility(View.GONE);
+                                                    door_img22.setVisibility(View.VISIBLE);
+                                                    door_img23.setVisibility(View.GONE);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
+                                                    door_img23.setImageResource(R.drawable.door_blue_left);
+                                                    door_img21.setVisibility(View.GONE);
+                                                    door_img22.setVisibility(View.GONE);
+                                                    door_img23.setVisibility(View.VISIBLE);
+
+                                                }
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("3")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
+                                                    door_img21.setImageResource(R.drawable.door_left_red);
+                                                    door_img21.setVisibility(View.VISIBLE);
+                                                    door_img22.setVisibility(View.GONE);
+                                                    door_img23.setVisibility(View.GONE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
+                                                    door_img22.setImageResource(R.drawable.door_left_red);
+                                                    door_img21.setVisibility(View.GONE);
+                                                    door_img22.setVisibility(View.VISIBLE);
+                                                    door_img23.setVisibility(View.GONE);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
+                                                    door_img23.setImageResource(R.drawable.door_left_red);
+                                                    door_img21.setVisibility(View.GONE);
+                                                    door_img22.setVisibility(View.GONE);
+                                                    door_img23.setVisibility(View.VISIBLE);
+                                                }
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("4")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
+                                                    door_img21.setImageResource(R.drawable.door_green_left);
+                                                    door_img21.setVisibility(View.VISIBLE);
+                                                    door_img22.setVisibility(View.GONE);
+                                                    door_img23.setVisibility(View.GONE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
+                                                    door_img22.setImageResource(R.drawable.door_green_left);
+                                                    door_img21.setVisibility(View.GONE);
+                                                    door_img22.setVisibility(View.VISIBLE);
+                                                    door_img23.setVisibility(View.GONE);
+
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
+                                                    door_img23.setImageResource(R.drawable.door_green_left);
+                                                    door_img21.setVisibility(View.GONE);
+                                                    door_img22.setVisibility(View.GONE);
+                                                    door_img23.setVisibility(View.VISIBLE);
+
+                                                }
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("5")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
+                                                    door_img21.setImageResource(R.drawable.door_yellow_left);
+                                                    door_img21.setVisibility(View.VISIBLE);
+                                                    door_img22.setVisibility(View.GONE);
+                                                    door_img23.setVisibility(View.GONE);
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
+                                                    door_img22.setImageResource(R.drawable.door_yellow_left);
+                                                    door_img21.setVisibility(View.GONE);
+                                                    door_img22.setVisibility(View.VISIBLE);
+                                                    door_img23.setVisibility(View.GONE);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
+                                                    door_img23.setImageResource(R.drawable.door_yellow_left);
+                                                    door_img21.setVisibility(View.GONE);
+                                                    door_img22.setVisibility(View.GONE);
+                                                    door_img23.setVisibility(View.VISIBLE);
+
+                                                }
+                                            }
+                                        }
+                                    }
+                                    else if (storageShapeModel.getStorage().getDoorType().equals("2")) {
+                                        if (storageShapeModel.getStorage().getDoorColor() != null) {
+                                            if (storageShapeModel.getStorage().getDoorColor().equals("1")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
+                                                    door_img21.setImageResource(R.drawable.doorleft);
+                                                    door_img22.setImageResource(R.drawable.doorright);
+                                                    door_img21.setVisibility(View.VISIBLE);
+                                                    door_img22.setVisibility(View.VISIBLE);
+                                                    door_img23.setVisibility(View.GONE);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
+                                                    door_img22.setImageResource(R.drawable.doorleft);
+                                                    door_img23.setImageResource(R.drawable.doorright);
+                                                    door_img21.setVisibility(View.GONE);
+                                                    door_img22.setVisibility(View.VISIBLE);
+                                                    door_img23.setVisibility(View.VISIBLE);
+
+
+                                                }
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("2")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
+                                                    door_img21.setImageResource(R.drawable.door_blue_left);
+                                                    door_img22.setImageResource(R.drawable.door_blue_right);
+                                                    door_img21.setVisibility(View.VISIBLE);
+                                                    door_img22.setVisibility(View.VISIBLE);
+                                                    door_img23.setVisibility(View.GONE);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
+                                                    door_img22.setImageResource(R.drawable.door_blue_left);
+                                                    door_img23.setImageResource(R.drawable.door_blue_right);
+                                                    door_img21.setVisibility(View.GONE);
+                                                    door_img22.setVisibility(View.VISIBLE);
+                                                    door_img23.setVisibility(View.VISIBLE);
+
+                                                }
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("3")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
+                                                    door_img21.setImageResource(R.drawable.door_left_red);
+                                                    door_img22.setImageResource(R.drawable.door_red_right);
+                                                    door_img21.setVisibility(View.VISIBLE);
+                                                    door_img22.setVisibility(View.VISIBLE);
+                                                    door_img23.setVisibility(View.GONE);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
+                                                    door_img22.setImageResource(R.drawable.door_left_red);
+                                                    door_img23.setImageResource(R.drawable.door_red_right);
+                                                    door_img21.setVisibility(View.GONE);
+                                                    door_img22.setVisibility(View.VISIBLE);
+                                                    door_img23.setVisibility(View.VISIBLE);
+
+                                                }
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("4")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
+                                                    door_img21.setImageResource(R.drawable.door_green_left);
+                                                    door_img22.setImageResource(R.drawable.door_green_right);
+                                                    door_img21.setVisibility(View.VISIBLE);
+                                                    door_img22.setVisibility(View.VISIBLE);
+                                                    door_img23.setVisibility(View.GONE);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
+                                                    door_img22.setImageResource(R.drawable.door_green_left);
+                                                    door_img23.setImageResource(R.drawable.door_green_right);
+                                                    door_img21.setVisibility(View.GONE);
+                                                    door_img22.setVisibility(View.VISIBLE);
+                                                    door_img23.setVisibility(View.VISIBLE);
+
+                                                }
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("5")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
+                                                    door_img21.setImageResource(R.drawable.door_yellow_left);
+                                                    door_img22.setImageResource(R.drawable.door_yellow_right);
+                                                    door_img21.setVisibility(View.VISIBLE);
+                                                    door_img22.setVisibility(View.VISIBLE);
+                                                    door_img23.setVisibility(View.GONE);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
+                                                    door_img22.setImageResource(R.drawable.door_yellow_left);
+                                                    door_img23.setImageResource(R.drawable.door_yellow_right);
+                                                    door_img21.setVisibility(View.GONE);
+                                                    door_img22.setVisibility(View.VISIBLE);
+                                                    door_img23.setVisibility(View.VISIBLE);
+
+                                                }
+                                            }
+                                        }
+
+                                    }
+                                    else if (storageShapeModel.getStorage().getDoorType().equals("3")) {
+                                        if (storageShapeModel.getStorage().getDoorColor() != null) {
+                                            if (storageShapeModel.getStorage().getDoorColor().equals("1")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
+                                                    linear_door_21.setBackgroundResource(R.drawable.white_door);
+                                                    linear_door_22.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_23.setBackgroundResource(R.drawable.dash_img);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
+                                                    linear_door_21.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_22.setBackgroundResource(R.drawable.white_door);
+                                                    linear_door_23.setBackgroundResource(R.drawable.dash_img);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
+                                                    linear_door_21.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_22.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_23.setBackgroundResource(R.drawable.white_door);
+
+                                                }
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("2")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
+                                                    linear_door_21.setBackgroundResource(R.drawable.blue_door);
+                                                    linear_door_22.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_23.setBackgroundResource(R.drawable.dash_img);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
+                                                    linear_door_21.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_22.setBackgroundResource(R.drawable.blue_door);
+                                                    linear_door_23.setBackgroundResource(R.drawable.dash_img);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
+                                                    linear_door_21.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_22.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_23.setBackgroundResource(R.drawable.blue_door);
+
+
+                                                }
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("3")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
+                                                    linear_door_21.setBackgroundResource(R.drawable.red_door);
+                                                    linear_door_22.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_23.setBackgroundResource(R.drawable.dash_img);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
+                                                    linear_door_21.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_22.setBackgroundResource(R.drawable.red_door);
+                                                    linear_door_23.setBackgroundResource(R.drawable.dash_img);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
+                                                    linear_door_21.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_22.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_23.setBackgroundResource(R.drawable.red_door);
+
+                                                }
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("4")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
+                                                    linear_door_21.setBackgroundResource(R.drawable.green_door);
+                                                    linear_door_22.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_23.setBackgroundResource(R.drawable.dash_img);
+
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
+                                                    linear_door_21.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_22.setBackgroundResource(R.drawable.green_door);
+                                                    linear_door_23.setBackgroundResource(R.drawable.dash_img);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
+                                                    linear_door_21.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_22.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_23.setBackgroundResource(R.drawable.green_door);
+
+
+                                                }
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("5")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,0,0,0,0")) {
+                                                    linear_door_21.setBackgroundResource(R.drawable.yellow_door);
+                                                    linear_door_22.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_23.setBackgroundResource(R.drawable.dash_img);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,0,0,0")) {
+                                                    linear_door_21.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_22.setBackgroundResource(R.drawable.yellow_door);
+                                                    linear_door_23.setBackgroundResource(R.drawable.dash_img);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,0,1,0,0")) {
+                                                    linear_door_21.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_22.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_23.setBackgroundResource(R.drawable.yellow_door);
+
+                                                }
+
+                                            }
+                                        }
+                                    }
+                                    else if (storageShapeModel.getStorage().getDoorType().equals("4")) {
+                                        if (storageShapeModel.getStorage().getDoorColor() != null) {
+                                            if (storageShapeModel.getStorage().getDoorColor().equals("1")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
+                                                    linear_door_21.setBackgroundResource(R.drawable.white_door);
+                                                    linear_door_22.setBackgroundResource(R.drawable.white_door);
+                                                    linear_door_23.setBackgroundResource(R.drawable.dash_img);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
+                                                    linear_door_21.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_22.setBackgroundResource(R.drawable.white_door);
+                                                    linear_door_23.setBackgroundResource(R.drawable.white_door);
+
+                                                }
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("2")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
+                                                    linear_door_21.setBackgroundResource(R.drawable.blue_door);
+                                                    linear_door_22.setBackgroundResource(R.drawable.blue_door);
+                                                    linear_door_23.setBackgroundResource(R.drawable.dash_img);
+
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
+                                                    linear_door_21.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_22.setBackgroundResource(R.drawable.blue_door);
+                                                    linear_door_23.setBackgroundResource(R.drawable.blue_door);
+
+                                                }
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("3")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
+                                                    linear_door_21.setBackgroundResource(R.drawable.red_door);
+                                                    linear_door_22.setBackgroundResource(R.drawable.red_door);
+                                                    linear_door_23.setBackgroundResource(R.drawable.dash_img);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
+                                                    linear_door_21.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_22.setBackgroundResource(R.drawable.red_door);
+                                                    linear_door_23.setBackgroundResource(R.drawable.red_door);
+
+
+                                                }
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("4")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
+                                                    linear_door_21.setBackgroundResource(R.drawable.green_door);
+                                                    linear_door_22.setBackgroundResource(R.drawable.green_door);
+                                                    linear_door_23.setBackgroundResource(R.drawable.dash_img);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
+                                                    linear_door_21.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_22.setBackgroundResource(R.drawable.green_door);
+                                                    linear_door_23.setBackgroundResource(R.drawable.green_door);
+
+                                                }
+                                            } else if (storageShapeModel.getStorage().getDoorColor().equals("5")) {
+                                                if (storageShapeModel.getStorage().getDoors().equals("1,1,0,0,0")) {
+                                                    linear_door_21.setBackgroundResource(R.drawable.yellow_door);
+                                                    linear_door_22.setBackgroundResource(R.drawable.yellow_door);
+                                                    linear_door_23.setBackgroundResource(R.drawable.dash_img);
+
+                                                } else if (storageShapeModel.getStorage().getDoors().equals("0,1,1,0,0")) {
+                                                    linear_door_21.setBackgroundResource(R.drawable.dash_img);
+                                                    linear_door_22.setBackgroundResource(R.drawable.yellow_door);
+                                                    linear_door_23.setBackgroundResource(R.drawable.yellow_door);
+
+                                                }
+                                            }
+                                        }
                                     }
 
                                 }
