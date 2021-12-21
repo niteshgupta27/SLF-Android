@@ -329,7 +329,7 @@ public class PaymentActivity extends BaseActivity implements VolleyApiResponseSt
 							JSONObject jsonObject = new JSONObject(response);
 							Logger.debug(Tag, "" + jsonObject.toString());
 							int result = getIntFromJsonObj(jsonObject, "result");
-							String message = getStringFromJsonObj(jsonObject, "message");
+							String message = getStringFromJsonObj(jsonObject, "Message");
 							if (result == 1) {
 								showToast(message);
 								

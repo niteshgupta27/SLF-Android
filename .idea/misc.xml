@@ -21,8 +21,14 @@
         <entry key="..\:/project's/officeproject/Storelogflog/Storelogflog/app/src/main/res/menu/activity_navigation_drawer_drawer.xml" value="0.28828125" />
         <entry key="..\:/project's/officeproject/Storelogflog/Storelogflog/app/src/main/res/menu/common_menu.xml" value="0.28828125" />
         <entry key="app/src/main/res/layout/activity_add_storage.xml" value="0.10009057971014493" />
+        <entry key="app/src/main/res/layout/activity_contact_storage.xml" value="0.15" />
+        <entry key="app/src/main/res/layout/fragment_add_auction_item.xml" value="0.15" />
         <entry key="app/src/main/res/layout/fragment_add_item.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_add_paid_storage_space.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_auction_item_list.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_manage_shelft.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_payment.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_storage_claim.xml" value="0.18" />
         <entry key="app/src/main/res/layout/item_storage_yards_comment.xml" value="0.1" />
       </map>
     </option>
