@@ -162,10 +162,12 @@ public class ContactUsActivity extends BaseActivity {
         } else if (editMsg.getText().toString().isEmpty()) {
             showToast("Please select message");
             return false;
-        } else if (bitmap == null) {
-            showToast("Please attach photo");
-            return false;
-        } else {
+        }
+//        else if (bitmap == null) {
+//            showToast("Please attach photo");
+//            return false;
+//        }
+        else {
 
             return true;
         }

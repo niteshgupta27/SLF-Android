@@ -113,7 +113,9 @@ public class StorageListFragment extends BaseFragment implements VolleyApiRespon
 
                 String payload[] = response.split("\\.");
                 if (payload[1] != null) {
+                    //Logger.debug(TAG, "" + Utility.decoded(payload[1]));
                     response = Utility.decoded(payload[1]);
+
                     try {
                         JSONObject jsonObject = new JSONObject(response);
                         Logger.debug(TAG, "" + jsonObject.toString());
