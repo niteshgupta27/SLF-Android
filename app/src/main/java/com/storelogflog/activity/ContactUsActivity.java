@@ -288,8 +288,10 @@ public class ContactUsActivity extends BaseActivity {
             @Override
             protected Map<String, DataPart> getByteData() {
                 Map<String, DataPart> data = new HashMap<>();
-                long image_name = System.currentTimeMillis();
-                data.put("image", new VolleyMultipartRequest.DataPart(image_name + ".jpeg", getFileDataFromDrawable(bitmap)));
+                if (bitmap != null) {
+                    long image_name = System.currentTimeMillis();
+                    data.put("image", new VolleyMultipartRequest.DataPart(image_name + ".jpeg", getFileDataFromDrawable(bitmap)));
+                }
                 return data;
 
             }
