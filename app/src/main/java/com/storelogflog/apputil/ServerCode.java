@@ -63,5 +63,5 @@ public interface ServerCode {
     int Edit_STORAGE_CODE = 53;
     int Search_storage_Item = 54;
     int Auction_check = 55;
-
+    int Tutorial_List = 56;
 }

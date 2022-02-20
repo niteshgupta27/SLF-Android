@@ -70,6 +70,7 @@ public final class Constants implements ServerCode {
     public static  final String API_PaymentStorge = "/api/storage-payment";
     public static  final String API_AuctionCategory = "/api/auction-category-list";
     public static  final String API_SearchItem = "/api/search-item";
+    public static  final String API_tutorials = "/api/tutorials";
 
     public static final String FROM="from";
     public static final String CONTACT_STORAGE_ACTIVITY="contact_storage";

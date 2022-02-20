@@ -306,6 +306,9 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
                 startActivity(new Intent(HomeActivity.this, CommonMsgActivity.class)
                         .putExtra("id", "1"));
                 break;
+            case R.id.nav_tutorial:
+                startActivity(new Intent(HomeActivity.this, TutorialActivity.class));
+                break;
             case R.id.contactUsFragment:
                 startActivity(new Intent(HomeActivity.this, ContactUsActivity.class));
                 break;
