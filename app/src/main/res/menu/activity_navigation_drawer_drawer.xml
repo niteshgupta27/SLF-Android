@@ -37,6 +37,10 @@
             android:id="@+id/notificationActivity"
             android:icon="@drawable/menu_notifications"
             android:title="@string/menu_notifications" />
+        <item
+            android:id="@+id/nav_tutorial"
+            android:icon="@drawable/menu_tutorial"
+            android:title="@string/menu_tutorial" />
 
     </group>
 
@@ -52,10 +56,7 @@
             android:id="@+id/nav_aboutus"
             android:icon="@drawable/menu_about"
             android:title="@string/menu_about_us" />
-        <item
-            android:id="@+id/nav_tutorial"
-            android:icon="@drawable/menu_about"
-            android:title="@string/menu_tutorial" />
+
         <item
             android:id="@+id/contactUsFragment"
             android:icon="@drawable/menu_contactus"

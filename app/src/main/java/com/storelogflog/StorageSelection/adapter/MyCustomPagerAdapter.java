@@ -36,6 +36,7 @@ import com.storelogflog.apputil.Common;
 import com.storelogflog.apputil.Constants;
 import com.storelogflog.bean.storageBean.Storage;
 import com.storelogflog.fragment.AddAuctionItemFragment;
+import com.storelogflog.fragment.AddItemFragment;
 import com.storelogflog.fragment.EditItemFragment;
 import com.storelogflog.fragment.StoreFragment;
 
@@ -382,7 +383,7 @@ public class MyCustomPagerAdapter extends PagerAdapter {
         add_value2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment fragment = new Card_fragment2();
+                Fragment fragment = new AddItemFragment();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("storage", storage);
                 bundle.putString("AddedItems", String.valueOf(arPhotoIn.size()));
