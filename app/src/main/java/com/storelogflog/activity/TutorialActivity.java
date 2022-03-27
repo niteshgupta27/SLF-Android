@@ -68,7 +68,7 @@ public class TutorialActivity extends BaseActivity implements VolleyApiResponseS
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        toolbar.setTitle("Tutorial");
+        toolbar.setTitle("Tutorials");
 
         callNotiifcationListApi();
 

@@ -26,6 +26,7 @@
         <entry key="app/src/main/res/layout/activity_navigation_drawer.xml" value="0.1802536231884058" />
         <entry key="app/src/main/res/layout/activity_notifications.xml" value="0.10739614994934144" />
         <entry key="app/src/main/res/layout/activity_tutorial.xml" value="0.10739614994934144" />
+        <entry key="app/src/main/res/layout/activity_video_layout.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_add_auction_item.xml" value="0.15" />
         <entry key="app/src/main/res/layout/fragment_add_item.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_add_paid_storage_space.xml" value="0.1" />
@@ -37,6 +38,7 @@
         <entry key="app/src/main/res/layout/item_notifications.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_storage_yards_comment.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_tutorial.xml" value="0.67" />
+        <entry key="app/src/main/res/layout/toolbar.xml" value="0.1" />
         <entry key="app/src/main/res/menu/activity_navigation_drawer_drawer.xml" value="0.21743589743589745" />
       </map>
     </option>

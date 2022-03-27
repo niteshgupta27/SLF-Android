@@ -1,5 +1,6 @@
 package com.storelogflog.adapter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
@@ -14,7 +15,8 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.storelogflog.R;
-import com.storelogflog.activity.NotificationDetailsActivity;
+
+import com.storelogflog.activity.VideoActivity;
 import com.storelogflog.bean.Tutorial;
 
 
@@ -22,19 +24,19 @@ import java.util.List;
 
 public class TutorialAdapter extends RecyclerView.Adapter<TutorialAdapter.TutorialHolder> {
 
-    FragmentActivity activity;
+    Context Mcontext;
     List<Tutorial> notificationList;
 
-    public TutorialAdapter(FragmentActivity activity,List<Tutorial>notificationList) {
+    public TutorialAdapter(Context activity, List<Tutorial>notificationList) {
 
-        this.activity = activity;
+        this.Mcontext = activity;
         this.notificationList=notificationList;
     }
 
     @NonNull
     @Override
     public TutorialAdapter.TutorialHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(activity).inflate(R.layout.item_tutorial,parent,false);
+        View view= LayoutInflater.from(Mcontext).inflate(R.layout.item_tutorial,parent,false);
         return new TutorialAdapter.TutorialHolder(view);
     }
 
@@ -57,14 +59,9 @@ public class TutorialAdapter extends RecyclerView.Adapter<TutorialAdapter.Tutori
         holder.mvideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String url = notification.getvideo();
-                if (!url.startsWith("https://") && !url.startsWith("http://")){
-                    url = "http://" + url;
-                }
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                // Note the Chooser below. If no applications match,
-                // Android displays a system message.So here there is no need for try-catch.
-                activity.startActivity(Intent.createChooser(intent, "Browse with"));
+                Intent intent = new Intent(Mcontext,VideoActivity.class);
+                intent.putExtra("urlvideo",notification.getvideo());
+                Mcontext.startActivity(intent);
             }
         });
         holder.mpdf.setOnClickListener(new View.OnClickListener() {
@@ -73,7 +70,7 @@ public class TutorialAdapter extends RecyclerView.Adapter<TutorialAdapter.Tutori
                 String url = notification.getpdf();
                 Intent intent = new Intent();
                 intent.setDataAndType(Uri.parse(url), "application/pdf");
-                activity.startActivity(intent);
+                Mcontext.startActivity(intent);
             }
         });
     }

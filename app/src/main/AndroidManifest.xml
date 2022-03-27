@@ -97,7 +97,9 @@
         <activity
             android:name=".StorageSelection.activity.AddStorageActivity"
             android:screenOrientation="portrait" />
-
+        <activity
+            android:name=".activity.VideoActivity"
+            android:screenOrientation="portrait" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

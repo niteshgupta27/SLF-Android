@@ -8,8 +8,8 @@ android {
         applicationId "com.storelogflog"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 13
-        versionName "1.5.7"
+        versionCode 14
+        versionName "1.5.8"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner" 
     }
