@@ -327,7 +327,7 @@ public class MyCustomPagerAdapter extends PagerAdapter {
         add_value.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment fragment = new Card_fragment2();
+                Fragment fragment = new AddItemFragment();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("storage", storage);
                 bundle.putString("AddedItems", String.valueOf(arPhotoIn.size()));
